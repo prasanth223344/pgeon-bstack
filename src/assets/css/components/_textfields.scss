@@ -1,0 +1,136 @@
+.pgn-textfield .pgn__input {
+  width: 100%;
+  border: 1px solid #DBDCDC;
+  height: 50px;
+  padding: 14px 10px;
+  background-color: transparent;
+  border-radius: 2px;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-box-shadow: 0 0 0 30px #f8f9f9 inset;
+}
+
+.pgn-textfield-error .pgn-textfield-errorMessage {
+  display: block;
+  margin-bottom: -5px;
+}
+
+.pgn-textfield-success .pgn__input { border-color: $greenish-teal; }
+
+.dn { display: none; }
+.pgn-textfield { position: relative; }
+
+.pgn-textfield-errorMessage {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 14px;
+  height: 19px;
+  line-height: 1.35714;
+  color: $red-pink;
+  display: none;
+}
+.pgn-textfield .pgn__label {
+  position: absolute;
+  left: 10px;
+  color: #54595f;
+  top: 14px;
+  bottom: 14px;
+  transition: 0.35s;
+  line-height: 1.4;
+}
+.pgn-textfield.pgn-textfield-error .pgn__input {
+  border-color: $red-pink; }
+
+.pgn-textfield.is_err.is_dirty .pgn__input {
+  border: 1px solid #ed3b59;
+}
+
+.pgn-textfield.is_err.is_dirty .pgn__label {
+  color: #ed3b59;
+}
+
+.pgn-textfield input:focus ~ .pgn__label,
+.pgn-textfield.is_dirty .pgn__label {
+  top: 2px;
+  font-size: 10px;
+}
+
+.pgn__input.verimail-error {
+  border-color: rgb(237, 59, 89);
+}
+
+.dn-top {
+  margin-bottom: 15px;
+}
+
+.for-pw .pgn-textfield {
+  // margin-bottom: 30px;
+}
+textarea:focus,
+input:focus {
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+
+// specific styles
+// login form.
+.azure-caret {
+  caret-color: #02aeeb;
+}
+
+.orange-caret {
+  caret-color: #F28964;
+}
+
+#status-message {
+  color: $red-pink;
+  font-size: 14px;
+  height: 19px;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: -3px;
+  display: none !important;
+}
+
+#error-nwl {
+  // margin-bottom: 10px;
+  height: 19px;
+  font-size: 14px;
+  // margin-top: -10px;
+  color: $red-pink;
+  display: none !important;
+}
+
+#status-message .success {
+  color: $tealish;
+}
+
+//- TODO remove
+.is-exist-err {
+  display: none !important;
+}
+
+.is-exist-err span {
+  color: $red-pink;
+  font-size: 14px;
+  margin: -10px 0 15px;
+  display: block;
+}
+.is-exist input[type="text"] {
+  border: 1px solid $red-pink;
+}
+
+
+
+.input__rightbtn{
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  line-height: 1.375;
+  font-size: 16px;
+  color: #536570;
+  cursor: pointer;
+}

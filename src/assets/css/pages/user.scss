@@ -1,0 +1,152 @@
+.profile-details-container {
+  padding-top: 0px;
+  .score-box {
+    height: 123px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.1);
+  }
+  .btn {
+    height: 27px;
+    border-radius: 2px;
+    border: solid 1px rgba(151, 151, 151, 0.43);
+    color: #4a4a4a;
+    font-size: 12px;
+    margin-top: 15px;
+    &.follow {
+      background: $pgn-green;
+      color: #fff;
+      border: none;
+      outline: none;
+    }
+    &.following {
+      background: transparent;
+    }
+  }
+
+  .points {
+    color: $pgn-color-1;
+    opacity: 0.8;
+    font-size: 12px;
+  }
+  .no-activity {
+    margin-top: 50px;
+    p {
+      color: #848993;
+      font-size: 19px;
+    }
+  }
+
+  .open-question__left {
+  }
+}
+
+// have changed this to reuse it.
+.open-question__left.overlapping-pics {
+  img {
+    width: 26px;
+    height: 26px;
+    border: solid 1px #f8f9f9;
+  }
+  .img-top {
+  }
+  .img-bottom {
+    top: -26px;
+    position: relative;
+    left: 11px;
+  }
+}
+// no-user
+.main-no-user {
+  padding-top: 64px;
+  height: 100vh;
+}
+
+.main-no-user__content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  span {
+    font-size: 19px;
+  }
+  p{
+    margin: 0;
+    text-align: center;
+    font-size: 19px;
+    color: #848993;
+    line-height: 1.52;
+  }
+}
+
+//my profile
+.my-profile {
+  .pic-container {
+    background-color: rgba(83, 101, 112, 0.05);
+    .pro {
+      width: 45px;
+    height: 20px;
+    opacity: 0.7;
+    border-radius: 2px;
+    background-color: #c5c5c5;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+
+    }
+    .close {
+      svg {
+        fill: #536570;
+
+      }
+    }
+    .camera {
+      width: 30px;
+      height: 30px;
+      background-color: #eff1f2;
+      display: inline-block;
+      border: solid 1px #d8dbdd;
+      border-radius: 50%;
+      top: -12px;
+      position: relative;
+      left: -26px;
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: #33cccc;
+        margin-top: 7px;
+      margin-left: 7px;
+      }
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #000000;
+      
+    }
+    .vanity-url {
+      border-radius: 4px;
+      background-color: #e3eaed;
+      height: 39px;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #4a4a4a;
+      .slug {
+        color: #f28964;
+      }
+      svg {
+        width: 16px;
+        fill: #9b9b9b;
+      }
+    }
+  }
+
+}
+
+.profile-user-name {
+  color: #4a4a4a;
+  font-size: normal;
+  font-weight: 300;
+  font-size: 16px;
+  transform: translate(-127px, -2px);
+}

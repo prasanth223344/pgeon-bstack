@@ -1,0 +1,31 @@
+
+button, input, optgroup, select, textarea {
+  font-family: "Open sans";
+}
+
+.circle {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.q-bubble-container{
+  display: flex;
+  align-items: center;
+}
+
+.q-bubble {
+  flex: 1;
+  border-radius: 0 10px 0 10px;
+  background-color: #E5E9EA;
+  padding: 10px;
+}
+
+.flex1{ flex: 1; }
+
+.caret-primary {
+  caret-color: #33CCCC;
+}
+.redish1 {
+  color: #FD5B5B !important;
+}
+@import "margins";

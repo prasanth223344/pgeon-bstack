@@ -1,0 +1,39 @@
+.switch-toggle {
+  box-sizing: border-box;
+  padding: 0 2px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  width: 41px;
+  height: 25px;
+  border-radius: 14.5px;
+  background-color: #F8F9F9;
+  border: 1px solid rgba(155, 155, 155, 0.5);
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.switch-toggle-input:checked + .switch-toggle {
+  background-color: #33CCCC;
+  .switch-toggle__inner {
+    transform: translate(15px);
+  }
+}
+
+.switch-toggle__inner {
+  background-color: #F8F9F9;
+  border: 1px solid rgba(155, 155, 155, 0.5);
+  height: 19px;
+  width: 19px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+
+
+// corresponding html
+// <input type="checkbox" class="switch-toggle-input dn" id="facebook-toggle">
+// <label class="switch-toggle" for="facebook-toggle">
+//   <span class="switch-toggle__inner"></span>
+// </label>

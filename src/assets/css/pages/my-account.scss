@@ -1,0 +1,61 @@
+// my-account
+main.my-account {
+  padding-top: 64px; 
+}
+
+
+// delete modal
+.delete-account-modal{
+  display: none;
+}
+.delete-account-modal--visible{
+  display: block;
+}
+
+.delete-account-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.delete-account-modal__modal {
+  background-color: #fff;
+  padding: 20px 15px;
+  border-radius: 4px;
+  .modal-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 auto 20px auto;
+  }
+  .modal-content {
+    font-size: 14px;
+  }
+  .pgn__input {
+    background-color: #F8F9F9;
+  }
+}
+
+.delete-account-btns {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 5px;
+  button {
+    border-radius: 4px;
+    padding: 7px 15px;
+    font-size: 14px;
+  }
+}
+
+button.keep-account{
+  border: 1px solid #9B9B9B;
+  color: #9B9B9B;
+  margin-right: 20px;
+}
+
+button.confirm-deletion{
+  border: 1px solid #FF3333;
+  color: #FF3333;
+}

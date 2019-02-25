@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 34 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Paypal</title>
+  <defs>
+    <path
+      id="u"
+      d="m13.93 5.1046c0.21474-1.3214 0-2.2263-0.71411-3.0608-0.78568-0.90409-2.2863-1.2518-4.144-1.2518h-5.4299c-0.37707 0.012969-0.6987 0.2692-0.78568 0.62591l-2.2863 13.912c-0.071579 0.27818 0.14316 0.55636 0.42863 0.55636h3.3583l-0.21474 1.3909c-0.071579 0.20864 0.14316 0.48682 0.42863 0.48682h2.7865c0.35705 0 0.64337-0.20864 0.64337-0.55636v-0.13909l0.50021-3.2695v-0.20864c0.071579-0.34773 0.35705-0.55636 0.64337-0.55636h0.42863c2.7149 0 4.8581-1.1127 5.5015-4.1735 0.28547-1.3214 0.14316-2.3654-0.57179-3.1304-8.421e-4 -0.27818-0.28632-0.48682-0.57263-0.62591"/>
+    <polygon id="j" points="0.76884 0.44427 16.487 0.44427 16.487 17.835 0.76884 17.835"/>
+    <polygon id="c" points="0.59453 0.441 808.79 0.441 808.79 891.39 0.59453 891.39"/>
+    <polygon id="b" points="0.76884 0.44427 16.487 0.44427 16.487 17.835 0.76884 17.835"/>
+    <polygon id="a" points="0.76884 0.44427 16.487 0.44427 16.487 17.835 0.76884 17.835"/>
+    <polygon id="t" points="0.63663 0.77891 23.857 0.77891 23.857 25.96 0.63663 25.96"/>
+    <polygon id="s" points="0.76884 0.44427 16.487 0.44427 16.487 17.835 0.76884 17.835"/>
+    <path
+      id="r"
+      d="m13.93 5.1046c0.21474-1.3214 0-2.2263-0.71411-3.0608-0.78568-0.90409-2.2863-1.2518-4.144-1.2518h-5.4299c-0.37707 0.012969-0.6987 0.2692-0.78568 0.62591l-2.2863 13.912c-0.071579 0.27818 0.14316 0.55636 0.42863 0.55636h3.3583l0.85726-5.2175v0.13909c0.065873-0.36909 0.40026-0.63548 0.78568-0.62591h1.5722c3.1436 0 5.5731-1.2518 6.2872-4.7995 0.070737-0.069545 0.070737-0.13909 0.070737-0.27818"/>
+    <polygon id="q" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="p" points="0.59453 0.441 808.79 0.441 808.79 891.39 0.59453 891.39"/>
+    <polygon id="o" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="n" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="m" points="0.63663 0.77891 22.428 0.77891 22.428 24.082 0.63663 24.082"/>
+    <polygon id="l" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <path
+      id="k"
+      d="m6.2139 5.1046c0.071579-0.20864 0.21474-0.41727 0.35705-0.48682 0.071579-0.069545 0.21474-0.069545 0.28547-0.069545h4.2156c0.50021 0 1.0004 0 1.4291 0.069545 0.14316 0 0.21474 0.069545 0.35705 0.069545 0.14316 0 0.21474 0.069545 0.35705 0.069545 0.071579 0 0.14316 0 0.14316 0.069545 0.21474 0.069545 0.42863 0.13909 0.57179 0.20864 0.21474-1.3214 0-2.2263-0.71411-3.0608-0.78568-0.90409-2.2863-1.2518-4.144-1.2518h-5.4299c-0.37707 0.012969-0.6987 0.2692-0.78568 0.62591l-2.2863 13.912c-0.071579 0.27818 0.14316 0.55636 0.42863 0.55636h3.3583l0.85726-5.2175 0.99958-5.4949z"/>
+    <polygon id="i" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="h" points="0.59453 0.441 808.79 0.441 808.79 891.39 0.59453 891.39"/>
+    <polygon id="g" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="f" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+    <polygon id="e" points="0.63663 0.77891 22.428 0.77891 22.428 24.082 0.63663 24.082"/>
+    <polygon id="d" points="0.76884 0.44427 15.058 0.44427 15.058 16.444 0.76884 16.444"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g transform="translate(-34 -261)">
+      <g transform="translate(0 207)">
+        <g transform="translate(35 55)">
+          <path
+            d="m0 1.3321v19.335c0 0.7282 0.56083 1.3332 1.2426 1.3332h29.515c0.6858 0 1.2426-0.5962 1.2426-1.3332v-19.335c0-0.7282-0.56083-1.3321-1.2426-1.3321h-29.515c-0.32802-0.0020474-0.64332 0.13722-0.87641 0.3871-0.23309 0.24988-0.36482 0.58986-0.36616 0.945z"
+            stroke="#EBEBEB"
+            stroke-width=".75"/>
+          <g transform="translate(8 2)">
+            <mask id="ak" fill="white">
+              <use xlink:href="#u"/>
+            </mask>
+            <g mask="url(#ak)">
+              <g transform="translate(-.8421)">
+                <mask id="z" fill="white">
+                  <use xlink:href="#j"/>
+                </mask>
+                <g fill="none" fill-rule="evenodd" mask="url(#z)">
+                  <g transform="translate(-53.053 -185.73)">
+                    <mask id="w" fill="white">
+                      <use xlink:href="#c"/>
+                    </mask>
+                    <g fill="none" fill-rule="evenodd" mask="url(#w)">
+                      <g transform="translate(53.053 185.73)">
+                        <mask id="v" fill="white">
+                          <use xlink:href="#b"/>
+                        </mask>
+                        <g fill="none" fill-rule="evenodd" mask="url(#v)">
+                          <mask id="ap" fill="white">
+                            <use xlink:href="#a"/>
+                          </mask>
+                          <g mask="url(#ap)">
+                            <g transform="translate(-3.3684 -4.0909)">
+                              <mask id="ao" fill="white">
+                                <use xlink:href="#t"/>
+                              </mask>
+                              <g fill="none" fill-rule="evenodd" mask="url(#ao)">
+                                <g transform="translate(3.3684 4.0909)">
+                                  <mask id="an" fill="white">
+                                    <use xlink:href="#s"/>
+                                  </mask>
+                                  <polygon points="-6.304 -6.7901 24.061 -6.7901 24.061 25.347 -6.304 25.347" fill="#1399D5" fill-rule="nonzero" mask="url(#an)"/>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <mask id="am" fill="white">
+              <use xlink:href="#r"/>
+            </mask>
+            <g mask="url(#am)">
+              <g transform="translate(-.8421)">
+                <mask id="al" fill="white">
+                  <use xlink:href="#q"/>
+                </mask>
+                <g fill="none" fill-rule="evenodd" mask="url(#al)">
+                  <g transform="translate(-53.053 -185.73)">
+                    <mask id="aj" fill="white">
+                      <use xlink:href="#p"/>
+                    </mask>
+                    <g fill="none" fill-rule="evenodd" mask="url(#aj)">
+                      <g transform="translate(53.053 185.73)">
+                        <mask id="ai" fill="white">
+                          <use xlink:href="#o"/>
+                        </mask>
+                        <g fill="none" fill-rule="evenodd" mask="url(#ai)">
+                          <mask id="ah" fill="white">
+                            <use xlink:href="#n"/>
+                          </mask>
+                          <g mask="url(#ah)">
+                            <g transform="translate(-3.3684 -4.0909)">
+                              <mask id="ag" fill="white">
+                                <use xlink:href="#m"/>
+                              </mask>
+                              <g fill="none" fill-rule="evenodd" mask="url(#ag)">
+                                <g transform="translate(3.3684 4.0909)">
+                                  <mask id="af" fill="white">
+                                    <use xlink:href="#l"/>
+                                  </mask>
+                                  <polygon points="-6.304 -6.7901 22.632 -6.7901 22.632 23.47 -6.304 23.47" fill="#232C65" fill-rule="nonzero" mask="url(#af)"/>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <mask id="ae" fill="white">
+              <use xlink:href="#k"/>
+            </mask>
+            <g mask="url(#ae)">
+              <g transform="translate(-.8421)">
+                <mask id="ad" fill="white">
+                  <use xlink:href="#i"/>
+                </mask>
+                <g fill="none" fill-rule="evenodd" mask="url(#ad)">
+                  <g transform="translate(-53.053 -185.73)">
+                    <mask id="ac" fill="white">
+                      <use xlink:href="#h"/>
+                    </mask>
+                    <g fill="none" fill-rule="evenodd" mask="url(#ac)">
+                      <g transform="translate(53.053 185.73)">
+                        <mask id="ab" fill="white">
+                          <use xlink:href="#g"/>
+                        </mask>
+                        <g fill="none" fill-rule="evenodd" mask="url(#ab)">
+                          <mask id="aa" fill="white">
+                            <use xlink:href="#f"/>
+                          </mask>
+                          <g mask="url(#aa)">
+                            <g transform="translate(-3.3684 -4.0909)">
+                              <mask id="y" fill="white">
+                                <use xlink:href="#e"/>
+                              </mask>
+                              <g fill="none" fill-rule="evenodd" mask="url(#y)">
+                                <g transform="translate(3.3684 4.0909)">
+                                  <mask id="x" fill="white">
+                                    <use xlink:href="#d"/>
+                                  </mask>
+                                  <polygon points="-6.304 -6.7901 22.632 -6.7901 22.632 23.47 -6.304 23.47" fill="#263B80" fill-rule="nonzero" mask="url(#x)"/>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

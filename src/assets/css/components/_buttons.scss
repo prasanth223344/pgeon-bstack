@@ -1,0 +1,65 @@
+button {
+  cursor: pointer;
+}
+
+.FAB-button__container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  pointer-events: none;
+}
+.FAB-button {
+  width: 60px;
+  height: 60px;
+  pointer-events: all;
+  border-radius: 50%;
+  fill: #fff;
+  background-color: #ff55a0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.27);
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background-color: #e54c90;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.27);
+  }
+}
+
+.btn-loading {
+  [data-hide="non-loading"] {
+    display: none;
+  }
+  &.btn-loading--active {
+    &:hover {
+      background-color: #fff;
+      color: #33CCCC;
+    }
+    [data-hide="loading"] {
+      display: none;
+    }
+    [data-hide="non-loading"] {
+      display: inline-block;
+    }
+  }
+}
+
+// .btn-loading::after {
+// 	white-space: pre;
+//   content: "\A🕛";
+//   height: 100%;
+//   display: none;
+// }
+
+// .btn-loading.btn-loading--active::after {
+// 	display: inline-block;
+// }
+
+

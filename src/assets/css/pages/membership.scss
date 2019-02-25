@@ -1,0 +1,240 @@
+.subscription-info {
+}
+
+.subscription-info__label span {
+  font-size: 12px;
+  color: #6d6d72;
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-left: 15px;
+}
+
+.subscription-info__body {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 15px;
+  span {
+    font-size: 14px;
+    color: 030303;
+  }
+}
+
+.base-btn {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.subscription-info__upgrade {
+  color: #33cccc;
+  font-size: 14px;
+}
+
+.payment-radio-button {
+  display: none;
+}
+.payment-method-body {
+  display: flex;
+  align-items: center;
+  padding: 11px 15px;
+  > label {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+}
+
+.payment-edit {
+  color: #9b9b9b;
+  cursor: pointer;
+}
+
+.payment-method-card-icon {
+  fill: 707070;
+}
+
+.payment-radio-button + .payment-radio-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #9b9b9b;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 10px;
+}
+
+.payment-radio-button + .payment-radio-icon:after {
+  display: none;
+  content: " ";
+  // display: inline-block;
+  width: 4px;
+  height: 4px;
+  background-color: #9b9b9b;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  border-radius: 50%;
+}
+.payment-radio-button:checked + .payment-radio-icon:after {
+  display: inline-block;
+}
+
+.payment-method-icon-svg {
+  margin-right: 11px;
+  svg {
+  }
+}
+
+.payment-method-icon-card > svg {
+  fill: #707070;
+}
+
+.payment-card-info {
+}
+.payment-card-details,
+.redeem-code-container,
+.card-actions {
+  margin-bottom: 20px;
+}
+.payment-card-info > div:nth-child(1) {
+  margin-right: 10px;
+  flex: 100;
+}
+.payment-card-info > div:nth-child(2) {
+  margin-right: 50px;
+  flex: 100;
+}
+.payment-card-info > div:nth-child(3) {
+  flex: 75;
+}
+
+.card-checkbox {
+  user-select: none;
+  > label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+  }
+  input {
+    display: none;
+  }
+
+  input + span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    // border: 2px solid #000;
+    background-color: #eee;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    &::after {
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 3px;
+      font-size: 12px;
+      color: #fff;
+      content: "\2713";
+    }
+  }
+
+  input:checked + span {
+    background-color: #33cccc;
+    &::after {
+      display: inline-block;
+    }
+  }
+}
+.payment-method-visa > svg {
+  width: 30px;
+  height: 20px;
+}
+
+.payment-method-btn {
+  width: 100%;
+  text-align: center;
+  height: 56px;
+  border: 2px solid #33cccc;
+  color: #33cccc;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #33cccc;
+    color: white;
+  }
+}
+
+.redeem-code-container,
+.payment-card-container {
+  display: none;
+}
+
+.ovals {
+  > span {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #000;
+    margin-right: 3px;
+  }
+}
+
+.primary-payment-indicator {
+  border: 1px solid rgba(151, 151, 151, 0.3);
+  border-radius: 4px;
+  color: #9b9b9b;
+  font-size: 12px;
+  padding: 2px 5px;
+}
+
+.edit-card-btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-card-cancel {
+  border: 1px solid #9b9b9b;
+  color: #9b9b9b;
+}
+.edit-card-save {
+  border: 1px solid #33cccc;
+  background-color: #33cccc;
+  color: #fff;
+}
+
+#track-set-primary {
+  display: none;
+}
+
+#track-set-primary:checked + .edit-card-set-primary {
+  color: #33cccc;
+}
+
+.edit-card-set-primary {
+  padding-left: 0;
+  color: #4a4a4a;
+}
+
+.edit-visa-card__container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  span {
+    flex: 1;
+    font-family:'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular',  'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  img {
+    width: 50px;
+    height: 34px;
+    border: 1px solid rgba(151, 151, 151, 0.3);
+  }
+}

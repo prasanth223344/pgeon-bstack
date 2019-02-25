@@ -1,0 +1,104 @@
+.people-main {
+  padding-top: 10px;
+}
+.people-tabs{
+  display: flex;
+  height: 43px;
+  box-shadow: 0 0.5px 0 rgba(0,0,0, 0.25);
+  > div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.people-header {
+  padding-top: 44px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.people-search {
+  flex: 1;
+  justify-content: flex-end;
+  svg { width: 22px;height: 22px; fill: #4A4A4A; }
+  a{ display: inherit; }
+}
+
+.people-tab {
+  padding: 0 16px;
+  font-size: 14px;
+  letter-spacing: -0.09px;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
+  a { color: rgba(74,74,74,0.7); }
+  &.people-tab--active {
+    border-bottom: 2px solid #33CCCC;
+    a { color: #000; }
+  }
+}
+
+.search-unfound-result {
+  text-align: center;
+  margin: 150px 50px 0;
+  display: inline-block;
+  color: #848993;
+  font-size: 19px;
+}
+
+.search-view {
+  display: flex;
+  align-items: center;
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: #4a4a4a;
+  }
+
+}
+
+.search-close {
+  padding: 10px 0;
+  display: flex;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0 15px;
+  border: none;
+  font-size: 14px;
+
+  &::placeholder {
+    color: rgba(155, 155, 155, 0.5);
+  }
+}
+
+.search-icon {
+  display: flex;
+  svg {
+    fill: rgba(155, 155, 155, 0.5);
+  }
+}
+
+// search view
+.search-header {
+  margin-bottom: 30px;
+  display: flex;
+  > h2 {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  > button {
+    border: none;
+    background-color: transparent;
+    font-size: 12px;
+    outline: none;
+    color: $tealish;
+  }
+}
+.search-item {
+  margin-bottom: 0 0 15px;
+  font-size: 14px;
+  color: rgba(74,74,74,0.8);
+  font-weight: 400;
+}

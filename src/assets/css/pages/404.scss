@@ -1,0 +1,29 @@
+.main-404{
+  padding-top: 64px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  svg {
+    width: 152px;
+    height: 126px;
+  }
+}
+
+.content-404{
+  margin-top: -100px;
+  padding: 0 47px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 { font-size: 18px; line-height: 1.5; margin: 20px 0; }
+  p{ font-size: 14px; line-height: 1.4; margin: 0; }
+  h2,p{ text-align: center; }
+  a { color: #33CCCC; }
+}
+
+//  no user
+
+// no question

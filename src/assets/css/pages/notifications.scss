@@ -1,0 +1,86 @@
+.notification-header {
+  position: relative;
+  height: 44px;
+  h4 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #4A4A4A; 
+  }
+  .clear-all {
+    border: none;
+    outline: none;
+    padding: 0;
+    background-color: transparent;
+    font-size: 14px;
+    color: rgba(74, 74, 74, 0.8);
+    font-weight: 400;
+  }
+  .left-arrow {
+    svg {
+      fill: #4a4a4a;
+    }
+  }
+}
+
+.notification-main {
+  padding-top: 44px;
+}
+
+.notifications-item {
+  display: flex;
+  padding: 10px 0px;
+  border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+  background-color: transparent;
+  &:first-child {
+    padding-top: 20px;
+  }
+
+  &--unseen {
+    background-color: rgba(83, 101, 112, 0.05);
+  }
+}
+.notif-icon > svg {
+  fill: #979797;
+}
+.notifications-item > img,
+.notifications-item > .notif-icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  background-color: #f1f1f1;
+  border-radius: 50%;
+}
+.notifications-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(74, 74, 74, 0.8);
+  a {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
+.notification-time {
+  margin-top: 3px;
+  font-size: 10px;
+  color: #9b9b9b;
+}
+
+// empty notifications
+.empty-notifications {
+  margin-top: 135px ;
+  > p {
+    color: #848993;
+    line-height: 1.5;
+    font-size: 19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

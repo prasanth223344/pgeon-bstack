@@ -1,0 +1,19 @@
+.notification {
+  position: fixed;
+  padding: 20px 30px;
+  top: 64px;
+  left: 50%;
+  transform: translate(-50%, -120px);
+  opacity: 0;
+  transition: opacity .3s ease-in-out, transform .2s ease-in-out;
+  z-index: 100;
+}
+
+.notification--add {
+  transform: translate(-50%, 0px);
+  opacity: 1;
+}
+
+.notification--success {
+  background-color: #EAF3FD;
+}

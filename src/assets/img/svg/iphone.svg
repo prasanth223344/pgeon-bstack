@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="311px" height="557px" viewBox="0 0 311 557" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>iphone-Clay</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="50%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#282828" offset="0%"></stop>
+            <stop stop-color="#282828" offset="100%"></stop>
+        </linearGradient>
+        <path d="M37.0117619,0 L202.988238,0 C223.42927,-3.7549566e-15 240,16.5707302 240,37.0117619 L240,447.988238 C240,468.42927 223.42927,485 202.988238,485 L37.0117619,485 C16.5707302,485 9.60873176e-15,468.42927 7.10542736e-15,447.988238 L0,37.0117619 C-2.5033044e-15,16.5707302 16.5707302,-3.35047076e-15 37.0117619,-7.10542736e-15 Z" id="path-2"></path>
+        <filter x="-35.4%" y="-13.8%" width="170.8%" height="135.1%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="12" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="18" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.04 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="6" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="12.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-28.8%" y="-10.5%" width="157.5%" height="128.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="5.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="-5" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M-2.84217094e-14,245.860277 L-2.84217094e-14,117.049654 L-2.84217094e-14,433.475751 C-2.84217094e-14,445.133784 9.60268639,454.757506 21.2587413,454.757506 L188.531469,454.757506 C200.187523,454.757506 209.79021,445.133784 209.79021,433.475751 L209.79021,241.379908 L209.79021,21.2817552 C209.79021,9.62372209 200.187523,0 188.531469,0 L166.721349,-4.4408921e-16 C164.863073,-1.02729519e-16 163.356643,1.50643002 163.356643,3.36470562 L163.356643,3.92032333 C163.542528,11.4500114 157.540849,17.4648377 149.93007,17.3614319 L59.3006993,17.3614319 C51.5791048,17.4648377 45.5774258,11.4500114 45.8741259,3.92032333 L45.8741259,3.36470562 C45.8741259,1.50643002 44.3676959,-3.41359691e-16 42.5094202,0 L40.2797203,0 L34.6853147,0 L29.6503497,0 C29.4912755,1.90915594e-14 26.8102505,1.90915594e-14 21.2587413,0 C9.60268639,1.90915594e-14 -2.84217094e-14,9.62372209 -2.84217094e-14,21.2817552 L-2.84217094e-14,119.849885" id="path-5"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="First-screen" transform="translate(-907.000000, -246.000000)">
+            <g id="Iphone-mocks" transform="translate(779.000000, 270.000000)">
+                <g id="iphone-Clay" transform="translate(163.400000, 0.000000)">
+                    <g id="base">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-2"></use>
+                    </g>
+                    <g id="YOUR-DESIGN-HERE" transform="translate(14.545455, 14.561201)">
+                        <mask id="mask-6" fill="white">
+                            <use xlink:href="#path-5"></use>
+                        </mask>
+                        <use id="Mask" fill="#FBFBFB" xlink:href="#path-5"></use>
+                        <rect fill="#F8F9F9" mask="url(#mask-6)" x="0" y="0" width="209.79021" height="454.757506"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
