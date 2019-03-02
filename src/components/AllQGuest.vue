@@ -15,6 +15,20 @@ allq
     
 
 <script>
+import { configure } from "radiks";
+import Question from "../models/Question";
 export default {
+
+    async mounted() {
+  
+    configure(this.RADIKS_SERVER);
+
+    var q = await Question.fetchList( );
+
+
+console.log(q);
+
+    $(".question-stats").removeClass("dn");
+  }
 }
 </script>

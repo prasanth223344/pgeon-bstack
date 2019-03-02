@@ -241,7 +241,6 @@ export default {
       { decrypt: false }
     );
 
-    var q = await Question.fetchList();
 
     $(".question-stats").removeClass("dn");
   }
