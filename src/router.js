@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import allq from './components/AllQ.vue';
 import ask from './components/Ask.vue';
 
+import qdetails from './components/QDetails.vue';
+
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +21,10 @@ export default new Router({
       name: 'ask',
       component: ask
     },
-   
+    {
+      path: '/question/:id',
+      name: 'qdetails',
+      component: qdetails
+    },
   ]
 })

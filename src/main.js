@@ -10,8 +10,8 @@ window.axios = require('axios')
 
 Vue.config.productionTip = false
 
-console.log('mama');
-console.log();
+Vue.component('allqtimer', require('./components/AllQTimer.vue'));
+
 
 
 Vue.prototype.RADIKS_SERVER =  { apiServer: process.env.RADIKS_SERVER}

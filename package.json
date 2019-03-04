@@ -13,13 +13,14 @@
     "axios": "^0.16.1",
     "blockstack": "18.1.0",
     "bootstrap-sass": "^3.3.7",
+    "moment": "^2.24.0",
     "node-sass": "^4.9.2",
     "radiks": "^0.1.6",
     "sass-loader": "^6.0.5",
     "vue": "^2.5.22",
+    "vue-avatar": "^2.1.7",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "moment": "^2.24.0"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

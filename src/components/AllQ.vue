@@ -1,5 +1,7 @@
 <template>
   <div>
+    <headerwithprofile></headerwithprofile>
+
     <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1">
       <div class="container text-center m-t-5p">
         <div v-if="!still_deciding_count"></div>
@@ -16,20 +18,36 @@
       </div>
     </main>
 
-
     <main class="landing-main mw6 m-auto pl15 pr15">
       <div class="p-b-15" v-for="(user_qs) in questions">
-        
-        {{user_qs.profile_pic}}
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
-           <a v-if="index==0">
-             
-              <!-- {{ loadProfilePic(question.q.attrs.user_id) }} -->
-                           </a>
-               <div v-else class="avatar-occupy"></div>
+          <div class="open-question__left">
+            <a v-if="index==0">
+              <avatar :size="42" :src="user_qs.profile_pic" :username="user_qs.user_id"></avatar>
 
+              <!-- {{ loadProfilePic(question.q.attrs.user_id) }} -->
+            </a>
+            <div v-else class="avatar-occupy"></div>
+          </div>
+          <div class="open-question__right">
+             <div class="open-question__meta" v-if="index==0">
+            <a :href="'#'" class="open-question__author">{{user_qs.user_id}}</a>
+
+            <span class="open-question__time">
+
+              <allqtimer :initial="question.q.attrs.expiring_at"
+								:question_id="question.q.attrs._id" @event="deleteQ"></allqtimer>
+
+            </span>
+          </div>
+
+ <span v-on:click="redirect(question.q.attrs._id)"  class="open-question__content selected mt5p m0 cp">
+            <p> {{question.q.attrs.question}}</p>
+          </span>
+
+          </div>
           
-          {{question.q.attrs.question}}</div>
+        </div>
       </div>
 
       <ul class="load_more" v-if="still_deciding_count">
@@ -65,9 +83,15 @@
 </template>
 
 <script>
+
 import { configure } from "radiks";
 import Question from "../models/Question";
 import { User } from "radiks";
+import Avatar from "vue-avatar";
+import Headerwithprofile from './shared/HeaderWithProfile.vue'
+
+//Vue.component('headerwithprofile', require('./components/shared/HeaderWithProfile.vue'));
+
 
 import { CommonMixin } from "../mixins/CommonMixin.js";
 
@@ -78,8 +102,6 @@ export default {
       still_deciding_count: true,
       blockstack: window.blockstack,
       profile_pics: []
-    
-
     };
   },
 
@@ -135,91 +157,85 @@ export default {
     },
 
     loadProfilePic: async function(user_id) {
+      var pf = await this.blockstack.lookupProfile(user_id);
+      this.questions
+        .filter(o => o.user_id === user_id)
+        .forEach(o => {
+          if (
+            pf &&
+            typeof pf.image !== "undefined" &&
+            pf.image[0]["contentUrl"]
+          ) {
+            o.profile_pic = pf.image[0]["contentUrl"];
+          }
 
-           var pf = await this.blockstack.lookupProfile(user_id);
-      this.questions.filter(o => o.user_id === user_id).forEach(o => {
-        
-        if(pf && typeof pf.image !== 'undefined' && pf.image[0]['contentUrl']) {
-          o.profile_pic = pf.image[0]['contentUrl']
-        }
-        
-      
-      console.log('wat');
-      }
-      
-      );
-
-      
-          
-        
+          console.log("wat");
+        });
     },
 
     loadQs: async function() {
       $(".up50").removeClass("up50");
-    $(window).bind("scroll", this.handleScroll);
+      $(window).bind("scroll", this.handleScroll);
 
-    configure(this.RADIKS_SERVER);
-    var qs = await Question.fetchList(
-      { user_id: { $exists: true } },
-      { decrypt: false }
-    );
+      configure(this.RADIKS_SERVER);
+      var qs = await Question.fetchList(
+        { user_id: { $exists: true } },
+        { decrypt: false }
+      );
 
+      var user_qs = [];
 
+      for (var i = 0; i < qs.length; i++) {
+        // console.log(q[i].attrs);
+        var q = qs[i];
+        if (!user_qs[q.attrs.user_id]) {
+          //will be fetched later
+          // this.profile_pics[q.attrs.user_id] = {pic: null}
+          user_qs[q.attrs.user_id] = [];
+        }
 
-    var user_qs = [];
-    
-
-    for (var i = 0; i < qs.length; i++) {
-      // console.log(q[i].attrs);
-      var q = qs[i];
-      if (!user_qs[q.attrs.user_id]) {
-        //will be fetched later
-       // this.profile_pics[q.attrs.user_id] = {pic: null}
-        user_qs[q.attrs.user_id] = [];
-
-       
+        user_qs[q.attrs.user_id].push({ q });
       }
 
-      user_qs[q.attrs.user_id].push({ q });
-    }
+      var formatted_qs = [];
+      for (var key in user_qs) {
+        //profile_pic will be fetched later
+        formatted_qs.push({
+          user_id: key,
+          q_obj: user_qs[key],
+          profile_pic: null
+        });
+      }
 
-    var formatted_qs = [];
-    for (var key in user_qs) {
-       //profile_pic will be fetched later
-      formatted_qs.push({ user_id: key, q_obj: user_qs[key], profile_pic: null });
-    }
+      this.questions = formatted_qs;
 
-    this.questions = formatted_qs;
-
-    this.still_deciding_count = false;
-
-    $(".spinner").remove();
-
-    this.still_deciding_paging = false;
-    this.currently_fetched_records_count = 0;
-
-    if (qs.length > 0) {
-      //this.questions.push(...response)
-      this.loading_txt = "more";
-    } else {
       this.still_deciding_count = false;
+
+      $(".spinner").remove();
+
+      this.still_deciding_paging = false;
+      this.currently_fetched_records_count = 0;
+
+      if (qs.length > 0) {
+        //this.questions.push(...response)
+        this.loading_txt = "more";
+      } else {
+        this.still_deciding_count = false;
+      }
+
+      this.questions.forEach(o => this.loadProfilePic(o.user_id));
     }
-
-
-    this.questions.forEach(o => this.loadProfilePic(o.user_id));
-
-    } 
   },
 
   mounted() {
-
-
-
-    this.loadQs()
+    this.loadQs();
     //if this is empty even after .push?
     //  if (this.questions.length < 1) {
     //      this.still_deciding_count = false
     //  }
+  },
+  components: {
+    Avatar, Headerwithprofile
   }
 };
 </script>

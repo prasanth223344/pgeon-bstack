@@ -4,6 +4,8 @@
 
 
 <script>
+import moment from 'moment';
+
 
     export default {
       
@@ -17,7 +19,7 @@
       type: Number
     },
      question_id: {
-       type: Number
+       type: String
      },
     
      
@@ -39,7 +41,7 @@
     	var delta =   this.current
     	var days = Math.floor(delta / 86400);
     	delta -= days * 86400;
-    	
+      
     	var hours = Math.floor(delta / 3600) % 24;
       
     	delta -= hours * 3600;
@@ -68,22 +70,12 @@
           return t_str
 
           
-        //  return  days + ' days ' + hours+' hr '+minutes +' min '+seconds +' sec';
-    	/*
-      var sec_num = parseInt(this.current, 10); // don't forget the second param
-      var hours   = Math.floor(sec_num / 3600);
-      var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-      var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-      if (hours   < 10) {hours   = "0"+hours;}
-      if (minutes < 10) {minutes = "0"+minutes;}
-      if (seconds < 10) {seconds = "0"+seconds;}
-      return hours+'hr '+minutes +'min ';*/
+   
     },
     
     onInterval() {
+
       this.current = this.current -= this.interval
-   //   console.log(this.current)
       
       this.formatted = this.to_time()
       if (this.current <= 0) {
@@ -91,11 +83,12 @@
         this.current = 0
         //this.$dispatch('eventName', this.question_id)
         this.$emit('event', this.question_id);
-       // this.$parent.$options.methods.delete(this.question_id)
       }
     }
   },
   mounted() {
+    //
+    this.current = this.current - moment().unix()
     this.timerInterval = setInterval(this.onInterval, this.interval * 1000)
   }
 

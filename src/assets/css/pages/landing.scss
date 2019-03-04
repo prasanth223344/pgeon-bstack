@@ -1,5 +1,5 @@
 .landing_header {
-  box-shadow: 0 0.5px rgba(0, 0, 0, 0.15);
+  //box-shadow: 0 0.5px rgba(0, 0, 0, 0.15);
   background-color: #fff;
   position: fixed;
   top: 0;
@@ -18,7 +18,7 @@
   padding-top: 2px;
 }
 
-.dropdown__icon > img {
+.dropdown__icon > svg {
   width: 8px;
   height: 13px;
   padding-top: 2px;
@@ -105,6 +105,32 @@
     align-items: center;
   }
 }
+.shrunk {
+  height:0px;
+  opacity: 0;
+
+}
+.expand {
+  animation: expand 0.3s ease 0s forwards;
+
+}
+@keyframes expand
+{
+from {height: 0;opacity: 1;}
+to {height: 18px;opacity: 1;}
+}
+
+.shrink {
+  animation: shrink 0.3s ease 0s forwards;
+
+}
+@keyframes shrink
+{
+from {height: 18px;}
+to {height: 0px;opacity: 0;}
+}
+
+
 .hidden {
   display: none;
 }
@@ -126,8 +152,6 @@
 }
 
 .open-question__author:active {
-  transition: all 0.1s ease-in-out;
-  opacity: 0.7;
 }
 
 .open-question__time {
@@ -138,22 +162,24 @@
 
 .open-question__content {
   background-color: #e8ebec;
-  box-shadow: 0 2px 0.05px #00000014;
+  -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.39);
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.39);
   padding: 10px;
   border-radius: 0 10px 10px;
   display: block;
   color: #000;
 
   &:active {
-    box-shadow: 0 2px 0.05px #e8ebec;
+    // box-shadow: 0 2px 0.05px #e8ebec;
   }
 
   &:hover {
-    cursor: pointer;
+    //cursor: pointer;
   }
 
   p {
     margin: 0;
+    word-break: break-word;
   }
 }
 
@@ -190,14 +216,17 @@
   svg {
     width: 14px;
     height: 14px;
-    fill: #33cccc;
+    fill: #3cc;
+    shape-rendering: auto;
   }
 }
 
-// whenever the dropdown is active
+// when the dropdown is active
 .dropdown--active {
   #overlay {
     display: block;
+    pointer-events: all;
+
   }
   .mobile-dropdown {
     padding-top: 10px;
@@ -222,9 +251,6 @@
     }
   }
 
-  .dropdown__icon > svg {
-    transform: rotate(180deg);
-  }
   .openQuestion__title {
     opacity: 0.7;
   }
@@ -232,13 +258,12 @@
 
 .landing-main {
   padding-top: 64px;
-  //
   // min-height: 100vh;
 }
 
 .profile__image img {
-  width: 36px;
-  height: 36px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -253,7 +278,7 @@
 }
 
 .header-bell {
-  img {
+  svg {
     width: 22px;
     height: 22px;
     fill: #4a4a4a;
@@ -261,11 +286,10 @@
 }
 
 .header-bell:active {
-  opacity: 0.7;
 }
 
 .header-followers {
-  img {
+  svg {
     width: 22px;
     height: 22px;
     fill: #4a4a4a;
@@ -273,7 +297,6 @@
 }
 
 .header-followers:active {
-  opacity: 0.7;
 }
 
 $bsc: rgba(0, 0, 0, 0.16);
@@ -331,8 +354,99 @@ $bsc: rgba(0, 0, 0, 0.16);
   }
 }
 
+
+
+
+
+.loading {
+
+  height: 104px;
+  position: relative;
+}
+
 @keyframes notification-dot-animation {
   50% {
     transform: scale(2);
   }
+}
+
+
+
+
+
+
+.q-loading-card{
+
+    .imagebox {
+      position:relative;
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+    }
+
+    .shadeanim {
+      animation-name: shine;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .shade1, .shade2,.shade3,.imagebox, .shadeR3  {
+      @extend .shadeanim;
+      background-color: #e8ebec;
+    }
+
+    .qa-item__seperator {
+      @extend .shadeanim;
+    }
+
+
+    .shade1 {
+      height:10px;
+      width: 43%
+    }
+
+    .shade2 {
+      height:10px;
+      width: 20%;
+    }
+    .shade3 {
+      height:40px;
+    }
+    .shadeR3 div:nth-child(1) {
+      height:20px;
+    }
+    .shadeR3 {
+      height:90px;
+    }
+
+
+}
+
+
+
+
+
+@keyframes shine {
+    from {transition:none;}
+    to {background-color:#f6f7f8;transition: all 0.3s ease-out;}
+}
+
+
+.avatar-occupy {
+  width:42px;
+  height: 42px;
+}
+
+.p-b-15 {
+  padding-bottom: 15px;
+}
+
+.spinner {
+  transform: translateY(141px);
+  text-align: center;
+}
+
+.cp {
+  cursor: pointer;
 }

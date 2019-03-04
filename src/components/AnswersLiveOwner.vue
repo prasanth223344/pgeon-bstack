@@ -96,6 +96,9 @@
 <script>
 var longpress;
 var pressTimer;
+import Answeringtimer from './AnsweringTimer.vue'
+
+
   export default {
 
     data: function() {
@@ -215,53 +218,56 @@ var pressTimer;
     created: function() {
       var com = this
 
-      //got some new questions inserted
-      if (socket) {
-        //just specific to this question id
+      // //got some new questions inserted
+      // if (socket) {
+      //   //just specific to this question id
         
         
-        socket.emit('connect_me', 'Q_' + this.question_id);
-        socket.on('new_answers', function(response) {
-        	  com.pushed_id = response.id;	
-          com.answers.push(response)
-          com.scrollToEnd();
-        });
+      //   socket.emit('connect_me', 'Q_' + this.question_id);
+      //   socket.on('new_answers', function(response) {
+      //   	  com.pushed_id = response.id;	
+      //     com.answers.push(response)
+      //     com.scrollToEnd();
+      //   });
 
-        socket.on('answer_deleted', function(id) {
+      //   socket.on('answer_deleted', function(id) {
 
-          for (var i = 0; i < com.answers.length; i++) {
-            if (com.answers[i]["id"] == id) {
-              com.answers.splice(i, 1);
-              com.already_answered = false
-              com.placeholder = "Enter your response here"
-              break;
-            }
+      //     for (var i = 0; i < com.answers.length; i++) {
+      //       if (com.answers[i]["id"] == id) {
+      //         com.answers.splice(i, 1);
+      //         com.already_answered = false
+      //         com.placeholder = "Enter your response here"
+      //         break;
+      //       }
 
-          }
-        });
+      //     }
+      //   });
         
         
-        socket.on('question_ended', function(id) {
-          //owners don't react..
-        })
+      //   socket.on('question_ended', function(id) {
+      //     //owners don't react..
+      //   })
         
        
-         socket.on('question_cancelled', function(id) {
-        	          //owner don't react..
+      //    socket.on('question_cancelled', function(id) {
+      //   	          //owner don't react..
 
-        })
+      //   })
         
 
-      }
+      // }
 
-      this.fetchRecords();
-      this.getVoteCount();
+     // this.fetchRecords();
+    //  this.getVoteCount();
       
       
        
       
     },
 
+  components: {
+    Answeringtimer
+  }
 
   }
 
