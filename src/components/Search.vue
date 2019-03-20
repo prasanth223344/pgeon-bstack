@@ -48,7 +48,7 @@
             <span>$value['obj']->last_posted</span>
           </div>
         </div>
-        <button class="follow-button follow">
+        <button class="follow-button follow" v-on:click="follow(user.user_id)">
           <span>Follow</span>
           <!-- following is the `active` state -->
         </button>
@@ -73,7 +73,8 @@ import Headerwithback from "./shared/HeaderWithBack.vue";
 import { User } from "radiks";
 import moment from "moment";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
-import Following from "../models/Following";
+import {FollowMixin} from "../mixins/FollowMixin.js";
+
 
 export default {
   data: function() {
@@ -93,7 +94,7 @@ export default {
     Avatar,
     Headerwithback
   },
-  mixins: [BlockstackMixin],
+  mixins: [BlockstackMixin, FollowMixin],
 
   methods: {
     loadProfilePic: async function(user_id) {
@@ -110,6 +111,7 @@ export default {
           }
         });
     },
+
     async search() {
       if (this.q) {
         var results = [];
@@ -137,6 +139,8 @@ export default {
 
         this.results.forEach(o => this.loadProfilePic(o.user_id));
       }
+
+      
 
       //usernames
 

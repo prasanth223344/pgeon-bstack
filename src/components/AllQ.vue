@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerwithprofile></headerwithprofile>
+    <headerhome></headerhome>
 
     <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1">
       <div class="container text-center m-t-5p">
@@ -88,7 +88,7 @@ import { configure } from "radiks";
 import Question from "../models/Question";
 import { User } from "radiks";
 import Avatar from "vue-avatar";
-import Headerwithprofile from './shared/HeaderWithProfile.vue'
+import Headerhome from './shared/HeaderHome.vue'
 
 //Vue.component('headerwithprofile', require('./components/shared/HeaderWithProfile.vue'));
 
@@ -237,7 +237,7 @@ export default {
     //  }
   },
   components: {
-    Avatar, Headerwithprofile
+    Avatar, Headerhome
   }
 };
 </script>
