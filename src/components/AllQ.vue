@@ -94,20 +94,20 @@ import Headerwithprofile from './shared/HeaderWithProfile.vue'
 
 
 import { CommonMixin } from "../mixins/CommonMixin.js";
+import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
+
 
 export default {
   data: function() {
     return {
       questions: {},
       still_deciding_count: true,
-      blockstack: window.blockstack,
-      profile_pics: []
     };
   },
 
   components: {},
 
-  mixins: [CommonMixin],
+  mixins: [CommonMixin, BlockstackMixin],
 
   methods: {
     handleScroll: function() {
@@ -156,22 +156,21 @@ export default {
       }
     },
 
-    loadProfilePic: async function(user_id) {
-      var pf = await this.blockstack.lookupProfile(user_id);
-      this.questions
-        .filter(o => o.user_id === user_id)
-        .forEach(o => {
-          if (
-            pf &&
-            typeof pf.image !== "undefined" &&
-            pf.image[0]["contentUrl"]
-          ) {
-            o.profile_pic = pf.image[0]["contentUrl"];
-          }
-
-          console.log("wat");
-        });
-    },
+  	loadProfilePic: async function(user_id) {
+					var pf = await this.blockstack.lookupProfile(user_id);
+					this.questions
+						.filter(o => o.user_id === user_id)
+						.forEach(o => {
+							if (
+								pf &&
+								typeof pf.image !== "undefined" &&
+								pf.image[0]["contentUrl"]
+							) {
+								o.profile_pic = pf.image[0]["contentUrl"];
+							}
+		
+						});
+				},
 
     loadQs: async function() {
       $(".up50").removeClass("up50");
@@ -209,6 +208,8 @@ export default {
 
       this.questions = formatted_qs;
 
+
+
       this.still_deciding_count = false;
 
       $(".spinner").remove();
@@ -222,6 +223,7 @@ export default {
       } else {
         this.still_deciding_count = false;
       }
+
 
       this.questions.forEach(o => this.loadProfilePic(o.user_id));
     }

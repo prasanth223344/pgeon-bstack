@@ -4,7 +4,6 @@ export var AnswerMixin = {
         topAnswers: [],
         topResponders: [],
 		selected_user: null,
-		makaka: "dfdf"
     },
 
     created: function() {

@@ -5,8 +5,13 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
+ 
 window.blockstack = require('blockstack')
-window.axios = require('axios')
+window.axios = require('axios');
+window.axios.defaults.baseURL = process.env.API_PATH;
+
 
 Vue.config.productionTip = false
 
@@ -15,6 +20,8 @@ Vue.component('allqtimer', require('./components/AllQTimer.vue'));
 
 
 Vue.prototype.RADIKS_SERVER =  { apiServer: process.env.RADIKS_SERVER}
+//Vue.prototype.FB =  
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

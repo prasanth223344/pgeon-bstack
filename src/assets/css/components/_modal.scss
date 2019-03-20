@@ -152,7 +152,7 @@ img.super-power {
   justify-content: space-between;
   align-items: center;
   background-color: rgba(151,151,151, 0.04);
-  svg{
+  img {
     width: 22px;
     height: 22px;
   }
@@ -175,13 +175,13 @@ img.super-power {
   align-items: center;
   padding: 20px  0px;
   h3{ margin: 0; font-weight: normal; }
-  svg{
+  img {
     height: 30px;
     width: 30px;
     margin-right: 20px;
   }
 }
-.select-image__item--fb svg{ fill: #3B5999; }
-.select-image__item--google svg{ fill: #3387FC;}
-.select-image__item--camera svg{ fill: #FFBE00; }
-.select-image__item--image svg{ fill: #00AD49; }
+.select-image__item--fb img { fill: #3B5999; }
+.select-image__item--google img { fill: #3387FC;}
+.select-image__item--camera img { fill: #FFBE00; }
+.select-image__item--image img { fill: #00AD49; }

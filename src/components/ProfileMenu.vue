@@ -10,15 +10,16 @@
 
         <div class="profile-preview mt15p">
           <div class="iframe-container">
-            <img
-              :src="user.avatarUrl() ? user.avatarUrl() : '/avatar-placeholder.png'"
-              class="avatar"
-            >
+
+            
+            <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
+
+            
           </div>
-          <h1>{{ user.name() ? user.name() : 'Nameless Person'}}</h1>
+          <h1>  {{ current_user.username}}</h1>
           <div class="profile-url">
             <p class="m0 flex">
-              <span class="flex1">www.pgeon.com/</span>
+              <span class="flex1">www.pgeon.com/{{current_user.username}}</span>
               <input class="user-slug-input" value disabled>
             </p>
 
@@ -91,6 +92,9 @@
 </template>
 
 <script>
+import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
+import Avatar from "vue-avatar";
+
 export default {
   props: ["user"],
     data () {
@@ -99,6 +103,10 @@ export default {
   
     }
   },
+    components: { Avatar },
+
+
+  mixins: [BlockstackMixin],
 
   mounted() {
     $(".slide-menu__trigger").on("click", () => {

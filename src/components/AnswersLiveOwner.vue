@@ -1,6 +1,6 @@
 <template>
 <div>
-
+    <headerforq v-bind:question="question" ></headerforq>
 
  <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p" v-bind:class="[{ 'confirming-modal--active':  showendmodal == true }]">
 
@@ -97,6 +97,7 @@
 var longpress;
 var pressTimer;
 import Answeringtimer from './AnsweringTimer.vue'
+import Headerforq from './shared/HeaderForQ.vue'
 
 
   export default {
@@ -123,6 +124,8 @@ import Answeringtimer from './AnsweringTimer.vue'
     props: ['question_id', 'hits',  'initial',    'question_user_slug', 'question'],
     mounted() {
 
+      console.log(this.question);
+      
     },
     
     watch: {
@@ -266,7 +269,7 @@ import Answeringtimer from './AnsweringTimer.vue'
     },
 
   components: {
-    Answeringtimer
+    Answeringtimer,Headerforq
   }
 
   }

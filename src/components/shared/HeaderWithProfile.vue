@@ -47,7 +47,7 @@
    <a  class="login__links">
    <img v-if="loading" width="22" height="22" src="../../assets/img/svg/loading.svg" alt="Pgeon">
 
-        <profile v-else-if="user" :user="user"></profile>
+      <profile v-else-if="user" :user="user"></profile>
       <login v-else></login>
 
           <!-- <profile v-if="user" :user="user"></profile> -->
@@ -121,11 +121,14 @@ import { User } from 'radiks';
 import login from '../Login.vue'
 import profile from '../Profile.vue'
 import ProfileMenu from '../ProfileMenu.vue'
+import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
 
 
 export default {
   name: 'app',
   components: {login, profile,ProfileMenu},
+  mixins: [BlockstackMixin],
+
   //async
   async mounted () {
     //this.blockstack.signUserOut(window.location.href)
@@ -137,10 +140,12 @@ export default {
     //     console.log(data);
     //     console.log('test');
     // })
+      console.log('logged');
 
     configure(this.RADIKS_SERVER);
 
     if (blockstack.isUserSignedIn()) {
+      
       this.userData = blockstack.loadUserData()
       this.user = new blockstack.Person(this.userData.profile)
       this.user.username = this.userData.username

@@ -1,5 +1,7 @@
 <template>
   <div>
+        <headerwithback ></headerwithback>
+
     <main class="mw6 m-auto question-main">
       <div class="post-question-box mb20p">
         <textarea
@@ -138,6 +140,8 @@
 
 <script>
 import { configure } from "radiks";
+import Headerwithback from "./shared/HeaderWithBack.vue";
+
 import Question from "../models/Question";
 import { User } from "radiks";
 import moment from 'moment';
@@ -160,6 +164,10 @@ export default {
   },
   computed: {
     // get only
+  },
+   components: {
+    Headerwithback
+    
   },
   watch: {
     question: function(nval) {

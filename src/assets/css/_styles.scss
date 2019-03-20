@@ -21,7 +21,7 @@ body {
 }
 
 // ??
-svg {
+img {
   width: 22px;
   height: 22px;
   -webkit-text-size-adjust: none;
@@ -49,7 +49,7 @@ svg {
   align-items: center;
 }
 
-.logo svg {
+.logo img {
   width: 30px;
   height: 24px;
   fill: #777888;
@@ -64,14 +64,14 @@ svg {
 }
 
 .back-arrow svg,
-.close-button svg {
+.close-button img {
   width: 20px;
   height: 22px;
   fill: #536570;
   vertical-align: middle;
 }
 
-.signup-group svg {
+.signup-group img {
   width: 26px;
   height: 26px;
   fill: white;
@@ -251,7 +251,7 @@ svg {
   margin-left: 15px;
 }
 
-.nobel-svg > svg {
+.nobel-svg > img {
   fill: $nobel !important;
 }
 

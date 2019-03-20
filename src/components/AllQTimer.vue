@@ -77,6 +77,8 @@ import moment from 'moment';
 
       this.current = this.current -= this.interval
       
+      
+
       this.formatted = this.to_time()
       if (this.current <= 0) {
         clearInterval(this.timerInterval)
@@ -87,8 +89,10 @@ import moment from 'moment';
     }
   },
   mounted() {
+
     //
     this.current = this.current - moment().unix()
+
     this.timerInterval = setInterval(this.onInterval, this.interval * 1000)
   }
 

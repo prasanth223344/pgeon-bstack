@@ -82,13 +82,13 @@
   display: inline-block;
 }
 
-.payment-method-icon-svg {
+.payment-method-icon-img {
   margin-right: 11px;
-  svg {
+  img {
   }
 }
 
-.payment-method-icon-card > svg {
+.payment-method-icon-card > img {
   fill: #707070;
 }
 
@@ -150,7 +150,7 @@
     }
   }
 }
-.payment-method-visa > svg {
+.payment-method-visa > img {
   width: 30px;
   height: 20px;
 }

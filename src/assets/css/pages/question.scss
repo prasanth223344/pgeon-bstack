@@ -72,7 +72,7 @@
   display: flex;
   align-items: center;
   flex: 1;
-  svg {
+  img {
     width: 22px;
     height: 22px;
     margin-right: 10px;
@@ -100,7 +100,7 @@
     display: flex;
     align-items: center;
 
-    svg {
+    img {
       width: 24px;
       height: 24px;
       fill: #9b9b9b;
@@ -179,7 +179,7 @@
   button {
     color: #fff;
   }
-  svg {
+  img {
     width: 22px;
     height: 22px;
     fill: #fff;
@@ -265,7 +265,7 @@
   .edit-square {
     display: block;
     margin-right: 8px;
-    svg {
+    img {
       width: 22px;
       height: 22px;
       fill: #4a4a4a;
@@ -287,7 +287,7 @@
     .edit-square-checked {
       display: block;
       padding-right: 8px;
-      svg {
+      img {
         background-color: #33cccc;
         fill: #fff;
         padding: 3px;
@@ -385,7 +385,7 @@
   height: 36px;
   border-radius: 50%;
   background-color: #f1f1f1;
-  svg {
+  img {
     fill: #979797;
     width: 16px;
     height: 16px;
@@ -415,7 +415,7 @@
     border-radius: 50%;
     background-color: #e2e4e6;
     border: 1px solid #D8DBDD;
-    svg {
+    img {
       width: 22px;
       height: 22px;
       fill: #b0b0b0;
@@ -431,13 +431,13 @@
   }
   .svg-container--twitter {
     background-color: #1da1f2;
-    svg {
+    img {
       fill: #fff;
     }
   }
   .svg-container--fb {
     background-color: #3b5998;
-    svg {
+    img {
       fill: #fff;
     }
   }

@@ -1,6 +1,7 @@
 module.exports = {
   NODE_ENV: '"production"',
-  RADIKS_SERVER:  "'http://localhost:1260'"
+  RADIKS_SERVER:  "'/'",
+  API_PATH: "'/api/'"
 
 
 }

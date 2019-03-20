@@ -10,16 +10,27 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@awaitjs/express": "^0.3.0",
     "axios": "^0.16.1",
     "blockstack": "18.1.0",
+    "body-parser": "^1.18.3",
     "bootstrap-sass": "^3.3.7",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-force-https": "^1.0.0",
+    "express-ws": "^4.0.0",
     "moment": "^2.24.0",
     "node-sass": "^4.9.2",
     "radiks": "^0.1.6",
+    "radiks-server": "0.1.8",
+    "request-promise": "^4.2.4",
     "sass-loader": "^6.0.5",
+    "universal-cookie-express": "^3.0.7",
     "vue": "^2.5.22",
     "vue-avatar": "^2.1.7",
     "vue-router": "^3.0.1",
+    "vue-touch": "^2.0.0-beta.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
