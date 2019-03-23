@@ -26,7 +26,21 @@ export var BlockstackMixin = {
     
       methods: {
 
-			
+				loadProfilePic: async function(user_id, target) {
+					var pf = await this.blockstack.lookupProfile(user_id);
+					target
+						.filter(o => o.user_id === user_id)
+						.forEach(o => {
+							if (
+								pf &&
+								typeof pf.image !== "undefined" &&
+								pf.image[0]["contentUrl"]
+							) {
+								o.profile_pic = pf.image[0]["contentUrl"];
+							}
+						});
+				},
+				
 	    
     }
 

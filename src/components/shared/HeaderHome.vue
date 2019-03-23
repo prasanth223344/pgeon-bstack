@@ -6,10 +6,9 @@
       >
         <div class="logoTitle__container flex">
           <span class="landing__logo fc">
-             <router-link :to="{ path: '/' }" class="dib" >
+            <router-link :to="{ path: '/' }" class="dib">
               <img width="22" height="22" src="../../assets/img/main-logo.svg" alt="Pgeon">
             </router-link>
-
           </span>
           <a class="openQuestion__title">
             <span>Open Questions</span>
@@ -28,7 +27,7 @@
         >
         
         <span class="header-right__icons" v-else-if="current_user">
-           <router-link :to="{ path: 'people' }" class="db header-followers pointer mr20p fc">
+          <router-link :to="{ path: 'people' }" class="db header-followers pointer mr20p fc">
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
           </router-link>
 
@@ -39,13 +38,28 @@
             </span>
           </a>
           
-          <span
-            class="profile__image pointer slide-menu__trigger fc"
-          >
+          <span class="profile__image pointer slide-menu__trigger fc">
             <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
           </span>
         </span>
         <login v-else></login>
+      </div>
+
+      <div class="mobile-dropdown m-auto mw6">
+        <a class="pointer" href="/">
+          <span>Open Questions</span>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
+        </a>
+        <a class="pointer" href="/responses">
+          <span>Published Responses</span>
+        </a>
+        
+        <a href="/" class="myQuestion-premium-button" v-if="current_user">
+          <span>My Questions</span>
+
+         
+        </a>
       </div>
     </header>
 
@@ -68,8 +82,13 @@ export default {
 
   //async
   async mounted() {
-    const blockstack = this.blockstack;
+    jQuery(".openQuestion__title").on("click", e => {
+      const $header = jQuery(".landing_header");
+      const open = $header.hasClass("dropdown--active");
+      open ? this.closeDropdown() : this.openDropdown();
+    });
 
+    const blockstack = this.blockstack;
 
     configure(this.RADIKS_SERVER);
 
@@ -100,6 +119,17 @@ export default {
       user: null,
       loading: false
     };
+  },
+  methods: {
+    closeDropdown: function() {
+      const $header = jQuery(".landing_header");
+      $header.removeClass("dropdown--active");
+    },
+
+    openDropdown: function() {
+      const $header = jQuery(".landing_header");
+      $header.addClass("dropdown--active");
+    }
   }
 };
 </script>

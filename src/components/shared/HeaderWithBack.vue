@@ -4,16 +4,20 @@
       <div
         class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15"
       >
+
         <span class="back-arrow dib">
-          <a v-on:click="goBack()" class="dib">
+                    <router-link class="dib" :to="{ path: '/' }">
+
+          <!-- <a v-on:click="goBack()" > -->
             <img width="22" height="22" src="../../assets/img/svg/long-arrow-left.svg">
-          </a>
+          </router-link>
         </span>
         
         <span class="header-right__icons">
-          <a href="/people" class="db header-followers pointer mr20p fc">
+
+          <router-link class="db header-followers pointer mr20p fc" :to="{ path: '/people' }">
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
-          </a>
+          </router-link
           <a href="/notifications" class="header-bell pointer mr20p fc">
             <span class="flex items-center relative">
               <span class="bell-notification-dot"></span>

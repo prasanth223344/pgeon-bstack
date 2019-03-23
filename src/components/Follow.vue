@@ -1,9 +1,8 @@
 <template>
-  <div >
+  <div>
     <headerwithback></headerwithback>
 
     <div class="bgw">
-      
       <div class="people-tabs mw6 m-auto pr15">
         <div
           class="people-tab"
@@ -18,7 +17,7 @@
           <a v-on:click="setcurrenttab('my_followers')">{{my_followers_count}} Followers</a>
         </div>
         <div class="people-search">
-          <router-link :to="{ path: 'search' }">
+          <router-link :to="{ path: '/search' }">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"
@@ -30,60 +29,62 @@
     </div>
 
     <main class="mw6 m-auto people-main">
-      <div v-bind:class="{ 'hidden': (this.current_tab != 'iam_following') }">
-        <div class="people-item" v-for="item in iam_following">
-          <div>
-            <avatar :size="36" :src="item.avatar" :username="(item.name)?item.name:item.url"></avatar>
-            <div class="people-item__info">
-              <h4>{{ item.url }}</h4>
-              <span>{{ item.last_posted }}</span>
-            </div>
-          </div>
-          <button
-            v-if="isExistsinUndo(item.user_id)"
-            v-on:click="followNoUpdate(item.user_id, $event)"
-            class="follow-button"
-          >
-            <span>Follow</span>
-            <!-- following is the `active` state -->
-          </button>
-          <button
-            v-else
-            v-on:click="unfollowNoUpdate(item.user_id)"
-            class="follow-button follow-button--active"
-          >
-            <!-- following is the `active` state -->
-            <span>Following</span>
-          </button>
+
+<div  v-bind:class="{ 'hidden': (this.current_tab != 'iam_following') }">
+    <div class="people-item" v-for="item in iam_following" >
+      <div>
+            <avatar :size="36"  :src="item.profile_pic"  :username="item.user_id" ></avatar>
+        <div class="people-item__info">
+          <h4>{{ item.user_id }}</h4>
+          <span> item.last_posted </span>
         </div>
       </div>
-      <div v-bind:class="{ 'hidden': (this.current_tab == 'iam_following') }">
-        <div class="people-item" v-for="item in my_followers">
-          <div>
-            <avatar :size="36" :src="item.avatar" :username="(item.name)?item.name:item.url"></avatar>
-            <div class="people-item__info">
-              <h4>{{ item.url }}</h4>
-              <span>{{ item.last_posted }}</span>
-            </div>
-          </div>
-          <button
-            v-if="!isExistsinFollowing(item.user_id)"
-            v-on:click="follow(item.user_id, $event)"
-            class="follow-button"
-          >
-            <span>Follow</span>
-            <!-- following is the `active` state -->
-          </button>
-          <button
-            v-else
-            v-on:click="unfollowNoUpdate(item.user_id)"
-            class="follow-button follow-button--active"
-          >
-            <!-- following is the `active` state -->
-            <span>Following</span>
-          </button>
+        <button v-if="isExistsinUndo(item.user_id)" v-on:click="followNoUpdate(item.user_id, $event)"  class="follow-button">
+     
+
+                                       
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+      </button>
+      <button v-else v-on:click="unfollowNoUpdate(item.user_id)" class="follow-button follow-button--active">
+        <!-- following is the `active` state -->
+        <span>Following</span>
+      </button>
+
+    </div>
+
+</div>
+
+
+
+<div v-bind:class="{ 'hidden': (this.current_tab == 'iam_following') }">
+ <div class="people-item" v-for="item in my_followers_temp" >
+      <div>     
+                <!-- <avatar :size="36"	:src="item.profile_pic"  :username="item.user_id" ></avatar>  -->
+                <avatar :size="36"  :src="item.profile_pic"  :username="item.user_id" ></avatar>
+
+        <div class="people-item__info">
+          <h4>{{ item.user_id }}</h4>
+          <span> item.last_posted </span>
         </div>
       </div>
+      <button v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)"  class="follow-button">
+     
+
+                                       
+        <span>Follow</span>
+        <!-- following is the `active` state -->
+      </button>
+       <button  v-else v-on:click="unfollowNoUpdate(item.user_id)"  class="follow-button follow-button--active">
+        <!-- following is the `active` state -->
+        <span>Following</span>
+      </button>
+
+    </div>
+</div>
+
+
+      
     </main>
   </div>
 </template>
@@ -112,7 +113,9 @@ export default {
       //  current_order: false,
       current_order: "DESC",
       showsorting: false,
-      unfollwed_undo: []
+      unfollwed_undo: [],
+      //TODO my_followers is not reactive for some reasons..will be fixed in future..
+      my_followers_temp: []
     };
   },
   mounted() {
@@ -129,6 +132,7 @@ export default {
   mixins: [BlockstackMixin],
 
   methods: {
+   
     setcurrenttab(tab) {
       this.current_tab = tab;
       this.sort();
@@ -145,7 +149,7 @@ export default {
       // }
     },
     async fetchData() {
-         configure(this.RADIKS_SERVER);
+      configure(this.RADIKS_SERVER);
 
       this.my_followers = await Following.fetchList(
         { user_id: this.current_user.username },
@@ -156,8 +160,40 @@ export default {
         { followed_by: this.current_user.username },
         { decrypt: false }
       );
-      this.iam_following_count = this.iam_following_count.length;
-      this.my_followers_count = this.my_followers_count.length;
+
+
+      this.iam_following_count = this.iam_following.length;
+      this.my_followers_count = this.my_followers.length;
+
+      var formatted_us = [];
+      for (var i = 0; i < this.my_followers.length; i++) {
+
+        formatted_us.push({
+          user_id: this.my_followers[i].attrs.user_id,
+          profile_pic: null
+        });
+      }
+
+      this.my_followers = formatted_us;
+
+
+
+      var formatted_us = [];
+      for (var i = 0; i < this.iam_following.length; i++) {
+        //console.log(results[i]);
+
+        formatted_us.push({
+          user_id: this.iam_following[i].attrs.user_id,
+          profile_pic: null
+        });
+      }
+
+      this.iam_following = formatted_us;
+      this.my_followers_temp = this.my_followers;
+      this.iam_following.forEach(o => this.loadProfilePic(o.user_id, this.iam_following));
+      // this.my_followers1.forEach(o => this.loadProfilePic(o.user_id, this.my_followers1));
+       this.my_followers_temp.forEach(o => this.loadProfilePic(o.user_id, this.my_followers_temp));
+
       this.sort();
     },
 
