@@ -134,6 +134,97 @@
     Please include at-least one question mark.
       </div>-->
     </main>
+
+
+
+    <main class="mw6 m-auto ">
+
+<!-- hide this part until ask part opens up..otherwise it is juggling --> 
+  <div class="question-stats">
+
+            <router-link :to="{ path: 'live'  }"  class="question-stats__item spin" v-if="live.length > 0">
+               <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 24.103v8.169a11.995 11.995 0 0 0 9.698 11.768C396.638 63.425 472 150.461 472 256c0 118.663-96.055 216-216 216-118.663 0-216-96.055-216-216 0-104.534 74.546-192.509 174.297-211.978A11.993 11.993 0 0 0 224 32.253v-8.147c0-7.523-6.845-13.193-14.237-11.798C94.472 34.048 7.364 135.575 8.004 257.332c.72 137.052 111.477 246.956 248.531 246.667C393.255 503.711 504 392.789 504 256c0-121.187-86.924-222.067-201.824-243.704C294.807 10.908 288 16.604 288 24.103z"></path></svg>
+ <span>Open</span>
+      </div>
+
+      <span>
+
+                {{live.length}} </span>
+                </router-link >
+
+    <a   class="question-stats__item" v-else>
+      <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M288 24.103v8.169a11.995 11.995 0 0 0 9.698 11.768C396.638 63.425 472 150.461 472 256c0 118.663-96.055 216-216 216-118.663 0-216-96.055-216-216 0-104.534 74.546-192.509 174.297-211.978A11.993 11.993 0 0 0 224 32.253v-8.147c0-7.523-6.845-13.193-14.237-11.798C94.472 34.048 7.364 135.575 8.004 257.332c.72 137.052 111.477 246.956 248.531 246.667C393.255 503.711 504 392.789 504 256c0-121.187-86.924-222.067-201.824-243.704C294.807 10.908 288 16.604 288 24.103z"></path></svg>
+        <span>Open</span>
+      </div>
+
+      <span>
+
+                {{live.length}} </span>
+    </a>
+
+
+
+
+
+  <router-link :to="{ path: 'pending'  }"  class="question-stats__item " v-if="pending.length > 0">
+               <div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path></svg>
+ <span>Pending</span>
+      </div>
+
+      <span>
+
+                {{pending.length}} </span>
+                </router-link >
+
+    <a   class="question-stats__item" v-else>
+      <div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path></svg>
+        <span>Open</span>
+      </div>
+
+      <span>
+
+                {{pending.length}} </span>
+    </a>
+
+
+
+
+
+  <router-link :to="{ path: 'published'  }"  class="question-stats__item " v-if="published.length > 0">
+               <div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"></path></svg>
+ <span>Open</span>
+      </div>
+
+      <span>
+
+                {{published.length}} </span>
+                </router-link >
+
+    <a   class="question-stats__item" v-else>
+      <div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"></path></svg>
+        <span>Published</span>
+      </div>
+
+      <span>
+
+                {{published.length}} </span>
+    </a>
+
+
+
+
+    
+  </div>
+
+</main>
+
+
   </div>
 </template>
 
@@ -159,7 +250,11 @@ export default {
       placeholder_content: "",
       remainingLength: 150,
       lq_created_at: "",
-      user: null
+      user: null, 
+      live: [],
+      pending: [],
+      published: []
+      
     };
   },
   computed: {
@@ -248,6 +343,17 @@ export default {
       { user_id: this.user._id },
       { decrypt: false }
     );
+
+  for(var i=0; i<q.length; i++) {
+    
+    if(q[i].attrs.expiring_at > moment().unix()) {
+      this.live.push(q)
+    }else if(typeof q[i].attrs.accepted_answer === 'undefined' || q[i].attrs.accepted_answer == 0) {
+      this.pending.push(q)
+    }else if (q[i].attrs.accepted_answer > 0) {
+      this.published.push(q)
+    }
+  }
 
 
     $(".question-stats").removeClass("dn");

@@ -92,6 +92,7 @@ import Question from "../models/Question";
 import { User } from "radiks";
 import Avatar from "vue-avatar";
 import Headerhome from './shared/HeaderHome.vue'
+import moment from 'moment';
 
 //Vue.component('headerwithprofile', require('./components/shared/HeaderWithProfile.vue'));
 
@@ -167,7 +168,7 @@ export default {
 
       configure(this.RADIKS_SERVER);
       var qs = await Question.fetchList(
-        { user_id: { $exists: true } },
+        { user_id: { $exists: true } , expiring_at: { $gt: moment().unix() }   },
         { decrypt: false }
       );
 

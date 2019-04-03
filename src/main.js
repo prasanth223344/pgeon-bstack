@@ -22,12 +22,39 @@ Vue.component('allqtimer', require('./components/AllQTimer.vue'));
 Vue.prototype.RADIKS_SERVER =  { apiServer: process.env.RADIKS_SERVER}
 //Vue.prototype.FB =  
 
+import { UserSession, AppConfig } from "blockstack";
+import { configure } from "radiks";
+
+
+
+
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  data: {
+    userSession: 'wat',
+  },
+  created: function () {
+
+    
+    // console.log('wat');
+
+
+    this.userSession = new UserSession({
+      appConfig: new AppConfig(["store_write", "publish_data"])
+    });
+
+    configure({
+      apiServer: this.RADIKS_SERVER,
+      userSession: this.userSession
+    });
+    
+  }
 })
 

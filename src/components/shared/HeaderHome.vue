@@ -48,18 +48,24 @@
       <div class="mobile-dropdown m-auto mw6">
         <a class="pointer" href="/">
           <span>Open Questions</span>
-
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z"></path></svg>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z"
+            ></path>
+          </svg>
         </a>
         <a class="pointer" href="/responses">
           <span>Published Responses</span>
         </a>
-        
-        <a href="/" class="myQuestion-premium-button" v-if="current_user">
-          <span>My Questions</span>
 
-         
-        </a>
+        <router-link
+          :to="{ path: 'my-questions'  }"
+          class="myQuestion-premium-button"
+          v-if="current_user"
+        >
+          <span>My Questions</span>
+        </router-link>
       </div>
     </header>
 
@@ -68,11 +74,13 @@
 </template>
 
 <script>
-import { configure } from "radiks";
-import { User } from "radiks";
+// import { User } from "radiks";
 import Avatar from "vue-avatar";
 import login from "../Login.vue";
 import ProfileMenu from "../ProfileMenu.vue";
+import { configure, User, getConfig } from "radiks";
+import { UserSession, AppConfig } from "blockstack";
+
 import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
 
 export default {
@@ -88,30 +96,38 @@ export default {
       open ? this.closeDropdown() : this.openDropdown();
     });
 
+
+
+    const { userSession } = getConfig();
     const blockstack = this.blockstack;
 
-    configure(this.RADIKS_SERVER);
-
-    if (blockstack.isUserSignedIn()) {
-      this.userData = blockstack.loadUserData();
+    if (userSession && userSession.isUserSignedIn()) {
+      this.userData = userSession.loadUserData();
       this.user = new blockstack.Person(this.userData.profile);
       this.user.username = this.userData.username;
-    } else if (blockstack.isSignInPending()) {
+    } else if (userSession && userSession.isSignInPending()) {
       this.loading = true;
-
-      await blockstack.handlePendingSignIn();
+      await userSession.handlePendingSignIn();
       await User.createWithCurrentUser();
       window.location = window.location.origin;
-
-      // blockstack.handlePendingSignIn()
-      // .then((userData) => {
-      //   User.createWithCurrentUser()
-      //   .then((userData) => {
-      //       window.location = window.location.origin
-      //   })
-
-      // })
     }
+
+    // const blockstack = this.blockstack;
+
+    // configure(this.RADIKS_SERVER);
+
+    // if (blockstack.isUserSignedIn()) {
+    //   this.userData = blockstack.loadUserData();
+    //   this.user = new blockstack.Person(this.userData.profile);
+    //   this.user.username = this.userData.username;
+    // } else if (blockstack.isSignInPending()) {
+    //   this.loading = true;
+
+    //   await blockstack.handlePendingSignIn();
+    //   await User.createWithCurrentUser();
+    //   window.location = window.location.origin;
+
+    //}
   },
   data() {
     return {

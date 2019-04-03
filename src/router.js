@@ -5,6 +5,8 @@ import ask from './components/Ask.vue';
 import people from './components/Follow.vue';
 import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
+import live from './components/Live.vue';
+
 
 Vue.use(Router)
 
@@ -36,6 +38,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path: '/live',
+      name: 'live',
+      component: live
     },
   ]
 })

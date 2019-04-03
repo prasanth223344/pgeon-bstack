@@ -25,10 +25,18 @@ export default class Vote extends Model {
       decrypted: true,
     },
 
+    deleted: {
+      type: Boolean,
+      decrypted: true,
+    }
+
+
 
     
+  }
 
-    
+  static defaults = {
+    deleted: false
   }
 
   

@@ -544,44 +544,7 @@ export default {
       //   // update your view here with this task
       // }
     });
-    //var com = this;
-
-    // //got some new questions inserted
-    // if (socket) {
-    //   //just specific to this question id
-
-    //   socket.emit('connect_me', 'Q_' + this.question_id);
-    //   socket.on('new_answers', function(response) {
-    //   	  com.pushed_id = response.id;
-    //     com.answers.push(response)
-    //     com.scrollToEnd();
-    //   });
-
-    //   socket.on('answer_deleted', function(id) {
-
-    //     for (var i = 0; i < com.answers.length; i++) {
-    //       if (com.answers[i]["id"] == id) {
-    //         com.answers.splice(i, 1);
-    //         com.already_answered = false
-    //         com.placeholder = "Enter your response here"
-    //         break;
-    //       }
-
-    //     }
-    //   });
-
-    //   socket.on('question_ended', function(id) {
-    //   		alert("Sorry! this question has been ended manually by the asker")
-    //   		location.reload();
-    //   })
-
-    //    socket.on('question_cancelled', function(id) {
-    //   		alert("Sorry! this question has been removed manually by the asker")
-    //   		location.href = "/"
-    //   		//location.reload();
-    //   })
-
-    // }
+  
 
     this.fetchRecords();
     //  this.getVoteCount();

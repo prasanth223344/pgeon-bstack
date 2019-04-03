@@ -33,7 +33,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  img {
+  svg {
     width: 14px;
     height: 13px;
     fill: #9b9b9b;
@@ -232,7 +232,7 @@
     align-items: center;
     // height: 36px;
     margin-left: 15px;
-    img {
+    svg {
       width: 16px;
       height: 16px;
       fill: #4a4a4a;
@@ -416,24 +416,37 @@ width: 100%;
 
 
 
-#vote img {
+#vote svg {
 	/** taken from auto generated css of fa **/
-	fill:#b2b3b6;
+  fill:#b2b3b6;
+  width: 16px;
+  height: 16px;
 }
 
-svg .vote-up ,svg .vote-down, svg .vote-none{
-  fill:#33cccced;
+
+//, .vote-down svg,  .vote-none svg
+ .vote-up  .caret-up{
+   fill:#33cced !important;
 	shape-rendering: geometricprecision;
   transition: all .1s linear;
   -webkit-transition: all .1s linear;
   -moz-transition: all .1s linear;
   -o-transition: all .1s linear;
-	}
+  }
+  
+  .vote-down  .caret-down{
+    fill:#cc3333 !important;
+   shape-rendering: geometricprecision;
+   transition: all .1s linear;
+   -webkit-transition: all .1s linear;
+   -moz-transition: all .1s linear;
+   -o-transition: all .1s linear;
+   }
 .vote-up {
-	color:#33cccced;
+	color:#33cced !important; 
 }
 .vote-down{
-  color: #cc3333ed;
+  color: #cc3333 !important;
   }
   .vote-none{
   color:#C4C6CA;
@@ -451,4 +464,13 @@ svg .vote-down{
 svg .vote-none{
   fill: #8E8E93;
 
+}
+
+.v_count {
+  font-size : 13px;
+}
+
+.ptb2 {
+  padding-top :2px;
+  padding-bottom: 2px;
 }
