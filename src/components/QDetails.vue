@@ -16,6 +16,7 @@ import { User } from "radiks";
 import Avatar from "vue-avatar";
 import AnswersLiveOwner from './AnswersLiveOwner.vue'
 import Answers from './Answers.vue'
+import moment from 'moment';
 
 
 
@@ -57,7 +58,12 @@ export default {
 
    
    if (this.question.attrs.user_id == this.user.attrs._id) {
-     this.question_status = 'ownlive';
+     if(this.question.attrs.expiring_at > moment().unix()) {
+        this.question_status = 'ownlive';
+     }else {
+       this.question_status = 'ownexpired';
+     }
+     
    }else {
      this.question_status = 'answers';
    }

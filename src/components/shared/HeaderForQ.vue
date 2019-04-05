@@ -4,7 +4,7 @@
       <div
         class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15"
       >
-        <a href="/" class="question-details__close pointer fc">
+        <a v-on:click="goBack()" class="question-details__close pointer fc">
           <img width="22" height="22" src="../../assets/img/svg/times.svg">
         </a>
         <div class="question-details__profile fc">
@@ -100,6 +100,7 @@ import { configure } from "radiks";
 import { User } from "radiks"; 
 import Avatar from "vue-avatar";
 import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
+import { NavMixin } from "../../mixins/NavMixin.js";
 
 
 export default {
@@ -107,7 +108,7 @@ export default {
   components: { Avatar },
 
   props: ["question"],
-            mixins: [BlockstackMixin],
+            mixins: [BlockstackMixin, NavMixin],
 
 
   //async

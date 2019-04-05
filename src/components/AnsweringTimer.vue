@@ -4,6 +4,8 @@
 
 
 <script>
+import moment from 'moment';
+
 
     export default {
       
@@ -81,6 +83,8 @@
     }
   },
   mounted() {
+        this.current = this.current - moment().unix()
+
     this.timerInterval = setInterval(this.onInterval, this.interval * 1000)
   }
 

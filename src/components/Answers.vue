@@ -175,6 +175,7 @@ var pressTimer;
 
 import Answer from "../models/Answer";
 import Vote from "../models/Vote";
+import Question from "../models/Question";
 import Headerforq from "./shared/HeaderForQ.vue";
 import Answeringtimer from "./AnsweringTimer.vue";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
@@ -361,7 +362,7 @@ export default {
 
         var voteModel = await Vote.findById(r._id);
 
-        await voteModel.update({deleted: true});
+        voteModel.update({deleted: true});
 
         const answer = await Answer.findById(id);
         await voteModel.save();
@@ -529,8 +530,15 @@ export default {
 
   created: function() {
     Answer.addStreamListener(answer => {
-      console.log(answer);
+      //console.log(answer);
     });
+
+
+    Question.addStreamListener(question => {
+      console.log(question);
+
+    })
+
 
     Vote.addStreamListener(vote => {
       // this callback will be called whenever a task is created or updated.
@@ -538,7 +546,7 @@ export default {
       // If the user has the necessary keys to decrypt encrypted fields on the model,
       // the model will be decrypted before the callback is invoked.
 
-      console.log(vote);
+      //console.log(vote);
 
       // if (task.projectId === myAppsCurrentProjectPageId) {
       //   // update your view here with this task
