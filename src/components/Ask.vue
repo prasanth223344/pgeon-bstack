@@ -313,6 +313,7 @@ export default {
 
       });
       await question.save();
+      //window.location.reload()
 
     },
     maxHighlight() {

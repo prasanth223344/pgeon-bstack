@@ -19,7 +19,7 @@
 
       </div>
       <a :href="'/question_user_slug'" class="open-question__content selected mt5p m0">
-        <p>{{question}}</p>
+        <p>{{question.question}}</p>
 
       </a>
     </div>
@@ -79,7 +79,7 @@
       <p>Are you sure to End this Question?</p>
       <div class="flex">
         <div class="flex1"></div>
-        <button class="confirmation-modal__cancel">Cancel</button>
+        <button class="confirmation-modal__cancel"  v-on:click="showendmodal=false">Cancel</button>
         <button class="confirmation-modal__danger" v-on:click="endnow">End Now</button>
       </div>
     </div>
@@ -101,6 +101,7 @@ import Answeringtimer from './AnsweringTimer.vue'
 import Headerforq from './shared/HeaderForQ.vue'
 import Question from "../models/Question";
 
+import moment from 'moment';
 
   export default {
 
@@ -190,11 +191,15 @@ import Question from "../models/Question";
 
         endnow: async function () {
 
+//console.log(this.question);
 
-        var qModel = await Question.findById(this.question.id);
 
-         qModel.update({username: 'dfdf'});
+        var qModel = await Question.findById(this.question._id);
+
+         qModel.update({last_event_fired: 'question_ended', expiring_at: moment().unix()});
+       //  qModel.update({last_event_fired: 'question_ended'});
           await qModel.save()
+          window.location.reload()
         // this.$http.post(`/end_now/${this.question_id}`).then((response) => {
         //    socket.emit('end_now', this.question_id);
         //    setTimeout(function(){ location.reload(); }, 1000);

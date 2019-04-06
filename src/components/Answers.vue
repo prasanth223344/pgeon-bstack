@@ -430,6 +430,9 @@ export default {
         { decrypt: false }
       );
 
+
+      
+
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
 
@@ -535,7 +538,13 @@ export default {
 
 
     Question.addStreamListener(question => {
-      console.log(question);
+      console.log(this.question._id);
+console.log(question.attrs._id);
+      if(question.attrs._id == this.question._id && question.attrs.last_event_fired == 'question_ended') {
+        console.log('reloading');
+        
+        window.location.reload()
+      }
 
     })
 

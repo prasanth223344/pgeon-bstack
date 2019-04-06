@@ -24,11 +24,23 @@ export default class Question extends Model {
       decrypted: true,
     },
 
+    last_event_fired: {
+      type: String,
+      decrypted: true,
+    },
+
+    manually_chosen_as_top: {
+      type: Number,
+      decrypted: true,
+    }
     
 
     
   }
 
+  static defaults = {
+    accepted_answer: 0
+  }
   
 
 }

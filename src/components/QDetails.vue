@@ -2,6 +2,8 @@
   <div>
        
        <answers-live-owner v-if="question_status=='ownlive'" v-bind:question="question.attrs"></answers-live-owner>
+
+
        <answers v-if="question_status=='answers'"  v-bind:question="question.attrs"></answers>
 
 
@@ -61,6 +63,7 @@ export default {
      if(this.question.attrs.expiring_at > moment().unix()) {
         this.question_status = 'ownlive';
      }else {
+       alert('expreiree')
        this.question_status = 'ownexpired';
      }
      

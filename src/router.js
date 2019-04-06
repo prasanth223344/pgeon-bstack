@@ -6,6 +6,7 @@ import people from './components/Follow.vue';
 import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
 import live from './components/Live.vue';
+import pending from './components/Pending.vue';
 
 
 Vue.use(Router)
@@ -43,6 +44,11 @@ export default new Router({
       path: '/live',
       name: 'live',
       component: live
+    },
+    {
+      path: '/pending',
+      name: 'pending',
+      component: pending
     },
   ]
 })
