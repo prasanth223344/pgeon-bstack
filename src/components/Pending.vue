@@ -13,14 +13,42 @@
     </header>
 
     <main class="pl-15 mw6 m-auto live-main pl15p pr15p">
-      <div v-for="question in questions">
+      
+      <div v-if="records_loaded" v-for="question in questions">
         <div class="q-bubble qa-item mb10p">
           <span>{{question.attrs.question}}</span>
 
           <div class="qa-item__seperator"></div>
 
-          <div>{{displayChosenOrTopAnswer(question.attrs)}}</div>
+          <div>{{pick_best_scenario_answer_for_questions[question.attrs._id] && pick_best_scenario_answer_for_questions[question.attrs._id].answer}}</div>
         </div>
+
+        <div class="pending-submit">
+          <router-link :to="{ name: 'viewpanswers', params: { qid: question.attrs._id, top_a: pick_best_scenario_answer_for_questions[question.attrs._id]._id }}" v-if="pick_best_scenario_answer_for_questions[question.attrs._id]">View All</router-link>
+          <a v-else></a>
+
+          <div>
+            <longpress
+              duration="2"
+              :on-confirm="deleteQ"
+              :value="question.attrs._id"
+              pressing-text="Deleting in {$rcounter} secs"
+              class="btn del"
+              action-text="Deleting"
+            >Delete</longpress>
+
+            <form
+              v-if="pick_best_scenario_answer_for_questions[question.attrs._id]"
+              method="post"
+              id="publish_form"
+              action="/accept_answer"
+            >
+              <button type="submit" class="btn pub ml20p">Publish</button>
+            </form>
+          </div>
+        </div>
+        <div>&nbsp;</div>
+
       </div>
     </main>
   </div>
@@ -32,6 +60,7 @@ import Answer from "../models/Answer";
 import Vote from "../models/Vote";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
 import { NavMixin } from "../mixins/NavMixin.js";
+import Longpress from "vue-longpress";
 
 import { configure } from "radiks";
 import moment from "moment";
@@ -44,7 +73,8 @@ export default {
       all_answers: [],
       votes_for_qs: [],
       qs_with_ans_and_vote_count: [],
-      records_loaded: false
+      records_loaded: false,
+      pick_best_scenario_answer_for_questions: []
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -56,6 +86,13 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    deleteQ: function deleteQ(id) {
+      alert("delete that q");
+      // this.$http.delete('/question/' + id).then(function (response) {
+      // 	location.href = "/pending";
+      // }, function (response) {});
+    },
+
     //callback
     redirect: function(id) {
       this.$router.push({ name: "qdetails", params: { id: id } });
@@ -65,12 +102,12 @@ export default {
     },
 
     displayChosenOrTopAnswer(attrs) {
+
       //wait for load
-      if (!this.records_loaded) return;
+      // if (!this.records_loaded) return;
       if (attrs.manually_chosen_as_top) {
-        return this.answers_for_qs[attrs._id].attrs.answer;
+        return this.answers_for_qs[attrs._id].attrs;
       } else {
-        console.log(this.qs_with_ans_and_vote_count[attrs._id]);
         //if it has some ans and votes
         if (this.qs_with_ans_and_vote_count[attrs._id]) {
           var q = this.qs_with_ans_and_vote_count[attrs._id];
@@ -87,9 +124,14 @@ export default {
           });
 
           var ans_id = top_votes[0];
-          return this.all_answers[ans_id].attrs.answer;
-          
-     
+
+          return this.all_answers[ans_id].attrs;
+        } else if (
+          this.answers_for_qs[attrs._id] &&
+          this.answers_for_qs[attrs._id].length > 0
+        ) {
+          //no answers have got votes..so select an answer
+          return this.answers_for_qs[attrs._id][0].attrs;
         }
       }
     },
@@ -108,9 +150,9 @@ export default {
 
       //  this will be converted to $in array based on query-to-mongo
       var answers = await Answer.fetchList({ question_id: q_ids.join(",") });
-      
+
       answers.forEach(a => {
-        this.all_answers[a.attrs._id] = a
+        this.all_answers[a.attrs._id] = a;
         if (!this.answers_for_qs[a.attrs.question_id])
           this.answers_for_qs[a.attrs.question_id] = [];
         this.answers_for_qs[a.attrs.question_id].push(a);
@@ -142,6 +184,14 @@ export default {
         ] += v.attrs.vote;
       });
 
+      this.questions.forEach(q => {
+        this.pick_best_scenario_answer_for_questions[
+          q._id
+        ] = this.displayChosenOrTopAnswer(q.attrs);
+      });
+      console.log(this.pick_best_scenario_answer_for_questions);
+      //
+
       // console.log(this.qs_with_ans_and_vote_count);
 
       //this.questions
@@ -156,6 +206,6 @@ export default {
     this.fetchRecords();
   },
 
-  components: {}
+  components: { Longpress }
 };
 </script>

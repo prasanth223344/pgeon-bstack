@@ -7,6 +7,7 @@ import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
 import live from './components/Live.vue';
 import pending from './components/Pending.vue';
+import viewpanswers from './components/ViewAllPendingAnswers.vue';
 
 
 Vue.use(Router)
@@ -50,5 +51,11 @@ export default new Router({
       name: 'pending',
       component: pending
     },
+    {
+      path: '/pending/:qid/:top_a',
+      name: 'viewpanswers',
+      component: viewpanswers
+    },
+
   ]
 })

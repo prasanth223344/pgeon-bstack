@@ -374,6 +374,7 @@ export default {
        location.reload();
     },
 
+
     castVote: async function(answer_id, vote) {
       // console.log(vote);
       // return;
@@ -429,7 +430,6 @@ export default {
         { question_id: this.question._id, deleted: false },
         { decrypt: false }
       );
-
 
       
 
