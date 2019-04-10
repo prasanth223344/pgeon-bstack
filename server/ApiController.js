@@ -43,6 +43,33 @@ const makeApiController = (db) => {
     res.send('not found');
   });
 
+
+
+
+  Router.getAsync('/profileqa/:id', async (req, res) => {
+
+    const results = await radiksData
+      .find(
+        {
+          
+          radiksType: 'Question',
+          $or: [ { user_id: req.params.id }, { accepted_user: req.params.id } ],
+
+        },
+        {
+          projection: { question: 1, _id:1, accepted_answer:1, accepted_user:1, user_id:1 },
+        }
+      )
+      .toArray();
+
+
+   
+    //const usernames = users.map(({ username }) => username && username);
+    res.json(results);
+  });
+
+
+
   Router.getAsync('/search/:exclude/:startswith', async (req, res) => {
 
     const results = await radiksData

@@ -183,6 +183,9 @@ export default {
 
     loadQs: async function() {
 
+
+      
+
         this.questions = await Question.fetchList({
          accepted_answer: { $exists: true } ,
         accepted_user: this.$route.params.a_by ,

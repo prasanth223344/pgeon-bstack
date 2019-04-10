@@ -64,7 +64,10 @@ app.use(require('connect-history-api-fallback')({
     {
         from: /^\/r\/.*$/,
         to: '/'
-    }
+    },{
+      from: /^\/u\/.*$/,
+      to: '/'
+  },
 ]
 }))
 

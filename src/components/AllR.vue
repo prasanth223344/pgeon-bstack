@@ -27,9 +27,9 @@
 
 
   <div class="open-question__left">
-          <a >
+          <router-link :to="{ name: 'profile', params: { id:  user_qs.user_id}}" >
               <avatar :size="42" :src="user_qs.profile_pic" :username="user_qs.user_id"></avatar>
-          </a>
+           </router-link>
         </div>
         <div class="open-question__right">
           <span class="open-question__meta">
