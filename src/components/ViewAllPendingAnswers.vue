@@ -4,7 +4,7 @@
       <div
         class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15"
       >
-        <router-link :to="{ name: 'pending'}" class="question-details__close pointer">
+        <a v-on:click="goBack()" class="question-details__close pointer">
           <svg version="1.1" viewBox="0 0 448 256" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
               <g fill="#4A4A4A" fill-rule="nonzero">
@@ -14,7 +14,7 @@
               </g>
             </g>
           </svg>
-        </router-link>
+        </a>
         <div class="question-details__profile">
           <p class="m0">All Responses</p>
         </div>
@@ -56,6 +56,8 @@ import Question from "../models/Question";
 import Answer from "../models/Answer";
 import Vote from "../models/Vote";
 import { configure } from "radiks";
+import { NavMixin } from "../mixins/NavMixin.js";
+
 import moment from "moment";
 
 export default {
@@ -71,6 +73,8 @@ export default {
       records_loaded: false
     };
   },
+    mixins: [NavMixin],
+
 
   mounted() {},
 
@@ -83,7 +87,7 @@ export default {
       this.answers = await Answer.fetchList({ question_id: this.qid });
 
       var votes = await Vote.fetchList(
-        { question_id: this.qid, deleted: false },
+        { question_id: this.qid },
         { decrypt: false }
       );
 
@@ -97,26 +101,18 @@ export default {
 
       this.records_loaded = true;
 
-      console.log(votes);
     },
 
     selectAnswer(answer_id) {
       this.answer_id = answer_id;
     },
 
-    saveChosenAnswer() {
-      var formData = {
-        question_id: this.question_id,
-        answer_id: this.answer_id
-      };
-      this.$http.post("/set_chosen_answer", formData).then(
-        response => {
-          location.href = `/pending/${this.question_id}/${this.answer_id}`;
-        },
-        response => {
-          alert("error submitting");
-        }
-      );
+    async saveChosenAnswer() {
+      this.question.update({manually_chosen_as_top: this.answer_id});
+      await this.question.save();
+      this.$router.replace({ name: 'viewpanswers', params: { qid: this.qid, top_a: this.answer_id } })
+      
+      //location.href=`/pending/${this.question_id}/${this.answer_id}`
     },
      formatDate(dt) {
       return  moment.unix(dt).format("MM/DD/YYYY")

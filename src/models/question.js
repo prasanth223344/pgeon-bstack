@@ -15,7 +15,12 @@ export default class Question extends Model {
     },
 
     accepted_answer: {
-      type: Number,
+      type: String,
+      decrypted: true,
+    },
+    
+    accepted_user: {
+      type: String,
       decrypted: true,
     },
     
@@ -30,7 +35,7 @@ export default class Question extends Model {
     },
 
     manually_chosen_as_top: {
-      type: Number,
+      type: String,
       decrypted: true,
     }
     
@@ -38,9 +43,9 @@ export default class Question extends Model {
     
   }
 
-  static defaults = {
-    accepted_answer: 0
-  }
+  // static defaults = {
+  //   accepted_answer: null
+  // }
   
 
 }

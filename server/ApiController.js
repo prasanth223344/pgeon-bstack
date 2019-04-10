@@ -65,6 +65,52 @@ const makeApiController = (db) => {
     res.json(results);
   });
 
+
+
+
+
+
+  Router.deleteAsync('/answer/:id', async (req, res) => {
+
+     await radiksData.remove(
+      { radiksType: 'Vote',
+        answer_id: req.params.id
+      }
+      )
+
+      await radiksData.remove(
+        { radiksType: 'Answer',
+          _id: req.params.id
+        }
+      )
+
+    res.send('success');
+  })
+
+
+  Router.deleteAsync('/question/:id', async (req, res) => {
+
+     await radiksData.remove(
+      { radiksType: 'Question',
+        _id: req.params.id
+      }
+      )
+
+     await radiksData.remove(
+      { radiksType: 'Vote',
+        question_id: req.params.id
+      }
+      )
+
+      await radiksData.remove(
+        { radiksType: 'Answer',
+        question_id: req.params.id
+        }
+      )
+
+    res.send('success');
+  })
+
   // Router.getAsync('/user/:username', async (req, res) => {
   //   const { username } = req.params;
   //   let user = await radiksData.findOne({

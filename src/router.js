@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import allq from './components/AllQ.vue';
+import allr from './components/AllR.vue';
 import ask from './components/Ask.vue';
 import people from './components/Follow.vue';
 import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
 import live from './components/Live.vue';
 import pending from './components/Pending.vue';
+import friendship from './components/Friendship.vue';
+import published from './components/Published.vue';
+import profile from './components/Profile.vue';
 import viewpanswers from './components/ViewAllPendingAnswers.vue';
 
 
@@ -52,9 +56,29 @@ export default new Router({
       component: pending
     },
     {
+      path: '/r/:q_by/:a_by',
+      name: 'friendship',
+      component: friendship
+    },
+    {
+      path: '/responses',
+      name: 'responses',
+      component: allr
+    },
+    {
+      path: '/published',
+      name: 'published',
+      component: published
+    },
+    {
       path: '/pending/:qid/:top_a',
       name: 'viewpanswers',
       component: viewpanswers
+    },
+    {
+      path: '/u/:id',
+      name: 'profile',
+      component: profile
     },
 
   ]

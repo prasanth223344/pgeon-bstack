@@ -355,20 +355,10 @@ export default {
     },
 
     delete_answer: async function(id) {
-      var rec = await Vote.fetchList({ answer_id: id, deleted: false });
 
-
-      for await (let r of rec) {
-
-        var voteModel = await Vote.findById(r._id);
-
-        voteModel.update({deleted: true});
-
-        const answer = await Answer.findById(id);
-        await voteModel.save();
-        await answer.destroy();
-
-      }
+      this.users = await axios.delete(
+          `answer/${id}`
+        );
 
 
        location.reload();
@@ -384,7 +374,6 @@ export default {
       var rec = await Vote.fetchList({
         answer_id: answer_id,
         user_id: this.current_user.username,
-        deleted: false
       });
 
       if (rec[0] && rec[0]._id) {
@@ -414,7 +403,6 @@ export default {
     async getVoteCount() {
       var rec = await Vote.fetchList({
         question_id: this.question_id,
-        deleted: false
       });
       this.vote_count = rec.length;
     },
@@ -427,7 +415,7 @@ export default {
       );
 
       this.votes_count = await Vote.fetchList(
-        { question_id: this.question._id, deleted: false },
+        { question_id: this.question._id },
         { decrypt: false }
       );
 
@@ -447,7 +435,6 @@ export default {
         {
           question_id: this.question._id,
           user_id: this.current_user.username,
-          deleted: false
         },
         { decrypt: false }
       );

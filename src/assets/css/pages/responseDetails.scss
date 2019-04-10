@@ -3,8 +3,8 @@
   align-items: center;
   > img {
     position: relative;
-    width: 36px;
-    height: 36px;
+    width: 36px !important;
+    height: 36px !important;
   }
   > img:first-child {
     left: 5px;
@@ -13,6 +13,16 @@
     left: -5px;
     z-index: 2;
   }
+
+  /* edited by press **/
+  .vue-avatar--wrapper:first-child {
+    position: relative;
+    left: 5px;
+  }
+
+  .vue-avatar--wrapper:nth-child(2) {
+    position: relative;
+    left: -5px;
+  }
+
 }
-
-

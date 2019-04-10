@@ -40,6 +40,22 @@ export var BlockstackMixin = {
 							}
 						});
 				},
+
+
+				loadIndivProfilePic: async function(user_id) {
+					var pf = await this.blockstack.lookupProfile(user_id);
+							if (
+								pf &&
+								typeof pf.image !== "undefined" &&
+								pf.image[0]["contentUrl"]
+							) {
+								console.log(pf.image[0]["contentUrl"]);
+								
+								return pf.image[0]["contentUrl"];
+							}
+
+							return null;
+				}
 				
 	    
     }

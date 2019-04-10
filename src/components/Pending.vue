@@ -37,14 +37,8 @@
               action-text="Deleting"
             >Delete</longpress>
 
-            <form
-              v-if="pick_best_scenario_answer_for_questions[question.attrs._id]"
-              method="post"
-              id="publish_form"
-              action="/accept_answer"
-            >
-              <button type="submit" class="btn pub ml20p">Publish</button>
-            </form>
+           
+              <button v-if="pick_best_scenario_answer_for_questions[question.attrs._id]" v-on:click="publish(question.attrs)" class="btn pub ml20p">Publish</button>
           </div>
         </div>
         <div>&nbsp;</div>
@@ -86,27 +80,42 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    deleteQ: function deleteQ(id) {
-      alert("delete that q");
-      // this.$http.delete('/question/' + id).then(function (response) {
-      // 	location.href = "/pending";
-      // }, function (response) {});
+    deleteQ: async function(id) {
+
+      this.users = await axios.delete(
+                `question/${id}`
+              );
+
+      location.reload();
+
+
     },
 
     //callback
     redirect: function(id) {
       this.$router.push({ name: "qdetails", params: { id: id } });
 
-      //alert('reload called')
-      //location.reload();
+    },
+
+    async publish(attrs) {
+      var res = this.displayChosenOrTopAnswer(attrs)
+       var qModel = await Question.findById(attrs._id);
+
+       qModel.update({accepted_answer: res._id, accepted_user: res.user_id  });
+       //  qModel.update({last_event_fired: 'question_ended'});
+          await qModel.save()
+
+       location.reload();
+
     },
 
     displayChosenOrTopAnswer(attrs) {
 
+
       //wait for load
       // if (!this.records_loaded) return;
       if (attrs.manually_chosen_as_top) {
-        return this.answers_for_qs[attrs._id].attrs;
+        return this.all_answers[attrs.manually_chosen_as_top].attrs;
       } else {
         //if it has some ans and votes
         if (this.qs_with_ans_and_vote_count[attrs._id]) {
@@ -143,7 +152,7 @@ export default {
     async fetchRecords() {
       this.questions = await Question.fetchOwnList({
         expiring_at: { $lt: moment().unix() },
-        accepted_answer: 0
+         accepted_answer: { $exists: false } 
       });
       var q_ids = new Array();
       this.questions.forEach(q => q_ids.push(q._id));
@@ -159,7 +168,7 @@ export default {
       });
 
       var votes = await Vote.fetchList(
-        { question_id: q_ids.join(","), deleted: false },
+        { question_id: q_ids.join(",") },
         { decrypt: false }
       );
 
@@ -189,12 +198,7 @@ export default {
           q._id
         ] = this.displayChosenOrTopAnswer(q.attrs);
       });
-      console.log(this.pick_best_scenario_answer_for_questions);
-      //
 
-      // console.log(this.qs_with_ans_and_vote_count);
-
-      //this.questions
 
       this.records_loaded = true;
     }
