@@ -34,7 +34,7 @@
         <div class="open-question__right">
           <span class="open-question__meta">
 						    <router-link class="open-question__author" :to="{ name: 'friendship', params: { q_by: question.q.attrs.user_id, a_by: all_answers[question.q.attrs.accepted_answer].user_id }}" >{{question.q.attrs.user_id}} ← {{all_answers[question.q.attrs.accepted_answer].user_id}}</router-link>
-            <span class="open-question__time">question.ago</span>
+            <span class="open-question__time">{{ago(question.q.attrs.expiring_at)}}</span>
           </span>
         <div class="q-bubble-container q-bubble-container--clickable mt5p">
         <div class="q-bubble qa-item ">
@@ -159,6 +159,10 @@ export default {
       location.href = "question/" + id;
     },
 
+    ago(ms) {
+      
+return moment.unix(ms).fromNow()
+    },
     //will be called from timer comp
     deleteQ: function(id) {
       let i = 0;

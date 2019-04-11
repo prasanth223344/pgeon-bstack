@@ -6,11 +6,11 @@
       >
 
         <span class="back-arrow dib">
-                    <router-link class="dib" :to="{ path: '/' }">
+                    <a v-on:click="goBack()" class="dib">
 
           <!-- <a v-on:click="goBack()" > -->
             <img width="22" height="22" src="../../assets/img/svg/long-arrow-left.svg">
-          </router-link>
+          </a>
         </span>
         
         <span class="header-right__icons">

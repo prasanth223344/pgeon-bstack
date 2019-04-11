@@ -29,62 +29,62 @@
     </div>
 
     <main class="mw6 m-auto people-main">
-
-<div  v-bind:class="{ 'hidden': (this.current_tab != 'iam_following') }">
-    <div class="people-item" v-for="item in iam_following" >
-      <div>
-            <avatar :size="36"  :src="item.profile_pic"  :username="item.user_id" ></avatar>
-        <div class="people-item__info">
-          <h4>{{ item.user_id }}</h4>
-          <span> item.last_posted </span>
+      <div v-bind:class="{ 'hidden': (this.current_tab != 'iam_following') }">
+        <div class="people-item" v-for="item in iam_following_formatted">
+          <div>
+            <avatar :size="36" :src="item.profile_pic" :username="item.user_id"></avatar>
+            <div class="people-item__info">
+              <h4>{{ item.user_id }}</h4>
+              <span>item.last_posted</span>
+            </div>
+          </div>
+          <button
+            v-if="isExistsinUndo(item.user_id)"
+            v-on:click="followNoUpdate(item.user_id)"
+            class="follow-button"
+          >
+            <span>Follow</span>
+            <!-- following is the `active` state -->
+          </button>
+          <button
+            v-else
+            v-on:click="unfollowNoUpdate(item.user_id)"
+            class="follow-button follow-button--active"
+          >
+            <!-- following is the `active` state -->
+            <span>Following</span>
+          </button>
         </div>
       </div>
-        <button v-if="isExistsinUndo(item.user_id)" v-on:click="followNoUpdate(item.user_id, $event)"  class="follow-button">
-     
 
-                                       
-        <span>Follow</span>
-        <!-- following is the `active` state -->
-      </button>
-      <button v-else v-on:click="unfollowNoUpdate(item.user_id)" class="follow-button follow-button--active">
-        <!-- following is the `active` state -->
-        <span>Following</span>
-      </button>
-
-    </div>
-
-</div>
-
-
-
-<div v-bind:class="{ 'hidden': (this.current_tab == 'iam_following') }">
- <div class="people-item" v-for="item in my_followers_temp" >
-      <div>     
-                <!-- <avatar :size="36"	:src="item.profile_pic"  :username="item.user_id" ></avatar>  -->
-                <avatar :size="36"  :src="item.profile_pic"  :username="item.user_id" ></avatar>
-
-        <div class="people-item__info">
-          <h4>{{ item.user_id }}</h4>
-          <span> item.last_posted </span>
+      <div v-bind:class="{ 'hidden': (this.current_tab == 'iam_following') }">
+        <div class="people-item" v-for="item in my_followers_temp">
+          <div>
+            <!-- <avatar :size="36"	:src="item.profile_pic"  :username="item.user_id" ></avatar>  -->
+            <avatar :size="36" :src="item.profile_pic" :username="item.user_id"></avatar>
+            <div class="people-item__info">
+              <h4>{{ item.user_id }}</h4>
+              <span>item.last_posted</span>
+            </div>
+          </div>
+          <button
+            v-if="!isExistsinFollowing(item.user_id)"
+            v-on:click="follow(item.user_id)"
+            class="follow-button"
+          >
+            <span>Follow</span>
+            <!-- following is the `active` state -->
+          </button>
+          <button
+            v-else
+            v-on:click="unfollowNoUpdate(item.user_id)"
+            class="follow-button follow-button--active"
+          >
+            <!-- following is the `active` state -->
+            <span>Following</span>
+          </button>
         </div>
       </div>
-      <button v-if="!isExistsinFollowing(item.user_id)" v-on:click="follow(item.user_id, $event)"  class="follow-button">
-     
-
-                                       
-        <span>Follow</span>
-        <!-- following is the `active` state -->
-      </button>
-       <button  v-else v-on:click="unfollowNoUpdate(item.user_id)"  class="follow-button follow-button--active">
-        <!-- following is the `active` state -->
-        <span>Following</span>
-      </button>
-
-    </div>
-</div>
-
-
-      
     </main>
   </div>
 </template>
@@ -100,12 +100,16 @@ import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
 
 import Following from "../models/Following";
 
+
 export default {
   data: function() {
     return {
       iam_following: [],
+      //this will hold model..not array
+      iam_following_formatted: [],
       //this is used for holding i_am folliwing temporarily so it can reflect in i_am_follwing tab during undoing purpose
       temp_iam_following: [],
+
       my_followers: [],
       iam_following_count: 0,
       my_followers_count: 0,
@@ -132,7 +136,6 @@ export default {
   mixins: [BlockstackMixin],
 
   methods: {
-   
     setcurrenttab(tab) {
       this.current_tab = tab;
       this.sort();
@@ -148,35 +151,38 @@ export default {
       //     });
       // }
     },
-    async fetchData() {
-      configure(this.RADIKS_SERVER);
-
+    async assignVals(include_i_am_following) {
       this.my_followers = await Following.fetchList(
         { user_id: this.current_user.username },
         { decrypt: false }
       );
 
-      this.temp_iam_following = this.iam_following = await Following.fetchList(
+      var recs = await Following.fetchList(
         { followed_by: this.current_user.username },
         { decrypt: false }
       );
 
+      if (include_i_am_following) {
+        this.iam_following = recs;
 
-      this.iam_following_count = this.iam_following.length;
+      }
+
+
+      this.temp_iam_following = recs;
+        this.iam_following_count = this.temp_iam_following.length;
+
       this.my_followers_count = this.my_followers.length;
 
       var formatted_us = [];
       for (var i = 0; i < this.my_followers.length; i++) {
-
         formatted_us.push({
-          user_id: this.my_followers[i].attrs.user_id,
-          profile_pic: null
+          user_id: this.my_followers[i].attrs.followed_by,
+          profile_pic: null,
+
         });
       }
 
       this.my_followers = formatted_us;
-
-
 
       var formatted_us = [];
       for (var i = 0; i < this.iam_following.length; i++) {
@@ -188,32 +194,33 @@ export default {
         });
       }
 
-      this.iam_following = formatted_us;
+      this.iam_following_formatted = formatted_us;
       this.my_followers_temp = this.my_followers;
-      this.iam_following.forEach(o => this.loadProfilePic(o.user_id, this.iam_following));
+      this.iam_following_formatted.forEach(o =>
+        this.loadProfilePic(o.user_id, this.iam_following)
+      );
       // this.my_followers1.forEach(o => this.loadProfilePic(o.user_id, this.my_followers1));
-       this.my_followers_temp.forEach(o => this.loadProfilePic(o.user_id, this.my_followers_temp));
+      this.my_followers_temp.forEach(o =>
+        this.loadProfilePic(o.user_id, this.my_followers_temp)
+      );
 
       this.sort();
     },
+    async fetchData() {
+      configure(this.RADIKS_SERVER);
+      this.assignVals(true);
+    },
 
     fetchDataNoUpdate() {
-      $.getJSON(
-        "/followers",
-        function(response) {
-          this.temp_iam_following = response.iam_following;
-          //   this.my_followers = response.my_followers;
-          this.iam_following_count = response.iam_following_count;
-          this.my_followers_count = response.my_followers_count;
-          this.sort();
-          // console.log(response.iam_following_count)
-        }.bind(this)
-      );
+      this.assignVals(false);
     },
 
     isExistsinFollowing(user_id) {
+      
+   //   console.log(this.temp_iam_following);
+      
       for (var k in this.temp_iam_following) {
-        if (user_id == this.temp_iam_following[k].user_id) return true;
+        if (user_id == this.temp_iam_following[k].attrs.user_id) return true;
       }
       return false;
     },
@@ -237,72 +244,63 @@ export default {
         }
       );
     },
-    follow: function(id, event) {
+    follow: async function(id) {
       //  $.post('follow',  )
       //  $(event.target).children().remove()
-      var formData = {
-        user_id: id
-      };
-      this.$http.post("/follow", formData).then(
-        response => {
+      		const follow = new Following({
+						user_id: id,
+						followed_by: this.current_user.username
+		
+					});
+          await follow.save();
+          
           this.fetchData();
           // success callback
-        },
-        response => {
-          console.log(response);
-          // error callback
-        }
-      );
+       
     },
 
     unfollow: function(id) {
-      //  $.post('unfollow',  )
-      var formData = {
-        user_id: id
-      };
-      this.$http.post("/unfollow", formData).then(
-        response => {
-          this.fetchData();
-        },
-        response => {}
-      );
+      console.log(id);
+
+      // this.$http.post("/unfollow", formData).then(
+      //   response => {
+      //     this.fetchData();
+      //   },
+      //   response => {}
+      // );
     },
 
     ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
-    unfollowNoUpdate: function(id) {
+    unfollowNoUpdate: async function(id) {
       //  $.post('unfollow',  )
-      var formData = {
-        user_id: id
-      };
-      this.$http.post("/unfollow", formData).then(
-        response => {
-          this.unfollwed_undo.push(id);
-          this.fetchDataNoUpdate();
-        },
-        response => {}
-      );
+
+      var rec = await Following.fetchList({
+        user_id: id,
+        followed_by: this.current_user.username
+      });
+
+      await rec[0].destroy();
+      this.unfollwed_undo.push(id);
+      this.fetchDataNoUpdate();
+      return false;
     },
 
-    followNoUpdate: function(id, event) {
+    followNoUpdate: async function(id, event) {
       //  $.post('follow',  )
       //  $(event.target).children().remove()
-      var formData = {
-        user_id: id
-      };
-      this.$http.post("/follow", formData).then(
-        response => {
+     const follow = new Following({
+						user_id: id,
+						followed_by: this.current_user.username
+		
+					});
+          await follow.save();
+          
           this.fetchDataNoUpdate();
+
           //this.unfollwed_undo.push(id)
           this.unfollwed_undo = this.unfollwed_undo.filter(e => e !== id);
-          console.log(this.unfollwed_undo);
-
-          // success callback
-        },
-        response => {
-          console.log(response);
-          // error callback
-        }
-      );
+         
+     
     }
   }
 };

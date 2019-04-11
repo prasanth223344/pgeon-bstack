@@ -9,7 +9,8 @@
           <div class="empty-notifications">
             <p class="m0">
               <span>💬</span>
-              <span>There are currently no
+              <span>
+                There are currently no
                 <br>questions to display
               </span>
             </p>
@@ -22,31 +23,33 @@
       <div class="p-b-15" v-for="(user_qs) in questions">
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
           <div class="open-question__left">
-            <a v-if="index==0">
+            <router-link :to="{ name: 'profile', params: { id:  user_qs.user_id}}" v-if="index==0">
               <avatar :size="42" :src="user_qs.profile_pic" :username="user_qs.user_id"></avatar>
 
               <!-- {{ loadProfilePic(question.q.attrs.user_id) }} -->
-            </a>
+            </router-link>
             <div v-else class="avatar-occupy"></div>
           </div>
           <div class="open-question__right">
-             <div class="open-question__meta" v-if="index==0">
-            <a :href="'#'" class="open-question__author">{{user_qs.user_id}}</a>
+            <div class="open-question__meta" v-if="index==0">
+              <a :href="'#'" class="open-question__author">{{user_qs.user_id}}</a>
 
-            <span class="open-question__time">
+              <span class="open-question__time">
+                <allqtimer
+                  :initial="question.q.attrs.expiring_at"
+                  :question_id="question.q.attrs._id"
+                  @event="deleteQ"
+                ></allqtimer>
+              </span>
+            </div>
 
-              <allqtimer :initial="question.q.attrs.expiring_at"
-								:question_id="question.q.attrs._id" @event="deleteQ"></allqtimer>
-
+            <span
+              v-on:click="redirect(question.q.attrs._id)"
+              class="open-question__content selected mt5p m0 cp"
+            >
+              <p>{{question.q.attrs.question}}</p>
             </span>
           </div>
-
- <span v-on:click="redirect(question.q.attrs._id)"  class="open-question__content selected mt5p m0 cp">
-            <p> {{question.q.attrs.question}}</p>
-          </span>
-
-          </div>
-          
         </div>
       </div>
 
@@ -70,42 +73,36 @@
       </ul>
 
       <div class="FAB-button__container mw6 m-auto">
-
-          <router-link :to="{ path: 'my-questions'  }"  class="FAB-button" v-if="current_user">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <router-link :to="{ path: 'my-questions'  }" class="FAB-button" v-if="current_user">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path
               d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"
             ></path>
           </svg>
-</router-link>
-
-        
+        </router-link>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-
 import { configure } from "radiks";
 import Question from "../models/Question";
 import { User } from "radiks";
 import Avatar from "vue-avatar";
-import Headerhome from './shared/HeaderHome.vue'
-import moment from 'moment';
+import Headerhome from "./shared/HeaderHome.vue";
+import moment from "moment";
 
 //Vue.component('headerwithprofile', require('./components/shared/HeaderWithProfile.vue'));
 
-
 import { CommonMixin } from "../mixins/CommonMixin.js";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
-
 
 export default {
   data: function() {
     return {
       questions: {},
-      still_deciding_count: true,
+      still_deciding_count: true
     };
   },
 
@@ -160,15 +157,13 @@ export default {
       }
     },
 
-
-
     loadQs: async function() {
       $(".up50").removeClass("up50");
       $(window).bind("scroll", this.handleScroll);
 
       configure(this.RADIKS_SERVER);
       var qs = await Question.fetchList(
-        { user_id: { $exists: true } , expiring_at: { $gt: moment().unix() }   },
+        { user_id: { $exists: true }, expiring_at: { $gt: moment().unix() } },
         { decrypt: false }
       );
 
@@ -198,8 +193,6 @@ export default {
 
       this.questions = formatted_qs;
 
-
-
       this.still_deciding_count = false;
 
       $(".spinner").remove();
@@ -214,13 +207,14 @@ export default {
         this.still_deciding_count = false;
       }
 
-
-      this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
+      this.questions.forEach(o =>
+        this.loadProfilePic(o.user_id, this.questions)
+      );
     }
   },
 
   mounted() {
-//    this.$toaster.info('Your toaster info message.')
+    //    this.$toaster.info('Your toaster info message.')
 
     this.loadQs();
     //if this is empty even after .push?
@@ -229,7 +223,8 @@ export default {
     //  }
   },
   components: {
-    Avatar, Headerhome
+    Avatar,
+    Headerhome
   }
 };
 </script>

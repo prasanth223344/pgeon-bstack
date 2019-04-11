@@ -49,10 +49,26 @@
             <span>$value['obj']->last_posted</span>
           </div>
         </div>
-        <button class="follow-button follow" v-on:click="follow(user.user_id)">
-          <span>Follow</span>
-          <!-- following is the `active` state -->
-        </button>
+
+  <button
+            v-if="!isExistsinFollowing(user.user_id)"
+            v-on:click="follow(user.user_id)"
+            class="follow-button"
+          >
+            <span>Follow</span>
+            <!-- following is the `active` state -->
+          </button>
+          <button
+            v-else
+            v-on:click="unfollow(user.user_id)"
+            class="follow-button follow-button--active"
+          >
+            <!-- following is the `active` state -->
+            <span>Following</span>
+          </button>
+
+
+     
       </div>
       <div v-else class="empty-notifications">
         <p class="m0">
@@ -74,7 +90,7 @@ import Headerwithback from "./shared/HeaderWithBack.vue";
 import { User } from "radiks";
 import moment from "moment";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
-import {FollowMixin} from "../mixins/FollowMixin.js";
+import Following from "../models/Following";
 
 
 export default {
@@ -95,9 +111,48 @@ export default {
     Avatar,
     Headerwithback
   },
-  mixins: [BlockstackMixin, FollowMixin],
+  mixins: [BlockstackMixin],
 
   methods: {
+
+   isExistsinFollowing(user_id) {
+      
+   //   console.log(this.temp_iam_following);
+      
+      for (var k in this.temp_iam_following) {
+        if (user_id == this.temp_iam_following[k].attrs.user_id) return true;
+      }
+      return false;
+    },
+    
+       follow: async function(id) {
+      //  $.post('follow',  )
+      //  $(event.target).children().remove()
+      		const follow = new Following({
+						user_id: id,
+						followed_by: this.current_user.username
+		
+					});
+          await follow.save();
+          
+          this.search();
+          // success callback
+       
+    },
+
+        ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
+    unfollow: async function(id) {
+      //  $.post('unfollow',  )
+
+      var rec = await Following.fetchList({
+        user_id: id,
+        followed_by: this.current_user.username
+      });
+
+      await rec[0].destroy();
+      this.search();
+      return false;
+    },
 
 
     async search() {
@@ -120,7 +175,13 @@ export default {
           });
         }
 
-        console.log(formatted_us);
+ var recs = await Following.fetchList(
+        { followed_by: this.current_user.username },
+        { decrypt: false }
+      );
+              this.temp_iam_following = recs;
+
+
 
         this.results = formatted_us;
         //  console.log(this.results);
