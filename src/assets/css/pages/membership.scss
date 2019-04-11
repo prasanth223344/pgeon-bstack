@@ -29,7 +29,7 @@
 }
 
 .subscription-info__upgrade {
-  color: #33cccc;
+  color: #3cc;
   font-size: 14px;
 }
 
@@ -82,13 +82,13 @@
   display: inline-block;
 }
 
-.payment-method-icon-img {
+.payment-method-icon-svg {
   margin-right: 11px;
-  img {
+  svg {
   }
 }
 
-.payment-method-icon-card > img {
+.payment-method-icon-card > svg {
   fill: #707070;
 }
 
@@ -97,7 +97,7 @@
 .payment-card-details,
 .redeem-code-container,
 .card-actions {
-  margin-bottom: 20px;
+  // max-width: 400px;
 }
 .payment-card-info > div:nth-child(1) {
   margin-right: 10px;
@@ -144,13 +144,13 @@
   }
 
   input:checked + span {
-    background-color: #33cccc;
+    background-color: #3cc;
     &::after {
       display: inline-block;
     }
   }
 }
-.payment-method-visa > img {
+.payment-method-visa > svg {
   width: 30px;
   height: 20px;
 }
@@ -159,19 +159,19 @@
   width: 100%;
   text-align: center;
   height: 56px;
-  border: 2px solid #33cccc;
-  color: #33cccc;
+  border: 2px solid #3cc;
+  color: #3cc;
   margin-bottom: 20px;
+  font-weight: 600;
   transition: all 0.3s ease;
   &:hover {
-    background-color: #33cccc;
+    background-color: #3cc;
     color: white;
   }
 }
 
 .redeem-code-container,
 .payment-card-container {
-  display: none;
 }
 
 .ovals {
@@ -204,8 +204,8 @@
   color: #9b9b9b;
 }
 .edit-card-save {
-  border: 1px solid #33cccc;
-  background-color: #33cccc;
+  border: 1px solid #3cc;
+  background-color: #3cc;
   color: #fff;
 }
 
@@ -214,7 +214,7 @@
 }
 
 #track-set-primary:checked + .edit-card-set-primary {
-  color: #33cccc;
+  color: #3cc;
 }
 
 .edit-card-set-primary {
@@ -237,4 +237,40 @@
     height: 34px;
     border: 1px solid rgba(151, 151, 151, 0.3);
   }
+}
+
+
+/* added by press **/
+
+.link {
+  color: #3cc;
+  font-size:14px;
+  cursor: pointer;
+}
+
+.cancel-membership {
+  color: #9b9b9b;
+  font-size:14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.vue-avatar--wrapper {
+  display: inline-block;
+  background-color: rgba(83,101,112,.05) !important;
+  font-family: 'Open Sans', sans-serif !important;
+  text-transform: uppercase !important;
+  color: rgba(151,151,151,.43) !important;
+  font-weight: bolder !important;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.avatar-dummy-h {
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  border-radius: 50%;
 }

@@ -7,6 +7,10 @@ import store from './store'
 
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
+import Toaster from 'v-toaster'
+import 'v-toaster/dist/v-toaster.css'
+Vue.use(Toaster, {timeout: 3000})
+
  
 window.blockstack = require('blockstack')
 window.axios = require('axios');

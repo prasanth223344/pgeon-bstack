@@ -220,6 +220,8 @@ export default {
   },
 
   mounted() {
+//    this.$toaster.info('Your toaster info message.')
+
     this.loadQs();
     //if this is empty even after .push?
     //  if (this.questions.length < 1) {

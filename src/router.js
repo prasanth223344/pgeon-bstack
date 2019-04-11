@@ -8,6 +8,8 @@ import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
 import live from './components/Live.vue';
 import pending from './components/Pending.vue';
+import account from './components/Account.vue';
+import preferences from './components/Preferences.vue';
 import friendship from './components/Friendship.vue';
 import published from './components/Published.vue';
 import profile from './components/Profile.vue';
@@ -79,6 +81,16 @@ export default new Router({
       path: '/u/:id',
       name: 'profile',
       component: profile
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: account
+    },
+    {
+      path: '/preferences',
+      name: 'preferences',
+      component: preferences
     },
 
   ]

@@ -12,45 +12,40 @@
           <div class="iframe-container">
 
             
-            <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
+            <avatar :size="80" :src="profile_pic" :username="current_user.username"></avatar>
 
             
           </div>
           <h1>  {{ current_user.username}}</h1>
           <div class="profile-url">
             <p class="m0 flex">
-              <span class="flex1">www.pgeon.com/{{current_user.username}}</span>
+              <span class="flex1">www.pgeon.com/u/{{current_user.username}}</span>
               <input class="user-slug-input" value disabled>
             </p>
 
-            <span class="edit-icon">
-              <div class="edit-icon-pencil">
-                <img src="../assets/img/svg/pencil.svg">
-              </div>
-              <div class="edit-icon-times">
-                <img src="../assets/img/svg/times.svg">
-              </div>
-            </span>
+          
           </div>
         </div>
       </div>
       <div class="pt24p">
         <ul class="ul-ls">
           <li>
-            <a href="my-account" class="mw6 m-auto pl15 pr15">
+                    <router-link class="mw6 m-auto pl15 pr15" :to="{ path: '/account'  }">
+
               <span>My Account</span>
               <img src="../assets/img/svg/chevron-right.svg">
-            </a>
+            </router-link>
             <span class="m-auto mw6 db">
               <div class="border-trimmed"></div>
             </span>
           </li>
 
           <li>
-            <a href="/preferences" class="mw6 m-auto pl15 pr15">
+                    <router-link class="mw6 m-auto pl15 pr15" :to="{ path: '/preferences'  }">
+
               <span>Preferences</span>
               <img src="../assets/img/svg/chevron-right.svg">
-            </a>
+            </router-link>
             <span class="m-auto mw6 db">
               <div class="border-trimmed"></div>
             </span>
