@@ -5,7 +5,7 @@
     <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
       <div class="open-question__right">
         <div class="open-question__meta">
-          <span class="open-question__author">question_user_slug</span>
+          <span class="open-question__author">{{question.user_id}}</span>
           <span class="open-question__time">
             <allqtimer
               :initial="parseInt(question.expiring_at)"
@@ -88,11 +88,7 @@
             >
               <!-- <img src="/assets/img/sprites/solid.svg" /> -->
 
-              <svg
-                class="caret-up"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-              >
+              <svg class="caret-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                 <path
                   d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
                 ></path>
@@ -110,11 +106,7 @@
                 class="v_count"
                 v-bind:class="{ 'vote-up': checkVoted(answer.attrs._id) == 1,  'vote-down': checkVoted(answer.attrs._id) == -1 }"
               >{{(votes_for_answers[answer.attrs._id])?votes_for_answers[answer.attrs._id]:0 }}</div>
-              <svg
-               class="caret-down"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-              >
+              <svg class="caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                 <path
                   d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
                 ></path>
@@ -268,13 +260,11 @@ export default {
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
 
-  console.log(
-   $icon.hasClass("vote-up"))
-  console.log('shoo here');
+      console.log($icon.hasClass("vote-up"));
+      console.log("shoo here");
       if ($icon.hasClass("vote-up")) {
-        console.log('shoo in');
+        console.log("shoo in");
 
-        
         $icon.removeClass("vote-up") && this.castVote(answer_id, 0);
         // this.answers[i].vote_count = this.answers[i].vote_count - 1;
         this.votes_for_answers[answer_id] -= 1;
@@ -355,15 +345,10 @@ export default {
     },
 
     delete_answer: async function(id) {
+      this.users = await axios.delete(`answer/${id}`);
 
-      this.users = await axios.delete(
-          `answer/${id}`
-        );
-
-
-       location.reload();
+      location.reload();
     },
-
 
     castVote: async function(answer_id, vote) {
       // console.log(vote);
@@ -373,7 +358,7 @@ export default {
 
       var rec = await Vote.fetchList({
         answer_id: answer_id,
-        user_id: this.current_user.username,
+        user_id: this.current_user.username
       });
 
       if (rec[0] && rec[0]._id) {
@@ -402,7 +387,7 @@ export default {
 
     async getVoteCount() {
       var rec = await Vote.fetchList({
-        question_id: this.question_id,
+        question_id: this.question_id
       });
       this.vote_count = rec.length;
     },
@@ -419,8 +404,6 @@ export default {
         { decrypt: false }
       );
 
-      
-
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
 
@@ -434,7 +417,7 @@ export default {
       var my_votes = await Vote.fetchList(
         {
           question_id: this.question._id,
-          user_id: this.current_user.username,
+          user_id: this.current_user.username
         },
         { decrypt: false }
       );
@@ -523,27 +506,25 @@ export default {
       //console.log(answer);
     });
 
-
     Question.addStreamListener(question => {
       console.log(this.question._id);
-console.log(question.attrs._id);
-      if(question.attrs._id == this.question._id && question.attrs.last_event_fired == 'question_ended') {
-        console.log('reloading');
-        
-        window.location.reload()
+      console.log(question.attrs._id);
+      if (
+        question.attrs._id == this.question._id &&
+        question.attrs.last_event_fired == "question_ended"
+      ) {
+        console.log("reloading");
+
+        window.location.reload();
       }
-
-    })
-
+    });
 
     Vote.addStreamListener(vote => {
       // this callback will be called whenever a task is created or updated.
       // `task` is an instance of `Task`, and all methods are defined on it.
       // If the user has the necessary keys to decrypt encrypted fields on the model,
       // the model will be decrypted before the callback is invoked.
-
       //console.log(vote);
-
       // if (task.projectId === myAppsCurrentProjectPageId) {
       //   // update your view here with this task
       // }

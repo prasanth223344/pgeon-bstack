@@ -126,6 +126,7 @@
               </span>
             </div>
           </div>
+          
           <button @click="save" :disabled="!is_valid">Post Question</button>
         </div>
       </div>

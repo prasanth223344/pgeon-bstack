@@ -18,13 +18,13 @@
   padding-top: 2px;
 }
 
-.dropdown__icon > img {
+.dropdown__icon > svg {
   width: 8px;
   height: 13px;
   padding-top: 2px;
 }
 
-.landing__logo > img {
+.landing__logo > svg {
   width: 22px;
   height: 22px;
 }
@@ -140,7 +140,7 @@ to {height: 0px;opacity: 0;}
   height: 17px;
   margin-right: 5px;
   cursor: pointer;
-  img {
+  svg {
     width: 16px;
     height: 17px;
   }
@@ -278,7 +278,7 @@ to {height: 0px;opacity: 0;}
 }
 
 .header-bell {
-  img {
+  svg {
     width: 22px;
     height: 22px;
     fill: #4a4a4a;
@@ -289,7 +289,7 @@ to {height: 0px;opacity: 0;}
 }
 
 .header-followers {
-  img {
+  svg {
     width: 22px;
     height: 22px;
     fill: #4a4a4a;
@@ -323,7 +323,7 @@ $bsc: rgba(0, 0, 0, 0.16);
   padding: 3px 10px;
   border-radius: 4px;
   color: #fff;
-  img {
+  svg {
     width: 13px;
     height: 14px;
     fill: #fff;
@@ -331,7 +331,7 @@ $bsc: rgba(0, 0, 0, 0.16);
 }
 
 .premium-info {
-  img {
+  svg {
     width: 22px;
     height: 22px;
     fill: #536570;

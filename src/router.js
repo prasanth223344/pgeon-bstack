@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import allq from './components/AllQ.vue';
 import allr from './components/AllR.vue';
 import ask from './components/Ask.vue';
-import people from './components/Follow.vue';
+import people from './components/People.vue';
 import search from './components/Search.vue';
 import qdetails from './components/QDetails.vue';
 import live from './components/Live.vue';

@@ -32,7 +32,9 @@
           </div>
           <div class="open-question__right">
             <div class="open-question__meta" v-if="index==0">
-              <a :href="'#'" class="open-question__author">{{user_qs.user_id}}</a>
+                        <router-link class="open-question__author" :to="{ name: 'profile', params: { id:  user_qs.user_id}}" >
+
+              {{user_qs.user_id}}</router-link>
 
               <span class="open-question__time">
                 <allqtimer

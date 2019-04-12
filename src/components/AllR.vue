@@ -184,6 +184,8 @@ return moment.unix(ms).fromNow()
       var qs =  await Question.fetchList({
         expiring_at: { $lt: moment().unix() },
          accepted_answer: { $exists: true } 
+             
+
       });
 
       var user_qs = [];

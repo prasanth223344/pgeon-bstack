@@ -278,7 +278,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgba(151, 151, 151, 0.04);
-  img {
+  svg {
     width: 22px;
     height: 22px;
   }
@@ -307,26 +307,26 @@
     font-size: 14px;
     font-weight: normal;
   }
-  img {
+  svg {
     height: 30px;
     width: 30px;
     margin-right: 20px;
   } 
 }
 
-.details-share__item--fb img {
+.details-share__item--fb svg {
   fill: #3b5999;
 }
-.details-share__item--twitter img {
+.details-share__item--twitter svg {
   fill: #55acee;
 }
-.details-share__item--linkedin img {
+.details-share__item--linkedin svg {
   fill: #3b5999;
 }
-.details-share__item--reddit img {
+.details-share__item--reddit svg {
   fill: #ff5700;
 }
-.details-share__item--link img {
+.details-share__item--link svg {
   fill: #02b875;
 }
 

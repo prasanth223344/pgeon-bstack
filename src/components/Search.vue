@@ -21,7 +21,7 @@
           >
         </form>
 
-         <router-link :to="{ path: '/people' }">
+        <router-link :to="{ path: '/people' }" class="search-close">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
             <path
               d="M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"
@@ -46,34 +46,32 @@
 
           <div class="people-item__info">
             <h4>{{user.username}}</h4>
-            <span>$value['obj']->last_posted</span>
+            <span>{{user.last_posted}}</span>
           </div>
         </div>
 
-  <button
-            v-if="!isExistsinFollowing(user.user_id)"
-            v-on:click="follow(user.user_id)"
-            class="follow-button"
-          >
-            <span>Follow</span>
-            <!-- following is the `active` state -->
-          </button>
-          <button
-            v-else
-            v-on:click="unfollow(user.user_id)"
-            class="follow-button follow-button--active"
-          >
-            <!-- following is the `active` state -->
-            <span>Following</span>
-          </button>
-
-
-     
+        <button
+          v-if="!isExistsinFollowing(user.user_id)"
+          v-on:click="follow(user.user_id)"
+          class="follow-button"
+        >
+          <span>Follow</span>
+          <!-- following is the `active` state -->
+        </button>
+        <button
+          v-else
+          v-on:click="unfollow(user.user_id)"
+          class="follow-button follow-button--active"
+        >
+          <!-- following is the `active` state -->
+          <span>Following</span>
+        </button>
       </div>
       <div v-else class="empty-notifications">
         <p class="m0">
           <span>👽</span>
-          <span>uh oh! Looks like you searched
+          <span>
+            uh oh! Looks like you searched
             <br>for a mystery human!
           </span>
         </p>
@@ -91,7 +89,7 @@ import { User } from "radiks";
 import moment from "moment";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
 import Following from "../models/Following";
-
+import Question from "../models/Question";
 
 export default {
   data: function() {
@@ -114,33 +112,29 @@ export default {
   mixins: [BlockstackMixin],
 
   methods: {
+    isExistsinFollowing(user_id) {
+      //   console.log(this.temp_iam_following);
 
-   isExistsinFollowing(user_id) {
-      
-   //   console.log(this.temp_iam_following);
-      
       for (var k in this.temp_iam_following) {
         if (user_id == this.temp_iam_following[k].attrs.user_id) return true;
       }
       return false;
     },
-    
-       follow: async function(id) {
+
+    follow: async function(id) {
       //  $.post('follow',  )
       //  $(event.target).children().remove()
-      		const follow = new Following({
-						user_id: id,
-						followed_by: this.current_user.username
-		
-					});
-          await follow.save();
-          
-          this.search();
-          // success callback
-       
+      const follow = new Following({
+        user_id: id,
+        followed_by: this.current_user.username
+      });
+      await follow.save();
+
+      this.search();
+      // success callback
     },
 
-        ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
+    ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..
     unfollow: async function(id) {
       //  $.post('unfollow',  )
 
@@ -151,9 +145,29 @@ export default {
 
       await rec[0].destroy();
       this.search();
-      return false;
     },
+    		loadLastPosted: async function(user_id, target) {
 
+          //var pf = await this.blockstack.lookupProfile(user_id);
+             var rec = await Question.fetchList({
+              user_id: user_id,
+              limit: 1,
+              sort: '-createdAt'
+            });
+                
+					target
+						.filter(o => o.user_id === user_id)
+						.forEach(o => {
+              if(rec[0] && rec[0].attrs.createdAt)
+						 {
+								o.last_posted = moment.unix(rec[0].attrs.createdAt / 1000).fromNow()+'..';
+							}else {
+                o.last_posted = 'No Questions posted yet!'
+              }
+            });
+            
+
+				},
 
     async search() {
       if (this.q) {
@@ -162,7 +176,6 @@ export default {
           `search/${this.current_user.username}/${this.q}/`
         );
         results = this.users.data;
-        console.log(results);
 
         var formatted_us = [];
         for (var i = 0; i < results.length; i++) {
@@ -171,25 +184,25 @@ export default {
           formatted_us.push({
             user_id: results[i]._id,
             username: results[i].username,
-            profile_pic: null
+            profile_pic: null,
+            last_posted: null
           });
         }
 
- var recs = await Following.fetchList(
-        { followed_by: this.current_user.username },
-        { decrypt: false }
-      );
-              this.temp_iam_following = recs;
-
-
+        var recs = await Following.fetchList(
+          { followed_by: this.current_user.username },
+          { decrypt: false }
+        );
+        this.temp_iam_following = recs;
 
         this.results = formatted_us;
+
         //  console.log(this.results);
 
         this.results.forEach(o => this.loadProfilePic(o.user_id, this.results));
-      }
+        this.results.forEach(o => this.loadLastPosted(o.user_id, this.results));
 
-      
+      }
 
       //usernames
 

@@ -53,6 +53,8 @@ const makeApiController = (db) => {
         {
           
           radiksType: 'Question',
+          expiring_at: { $lt: Date.now()  },
+          accepted_answer:  { $exists: true},
           $or: [ { user_id: req.params.id }, { accepted_user: req.params.id } ],
 
         },

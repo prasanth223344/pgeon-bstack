@@ -49,8 +49,6 @@ export var BlockstackMixin = {
 								typeof pf.image !== "undefined" &&
 								pf.image[0]["contentUrl"]
 							) {
-								console.log(pf.image[0]["contentUrl"]);
-								
 								return pf.image[0]["contentUrl"];
 							}
 

@@ -17,7 +17,7 @@
 
           <router-link class="db header-followers pointer mr20p fc" :to="{ path: '/people' }">
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
-          </router-link
+          </router-link>
           <a href="/notifications" class="header-bell pointer mr20p fc">
             <span class="flex items-center relative">
               <span class="bell-notification-dot"></span>
@@ -26,7 +26,6 @@
           </a>
           
           <span
-            href="/user/profile-with-feeds"
             class="profile__image pointer slide-menu__trigger fc"
           >
             <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
