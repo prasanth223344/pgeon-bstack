@@ -217,7 +217,9 @@ export default {
 
   mounted() {
     //    this.$toaster.info('Your toaster info message.')
-
+    if(this.$route.path == '/nl') {
+      	this.$toaster.info('Please Sign in to continue')
+    }
     this.loadQs();
     //if this is empty even after .push?
     //  if (this.questions.length < 1) {

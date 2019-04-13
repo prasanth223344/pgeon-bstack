@@ -19,6 +19,8 @@ import AnswersPending from "./AnswersPending.vue";
 import moment from "moment";
 
 import { CommonMixin } from "../mixins/CommonMixin.js";
+import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
+
 
 export default {
   data: function() {
@@ -33,7 +35,7 @@ export default {
 
   components: {},
 
-  mixins: [CommonMixin],
+  mixins: [CommonMixin, BlockstackMixin],
 
   methods: {},
 

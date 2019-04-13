@@ -27,6 +27,12 @@ export default new Router({
       name: 'allq',
       component: allq
     },
+    //no login warning will be given if it is redirected here
+    {
+      path: '/nl',
+      name: 'nl',
+      component: allq
+    },
     {
       path: '/my-questions',
       name: 'ask',
