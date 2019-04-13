@@ -27,13 +27,9 @@ export default class Preference extends Model {
       type: Boolean,
       decrypted: true,
     },
-    
-   
+      
     
   }
-
-
-
   
 
 }

@@ -1,16 +1,15 @@
 import { Model } from 'radiks';
 
-export default class Vote extends Model {
-  static className = 'Vote'
+export default class Answer extends Model {
+  static className = 'Answer'
 
   static schema = {
-  
-    user_id: {
+    answer: {
       type: String,
       decrypted: true,
-    },
 
-    answer_id: {
+    },
+    user_id: {
       type: String,
       decrypted: true,
     },
@@ -19,21 +18,17 @@ export default class Vote extends Model {
       type: String,
       decrypted: true,
     },
-    
-    vote: {
+
+    manually_chosen_as_top: {
       type: Number,
       decrypted: true,
     },
 
-  
 
-
-
-    
   }
 
- 
 
-  
 
 }
+
+

@@ -20,10 +20,7 @@ export default class Following extends Model {
       decrypted: true,
     },
        
-
-    
+   
   }
 
-  
-
-}
+  }

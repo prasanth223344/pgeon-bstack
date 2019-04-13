@@ -43,9 +43,6 @@ export default class Question extends Model {
     
   }
 
-  // static defaults = {
-  //   accepted_answer: null
-  // }
-  
+    
 
 }
