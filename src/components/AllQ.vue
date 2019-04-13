@@ -221,6 +221,7 @@ export default {
       	this.$toaster.info('Please Sign in to continue')
     }
     this.loadQs();
+    
     //if this is empty even after .push?
     //  if (this.questions.length < 1) {
     //      this.still_deciding_count = false
