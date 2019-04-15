@@ -272,10 +272,7 @@
 }
 //
 
-.edit-square,
-.edit-square-checked {
-  display: none;
-}
+
 
 .published-main-editing {
   .edit-square {
@@ -288,20 +285,14 @@
     }
   }
 
-  .edit-square-checked {
-    display: none;
-  }
+  
 
   .q-bubble-container--clickable {
     cursor: pointer;
   }
-  .q-bubble-container--checked {
-    .edit-square {
-      display: none;
-    }
+   
 
     .edit-square-checked {
-      display: block;
       padding-right: 8px;
       svg {
         background-color: #3cc;
@@ -312,7 +303,7 @@
       }
     }
   }
-}
+
 
 // confirmation-modal
 .confirming-modal--active .confirmation-modal {

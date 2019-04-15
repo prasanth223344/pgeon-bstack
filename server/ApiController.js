@@ -140,6 +140,36 @@ const makeApiController = (db) => {
     res.send('success');
   })
 
+
+
+
+
+
+
+ Router.deleteAsync('/question-multiple/:ids', async (req, res) => {
+
+   
+  await radiksData.deleteMany(
+   { radiksType: 'Question',
+     _id: { "$in": [req.params.ids.split(",")]}
+   }
+   )
+
+  await radiksData.deleteMany(
+   { radiksType: 'Vote',
+     question_id: { "$in": [req.params.ids.split(",")]}
+   }
+   )
+
+   await radiksData.deleteMany(
+     { radiksType: 'Answer',
+     question_id: { "$in": [req.params.ids.split(",")]}
+     }
+   )
+     
+   res.send('success');
+})
+
   // Router.getAsync('/user/:username', async (req, res) => {
   //   const { username } = req.params;
   //   let user = await radiksData.findOne({

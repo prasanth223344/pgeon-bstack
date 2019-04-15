@@ -1,9 +1,9 @@
 {
   "name": "Pgeon",
-  "start_url": "http://pgeon.com",
+  "start_url": "https://pgeon.com",
   "description": "Pgeon app build on blockstack ",
   "icons": [{
-    "src": "https://pgeon.com/img/main-logo.svg",
+    "src": "https://pgeon.com/main-logo.svg",
     "sizes": "400x400",
     "type": "image/png"
   },

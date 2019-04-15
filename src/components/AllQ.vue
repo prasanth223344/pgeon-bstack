@@ -20,6 +20,7 @@
     </main>
 
     <main class="landing-main mw6 m-auto pl15 pr15">
+
       <div class="p-b-15" v-for="(user_qs) in questions">
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
           <div class="open-question__left">
