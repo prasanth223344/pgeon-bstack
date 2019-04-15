@@ -6,3 +6,4 @@ yarn-debug.log*
 yarn-error.log*
 .history
 config/*
+build/webpack.dev.conf.js
