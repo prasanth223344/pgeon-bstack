@@ -11,6 +11,16 @@ import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 Vue.use(Toaster, {timeout: 3000})
 
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
+
+// set default config
+VueCookies.config('7d')
+
  
 window.blockstack = require('blockstack')
 window.axios = require('axios');

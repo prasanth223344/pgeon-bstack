@@ -37,7 +37,13 @@ export default class Question extends Model {
     manually_chosen_as_top: {
       type: String,
       decrypted: true,
-    }
+    },
+    
+    hits: {
+      type: Number,
+      decrypted: true,
+    },
+
     
 
     

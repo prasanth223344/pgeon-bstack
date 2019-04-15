@@ -23,6 +23,13 @@
               <input class="user-slug-input" value disabled>
             </p>
 
+   <span class="edit-icon"  v-clipboard:copy="'www.pgeon.com/u/'+current_user.username"  v-clipboard:success="copied">
+                <div class="edit-icon-pencil">
+                 <img src="../assets/img/svg/copy.svg">
+
+                </div>
+               
+            </span>
           
           </div>
         </div>
@@ -120,6 +127,9 @@ export default {
   methods: {
     signOut() {
       this.blockstack.signUserOut(window.location.href);
+    },
+    copied() {
+       this.$toaster.info('Copied')
     }
   }
 };

@@ -110,6 +110,7 @@ export default {
     ago(mcs) {
       return moment.unix(mcs / 1000).fromNow();
     },
+   
 
     follow: async function() {
       //  $.post('follow',  )

@@ -6,7 +6,11 @@
 
     <div class="open-question__right">
       <div class="open-question__meta">
-        <span class="open-question__author">{{question.user_id}}</span>
+                      <router-link class="open-question__author" :to="{ name: 'profile', params: { id:  question.user_id}}" >
+
+          {{question.user_id}}
+          
+          </router-link>
          <div>
         <span class="open-question__stop" v-on:click="showendmodal=true">
 

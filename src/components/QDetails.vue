@@ -45,7 +45,6 @@ export default {
     this.id = this.$route.params.id;
     this.user = await User.currentUser();
 
-    await Question.findById(this.id);
     this.question = await Question.findById(this.id);
 
     if (
@@ -58,6 +57,22 @@ export default {
       this.question.attrs.user_id != this.user.attrs._id
     ) {
       this.question_status = "answers";
+       if(!this.$cookies.get(`hits_${this.question._id}`)) {
+         
+         var hits = 0
+         if(this.question.attrs.hits) {
+            hits = parseInt(this.question.attrs.hits) 
+         }
+          this.question.update({hits: hits + 1 });
+         await this.question.save()
+
+        this.$cookies.set(`hits_${this.question._id}`, true);
+
+      }else {
+        
+      }
+        
+
     } else if (
       this.question.attrs.accepted_answer &&
       this.question.attrs.accepted_user &&
@@ -71,7 +86,6 @@ export default {
       this.question_status = "answerspending";
     }
 
-    console.log(this.question_status);
   },
   components: {
     Avatar,
