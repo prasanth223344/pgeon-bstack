@@ -70,7 +70,14 @@
       <div class="flex">
         <div class="flex1"></div>
         <button class="confirmation-modal__cancel"  v-on:click="showendmodal=false">Cancel</button>
-        <button class="confirmation-modal__danger" v-on:click="endnow">End Now</button>
+        <button class="confirmation-modal__danger" v-on:click="endnow">
+          
+                      <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting">
+            <span v-else> End Now</span>
+
+         
+          
+          </button>
       </div>
     </div>
   </div>
@@ -112,7 +119,8 @@ import moment from 'moment';
 		submit_error: false,
 		error_class: "danger",
 		lock_voting: false,
-    showendmodal: false
+    showendmodal: false,
+    posting:false
       };
     },
     //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -157,12 +165,13 @@ import moment from 'moment';
 
 //console.log(this.question);
 
-
+        this.posting = true
         var qModel = await Question.findById(this.question._id);
 
          qModel.update({last_event_fired: 'question_ended', expiring_at: moment().unix()});
        //  qModel.update({last_event_fired: 'question_ended'});
           await qModel.save()
+           
           window.location.reload()
         // this.$http.post(`/end_now/${this.question_id}`).then((response) => {
         //    socket.emit('end_now', this.question_id);

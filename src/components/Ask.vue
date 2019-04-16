@@ -126,8 +126,11 @@
               </span>
             </div>
           </div>
-          
-          <button @click="save" :disabled="!is_valid">Post Question</button>
+
+          <button @click="save" :disabled="!is_valid">
+            <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting">
+            <span v-else>Post Question</span>
+          </button>
         </div>
       </div>
       <!-- <div class="error alert alert-warning animated shake" role="alert">
@@ -138,7 +141,7 @@
 
     <main class="mw6 m-auto">
       <!-- hide this part until ask part opens up..otherwise it is juggling -->
-      <div class="question-stats">
+      <div class="question-stats" v-if="records_loaded">
         <router-link
           :to="{ path: 'live'  }"
           class="question-stats__item spin"
@@ -229,6 +232,9 @@
           <span>{{published.length}}</span>
         </a>
       </div>
+        <div class="loader" v-else>
+      <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading">
+      </div>
     </main>
   </div>
 </template>
@@ -258,7 +264,9 @@ export default {
       live: [],
       pending: [],
       published: [],
-      ago: null
+      ago: null,
+      records_loaded: false,
+      posting: false
     };
   },
   computed: {
@@ -311,17 +319,20 @@ export default {
         .add(this.mm, "m")
         .unix();
 
+      this.posting = true
       const question = new Question({
         question: this.question,
         user_id: this.user._id,
         expiring_at: expiring_at
       });
       await question.save();
-      this.question = ''
-      this.$toaster.info('Question posted successfully.')
-      setTimeout(function(){ window.location.reload() }, 3000);
-
-      
+      this.question = "";
+      this.$toaster.info("Question posted successfully.");
+      var com = this
+      setTimeout(function() {
+        com.posting = true
+        window.location.reload();
+      }, 3000);
     },
     maxHighlight() {
       var currentValue = this.question;
@@ -351,10 +362,10 @@ export default {
       { decrypt: false }
     );
 
-  var last_created = null
+    var last_created = null;
     recs.forEach(q => {
-      if(q.attrs.createdAt > last_created) {
-        last_created = q.attrs.createdAt
+      if (q.attrs.createdAt > last_created) {
+        last_created = q.attrs.createdAt;
       }
 
       if (q.attrs.expiring_at > moment().unix()) {
@@ -369,16 +380,15 @@ export default {
       }
     });
 
-console.log(last_created);
-if(last_created) {
-       this.ago = 'You last posted a question '+moment.unix(last_created / 1000).fromNow()+'..'
-
-}else {
-   this.ago = 'Go ahead and post your first question'
-}
-
-
-
+    if (last_created) {
+      this.ago =
+        "You last posted a question " +
+        moment.unix(last_created / 1000).fromNow() +
+        "..";
+    } else {
+      this.ago = "Go ahead and post your first question";
+    }
+    this.records_loaded = true
   }
 };
 </script>

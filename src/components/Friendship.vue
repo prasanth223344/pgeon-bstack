@@ -53,7 +53,8 @@
   <main class="landing-main mw6 m-auto pl15 pr15">
 
    
-      <div class="open-question__container" v-if="records_loaded" v-for="question in questions">
+   <div v-if="records_loaded">
+      <div class="open-question__container"  v-for="question in questions">
         <div class="open-question__right response-details-bubble" v-on:click="toggleNameDisplay(question._id)">
           <div class="open-question__meta" v-bind:class="[toggle_class[question._id] ? 'expand' : 'shrunk']">
             <span class="open-question__author">{{$route.params.q_by}} ← {{$route.params.a_by}}</span>
@@ -71,7 +72,10 @@
           </div>
         </div>
       </div>
-
+</div>
+  <div class="loader" v-else>
+      <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading">
+      </div>
 
   </main>
   

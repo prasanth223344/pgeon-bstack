@@ -143,11 +143,14 @@
           v-if="is_valid"
           v-on:click="submit_answer()"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting">
+
+          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
               d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"
             ></path>
           </svg>
+
         </button>
         <button class="btn pointer answer-question__send-btn" v-else>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -191,7 +194,8 @@ export default {
       submit_error: false,
       error_class: "danger",
       votes_for_answers: [],
-      lock_voting: false
+      lock_voting: false,
+      posting: false,
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -327,6 +331,7 @@ export default {
       container.scrollTop = container.scrollHeight - container.clientHeight;
     },
     submit_answer: async function() {
+      this.posting = true
       const answer = new Answer({
         question_id: this.question._id,
         user_id: this.current_user.username,
@@ -334,6 +339,7 @@ export default {
       });
       await answer.save();
       this.fetchRecords();
+       this.posting = false
 
       // this.$http.post('/answer', formData).then((response) => {
       //   this.ted_text = ''

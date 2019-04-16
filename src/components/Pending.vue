@@ -38,7 +38,13 @@
             >Delete</longpress>
 
            
-              <button v-if="pick_best_scenario_answer_for_questions[question.attrs._id]" v-on:click="publish(question.attrs)" class="btn pub ml20p">Publish</button>
+              <button v-if="pick_best_scenario_answer_for_questions[question.attrs._id]" v-on:click="publish(question.attrs)" class="btn pub ml20p">
+                        <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting.indexOf(question.attrs._id) >= 0">
+          <span v-else>Publish</span>
+
+                
+                
+                </button>
           </div>
         </div>
         <div>&nbsp;</div>
@@ -68,7 +74,9 @@ export default {
       votes_for_qs: [],
       qs_with_ans_and_vote_count: [],
       records_loaded: false,
-      pick_best_scenario_answer_for_questions: []
+      pick_best_scenario_answer_for_questions: [],
+                  posting: []
+
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -98,6 +106,7 @@ export default {
     },
 
     async publish(attrs) {
+       this.posting.push(attrs._id)
       var res = this.displayChosenOrTopAnswer(attrs)
        var qModel = await Question.findById(attrs._id);
 

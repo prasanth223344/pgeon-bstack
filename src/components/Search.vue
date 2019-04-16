@@ -55,7 +55,8 @@
           v-on:click="follow(user.user_id)"
           class="follow-button"
         >
-          <span>Follow</span>
+        <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting.indexOf(user.user_id) >= 0">
+          <span v-else>Follow</span>
           <!-- following is the `active` state -->
         </button>
         <button
@@ -96,7 +97,9 @@ export default {
     return {
       results: {},
       axios: window.axios,
-      q: null
+      q: null,
+            posting: []
+
     };
   },
   mounted() {
@@ -122,15 +125,17 @@ export default {
     },
 
     follow: async function(id) {
-      //  $.post('follow',  )
-      //  $(event.target).children().remove()
+      this.posting.push(id)
+
       const follow = new Following({
         user_id: id,
         followed_by: this.current_user.username
       });
       await follow.save();
+       this.posting =  this.posting.filter(e => e !== id);
 
       this.search();
+
       // success callback
     },
 
@@ -160,7 +165,7 @@ export default {
 						.forEach(o => {
               if(rec && rec.attrs.createdAt)
 						 {
-								o.last_posted = moment.unix(rec.attrs.createdAt / 1000).fromNow()+'..';
+								o.last_posted = 'last posted a question '+moment.unix(rec.attrs.createdAt / 1000).fromNow()+'..';
 							}else {
                 o.last_posted = 'No Questions posted yet!'
               }

@@ -35,7 +35,7 @@
             <avatar :size="36" :src="item.profile_pic" :username="item.user_id"></avatar>
             <div class="people-item__info">
               <h4>{{ item.user_id }}</h4>
-              <span>item.last_posted</span>
+              <span>{{item.last_posted}}</span>
             </div>
           </div>
           <button
@@ -43,7 +43,15 @@
             v-on:click="followNoUpdate(item.user_id)"
             class="follow-button"
           >
-            <span>Follow</span>
+            <img
+              width="22"
+              height="22"
+              src="../assets/img/svg/loading.svg"
+              alt="loading"
+              v-if="posting.indexOf(item.user_id) >= 0"
+            >
+
+            <span v-else>Follow</span>
             <!-- following is the `active` state -->
           </button>
           <button
@@ -64,7 +72,7 @@
             <avatar :size="36" :src="item.profile_pic" :username="item.user_id"></avatar>
             <div class="people-item__info">
               <h4>{{ item.user_id }}</h4>
-              <span>item.last_posted</span>
+              <span>{{item.last_posted}}</span>
             </div>
           </div>
           <button
@@ -72,7 +80,15 @@
             v-on:click="follow(item.user_id)"
             class="follow-button"
           >
-            <span>Follow</span>
+            <img
+              width="22"
+              height="22"
+              src="../assets/img/svg/loading.svg"
+              alt="loading"
+              v-if="posting.indexOf(item.user_id) >= 0"
+            >
+
+            <span v-else>Follow</span>
             <!-- following is the `active` state -->
           </button>
           <button
@@ -97,9 +113,9 @@ import Headerwithback from "./shared/HeaderWithBack.vue";
 import { User } from "radiks";
 import moment from "moment";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
+import Question from "../models/Question";
 
 import Following from "../models/Following";
-
 
 export default {
   data: function() {
@@ -119,7 +135,8 @@ export default {
       showsorting: false,
       unfollwed_undo: [],
       //TODO my_followers is not reactive for some reasons..will be fixed in future..
-      my_followers_temp: []
+      my_followers_temp: [],
+      posting: []
     };
   },
   mounted() {
@@ -164,12 +181,10 @@ export default {
 
       if (include_i_am_following) {
         this.iam_following = recs;
-
       }
 
-
       this.temp_iam_following = recs;
-        this.iam_following_count = this.temp_iam_following.length;
+      this.iam_following_count = this.temp_iam_following.length;
 
       this.my_followers_count = this.my_followers.length;
 
@@ -178,7 +193,7 @@ export default {
         formatted_us.push({
           user_id: this.my_followers[i].attrs.followed_by,
           profile_pic: null,
-
+          last_posted: null
         });
       }
 
@@ -190,7 +205,8 @@ export default {
 
         formatted_us.push({
           user_id: this.iam_following[i].attrs.user_id,
-          profile_pic: null
+          profile_pic: null,
+          last_posted: null
         });
       }
 
@@ -199,9 +215,18 @@ export default {
       this.iam_following_formatted.forEach(o =>
         this.loadProfilePic(o.user_id, this.iam_following)
       );
+
+      this.iam_following_formatted.forEach(o =>
+        this.loadLastPosted(o.user_id, this.iam_following_formatted)
+      );
+
       // this.my_followers1.forEach(o => this.loadProfilePic(o.user_id, this.my_followers1));
       this.my_followers_temp.forEach(o =>
         this.loadProfilePic(o.user_id, this.my_followers_temp)
+      );
+
+      this.my_followers_temp.forEach(o =>
+        this.loadLastPosted(o.user_id, this.my_followers_temp)
       );
 
       this.sort();
@@ -216,9 +241,8 @@ export default {
     },
 
     isExistsinFollowing(user_id) {
-      
-   //   console.log(this.temp_iam_following);
-      
+      //   console.log(this.temp_iam_following);
+
       for (var k in this.temp_iam_following) {
         if (user_id == this.temp_iam_following[k].attrs.user_id) return true;
       }
@@ -245,18 +269,18 @@ export default {
       );
     },
     follow: async function(id) {
-      //  $.post('follow',  )
-      //  $(event.target).children().remove()
-      		const follow = new Following({
-						user_id: id,
-						followed_by: this.current_user.username
-		
-					});
-          await follow.save();
-          
-          this.fetchData();
-          // success callback
-       
+      this.posting.push(id);
+
+      const follow = new Following({
+        user_id: id,
+        followed_by: this.current_user.username
+      });
+      await follow.save();
+
+      this.fetchData();
+      this.posting = this.posting.filter(e => e !== id);
+
+      // success callback
     },
 
     unfollow: function(id) {
@@ -284,23 +308,42 @@ export default {
       this.fetchDataNoUpdate();
       return false;
     },
+    loadLastPosted: async function(user_id, target) {
+      //var pf = await this.blockstack.lookupProfile(user_id);
+      var rec = await Question.findOne({
+        user_id: user_id,
+        limit: 1,
+        sort: "-createdAt"
+      });
+
+      target
+        .filter(o => o.user_id === user_id)
+        .forEach(o => {
+          if (rec && rec.attrs.createdAt) {
+            o.last_posted =
+              "last posted a question " +
+              moment.unix(rec.attrs.createdAt / 1000).fromNow() +
+              "..";
+          } else {
+            o.last_posted = "No Questions posted yet!";
+          }
+        });
+    },
 
     followNoUpdate: async function(id, event) {
-      //  $.post('follow',  )
-      //  $(event.target).children().remove()
-     const follow = new Following({
-						user_id: id,
-						followed_by: this.current_user.username
-		
-					});
-          await follow.save();
-          
-          this.fetchDataNoUpdate();
+      //for loader
+      this.posting.push(id);
+      const follow = new Following({
+        user_id: id,
+        followed_by: this.current_user.username
+      });
+      await follow.save();
 
-          //this.unfollwed_undo.push(id)
-          this.unfollwed_undo = this.unfollwed_undo.filter(e => e !== id);
-         
-     
+      this.fetchDataNoUpdate();
+
+      //this.unfollwed_undo.push(id)
+      this.unfollwed_undo = this.unfollwed_undo.filter(e => e !== id);
+      this.posting = this.posting.filter(e => e !== id);
     }
   }
 };
