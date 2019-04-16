@@ -356,13 +356,13 @@ export default {
 
       this.updateVotesArray(answer_id, vote);
 
-      var rec = await Vote.fetchList({
+      var rec = await Vote.findOne({
         answer_id: answer_id,
         user_id: this.current_user.username
       });
 
-      if (rec[0] && rec[0]._id) {
-        var modelVote = await Vote.findById(rec[0]._id);
+      if (rec && rec._id) {
+        var modelVote = await Vote.findById(rec._id);
         await modelVote.destroy();
       }
 

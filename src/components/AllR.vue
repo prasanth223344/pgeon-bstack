@@ -2,7 +2,7 @@
   <div>
     <headerhome></headerhome>
 
-    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1 && records_loaded">
       <div class="container text-center m-t-5p">
         <div v-if="!still_deciding_count"></div>
         <div v-else>
@@ -18,7 +18,7 @@
       </div>
     </main>
 
-    <main class="landing-main mw6 m-auto pl15 pr15">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="records_loaded">
       <div class="p-b-15" v-for="(user_qs) in questions">
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
 
@@ -184,9 +184,9 @@ return moment.unix(ms).fromNow()
       var qs =  await Question.fetchList({
         expiring_at: { $lt: moment().unix() },
          accepted_answer: { $exists: true } 
-             
 
-      });
+      },              { decrypt: false }
+);
 
       var user_qs = [];
 			var a_ids = new Array();
@@ -204,7 +204,8 @@ return moment.unix(ms).fromNow()
 				a_ids.push(q.attrs.accepted_answer)
 			});
 			 //  this will be converted to $in array based on query-to-mongo
-      var answers = await Answer.fetchList({ _id: a_ids.join(",") });
+      var answers = await Answer.fetchList({ _id: a_ids.join(",") },              { decrypt: false });
+
 
       answers.forEach(a => {
         this.all_answers[a._id] = a.attrs;
@@ -241,13 +242,12 @@ return moment.unix(ms).fromNow()
       }
 
 
-      //(a => );
 
 
 
      
 
-			this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
+			// this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
 			this.records_loaded = true
     }
   },

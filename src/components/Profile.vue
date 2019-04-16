@@ -32,7 +32,7 @@
               <div class="points">{{ points == 1 ? "Point" : "Points" }}</div>
             </div>
           </div>
-          <div class="w-100 flex justify-center" v-if="$route.params.id != current_user.username">
+          <div class="w-100 flex justify-center" v-if="show_follow">
             <button class="unfollow following btn w-90" v-on:click="unfollow()" v-if="am_i_following">Following</button>
 
             <button class="follow btn w-90" v-on:click="follow()" v-else>Follow</button>
@@ -50,7 +50,7 @@
             </router-link>
             <span
               class="open-question__time"
-            >{{ago(all_answers[question.accepted_answer].createdAt)}}</span>
+            >{{ago(all_answers[question.accepted_answer].createdAt)}}..</span>
           </div>
           <div class="q-bubble-container q-bubble-container--clickable mt5p mb15p">
             <div class="q-bubble qa-item">
@@ -90,7 +90,8 @@ export default {
       answers_count: 0,
       q_count: 0,
       points: 0,
-      am_i_following: false
+      am_i_following: false,
+      show_follow: true
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -127,12 +128,12 @@ export default {
     unfollow: async function() {
       //  $.post('unfollow',  )
 
-      var rec = await Following.fetchList({
+      var rec = await Following.findOne({
         user_id: this.$route.params.id,
         followed_by: this.current_user.username
       });
 
-      await rec[0].destroy();
+      await rec.destroy();
       this.am_i_following = false;
     },
 
@@ -155,14 +156,14 @@ export default {
         }
       });
 
-      var answers = await Answer.fetchList({ _id: a_ids.join(",") });
+      var answers = await Answer.fetchList({ _id: a_ids.join(",") }, { decrypt: false });
 
       answers.forEach(a => {
         this.all_answers[a._id] = a.attrs;
       });
 
       //votes he earned
-      var votes = await Vote.fetchList({ answer_id: my_answers.join(",") });
+      var votes = await Vote.fetchList({ answer_id: my_answers.join(",") }, { decrypt: false });
 
       votes.forEach(v => {
         // console.log(v.attrs.vote);
@@ -171,11 +172,16 @@ export default {
       });
 
       this.avatar = await this.loadIndivProfilePic(this.$route.params.id);
+  // same user or guest users
+      if(!this.current_user) {
+        this.show_follow = false
+      }else if (this.$route.params.id == this.current_user.username  ) {
+         this.show_follow = false
+        }
 
-      //not same user
 
-      if (this.$route.params.id != this.current_user.username) {
-        var recs = await Following.fetchList(
+      else  {
+        var recs = await Following.findOne(
           {
             followed_by: this.current_user.username,
             user_id: this.$route.params.id
@@ -183,7 +189,7 @@ export default {
 
           { decrypt: false }
         );
-        if (recs[0]) this.am_i_following = true;
+        if (recs) this.am_i_following = true;
       }
 
       this.records_loaded = true;

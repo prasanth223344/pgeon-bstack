@@ -235,7 +235,9 @@ export default {
          accepted_answer: { $exists: true } ,
         accepted_user: this.$route.params.a_by ,
         user_id: this.$route.params.q_by 
-      });
+      },
+
+          { decrypt: false });
 
       var a_ids = new Array();
       this.questions.forEach(a => a_ids.push(a.attrs.accepted_answer));
@@ -243,7 +245,9 @@ export default {
 
 
       //  this will be converted to $in array based on query-to-mongo
-      var answers = await Answer.fetchList({ _id: a_ids.join(",") });
+      var answers = await Answer.fetchList({ _id: a_ids.join(",") },
+
+          { decrypt: false });
 
       answers.forEach(a => {
         this.all_answers[a._id] = a.attrs;

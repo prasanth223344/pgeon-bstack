@@ -274,12 +274,12 @@ export default {
     unfollowNoUpdate: async function(id) {
       //  $.post('unfollow',  )
 
-      var rec = await Following.fetchList({
+      var rec = await Following.findOne({
         user_id: id,
         followed_by: this.current_user.username
       });
 
-      await rec[0].destroy();
+      await rec.destroy();
       this.unfollwed_undo.push(id);
       this.fetchDataNoUpdate();
       return false;

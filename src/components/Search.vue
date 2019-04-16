@@ -138,18 +138,18 @@ export default {
     unfollow: async function(id) {
       //  $.post('unfollow',  )
 
-      var rec = await Following.fetchList({
+      var rec = await Following.findOne({
         user_id: id,
         followed_by: this.current_user.username
       });
 
-      await rec[0].destroy();
+      await rec.destroy();
       this.search();
     },
     		loadLastPosted: async function(user_id, target) {
 
           //var pf = await this.blockstack.lookupProfile(user_id);
-             var rec = await Question.fetchList({
+             var rec = await Question.findOne({
               user_id: user_id,
               limit: 1,
               sort: '-createdAt'
@@ -158,9 +158,9 @@ export default {
 					target
 						.filter(o => o.user_id === user_id)
 						.forEach(o => {
-              if(rec[0] && rec[0].attrs.createdAt)
+              if(rec && rec.attrs.createdAt)
 						 {
-								o.last_posted = moment.unix(rec[0].attrs.createdAt / 1000).fromNow()+'..';
+								o.last_posted = moment.unix(rec.attrs.createdAt / 1000).fromNow()+'..';
 							}else {
                 o.last_posted = 'No Questions posted yet!'
               }

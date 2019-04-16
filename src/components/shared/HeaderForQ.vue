@@ -8,9 +8,10 @@
           <img width="22" height="22" src="../../assets/img/svg/times.svg">
         </a>
         <div class="question-details__profile fc">
-          <a href="/">
+           <router-link
+              :to="{ name: 'profile', params: { id:  question.user_id}}">
             <avatar :size="36" :src="profile_pic" :username="question.user_id"></avatar>
-          </a>
+          </router-link>
         </div>
         <div class="question-details__more pointer" >
           <!-- changes names -->

@@ -14,6 +14,7 @@ import friendship from './components/Friendship.vue';
 import published from './components/Published.vue';
 import profile from './components/Profile.vue';
 import viewpanswers from './components/ViewAllPendingAnswers.vue';
+import login from './components/Login.vue';
 
 
 Vue.use(Router)
@@ -97,6 +98,11 @@ export default new Router({
       path: '/preferences',
       name: 'preferences',
       component: preferences
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     },
 
   ]

@@ -21,11 +21,11 @@ export var BlockstackMixin = {
 				this.profile_pic = this.current_profile.avatarUrl()
 
 			}else {
-		//		console.log('wew here');
+		
 				
 			 // this.$router.push({ name: 'qdetails', params: { id: id  } })
-			 if(this.$route.path != '/')
-        this.$router.push({ name: 'nl' })
+			// if(this.$route.path != '/')
+    //    this.$router.push({ name: 'nl' })
 			//
 			}
 
