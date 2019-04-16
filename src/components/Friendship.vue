@@ -31,7 +31,7 @@
   </div>
 
 </header>
-    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1 && records_loaded">
       <div class="container text-center m-t-5p">
         <div v-if="!still_deciding_count"></div>
         <div v-else>
@@ -75,6 +75,48 @@
 
   </main>
   
+
+<div class="double-avatar">
+  <div class="double-avatar__overlay standard-overlay"></div>
+  <div class="double-avatar__modal mw6">
+
+                    <router-link :to="{ name: 'profile', params: { id:  $route.params.q_by}}" class="double-avatar__item items-center flex">
+
+
+
+      <avatar v-if="records_loaded" :size="36" class="mr10p" :src="q_by_avatar" :username="$route.params.q_by"></avatar>
+
+        
+                
+          <h3 class="m0">
+          <span class="open-question__author" >
+
+            {{  $route.params.q_by }}
+          </span>
+      </h3>
+</router-link>
+
+      
+        <span class="m-auto mw6 db">
+          <div class="border-trimmed"></div>
+        </span>
+                    <router-link :to="{ name: 'profile', params: { id:  $route.params.a_by}}" class="double-avatar__item items-center flex">
+
+       
+           <avatar v-if="records_loaded" :size="36" class="mr10p" :src="a_by_avatar" :username="$route.params.a_by"></avatar>
+        
+        <h3 class="m0">
+        <span class="open-question__author" >
+
+
+          {{  $route.params.a_by }}
+        </span>
+       
+      </h3>
+</router-link>
+      
+  </div>
+</div>
 
 
    
@@ -219,7 +261,16 @@ export default {
 
     this.loadQs();
 
+    const activateOverlappingImagesModal = () => {
+  $(".double-avatar").addClass("double-avatar--active")
+}
 
+const deactivateOverlappingImagesModal = () => {
+  $(".double-avatar").removeClass("double-avatar--active")
+}
+
+$(".response-images").on("click", activateOverlappingImagesModal)
+  $(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal)
    
 
     
