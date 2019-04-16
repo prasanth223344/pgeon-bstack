@@ -105,6 +105,9 @@ export default {
         { decrypt: false }
       );
     this.records_loaded = true;
+    
+    this.$cookies.set('redirect_to', this.$route.fullPath);
+
   },
 
   components: {

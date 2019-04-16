@@ -129,7 +129,14 @@ export default {
       this.loading = true;
       await userSession.handlePendingSignIn();
       await User.createWithCurrentUser();
-      window.location = window.location.origin;
+      if(this.$cookies.get('redirect_to')) {
+        var red = this.$cookies.get('redirect_to')
+          this.$cookies.remove('redirect_to');
+          window.location = red
+      }else {
+           window.location = window.location.origin;
+      }
+     
     }
 
     // const blockstack = this.blockstack;

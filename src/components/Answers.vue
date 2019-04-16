@@ -510,6 +510,8 @@ export default {
   },
 
   created: function() {
+    //remove the cookie as we are on a answernig screen..
+   
     Answer.addStreamListener(answer => {
       //console.log(answer);
     });

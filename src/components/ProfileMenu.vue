@@ -126,7 +126,7 @@ export default {
 
   methods: {
     signOut() {
-      this.blockstack.signUserOut(window.location.href);
+      this.blockstack.signUserOut(window.location.origin);
     },
     copied() {
        this.$toaster.info('Copied')
