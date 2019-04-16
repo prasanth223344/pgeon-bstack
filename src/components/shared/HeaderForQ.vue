@@ -35,7 +35,7 @@
 
           <li  class="details__dropdown_item pointer pl15p mb15p mt15p">
             <img width="22" height="22" src="../../assets/img/svg/flag.svg">
-            <span id="report_question">Report</span>
+            <span id="report_question" v-on:click="report()">Report</span>
           </li>
 
           <!-- <li class="details__dropdown_item pointer pl15p mb15p">
@@ -102,6 +102,7 @@ import { User } from "radiks";
 import Avatar from "vue-avatar";
 import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
 import { NavMixin } from "../../mixins/NavMixin.js";
+const SparkPost = require('sparkpost');
 
 
 export default {
@@ -110,25 +111,32 @@ export default {
 
   props: ["question", "noshare", "nomenu"],
             mixins: [BlockstackMixin, NavMixin],
+  methods: {
+  report: async function(id) {
+    var uname = "guest"
+      if(this.current_user && this.current_user.username) {
+          uname = this.current_user.username
+      }
+      this.users =  await axios.post(`reportq/${this.question._id}/${uname}`);
 
-
+      location.reload();
+    },
+  },
   //async
   async mounted() {
 
     configure(this.RADIKS_SERVER);
 
-    // const blockstack = this.blockstack;
-    //  if (blockstack.isUserSignedIn()) {
-    //   this.userData = blockstack.loadUserData()
-    //   this.user = new blockstack.Person(this.userData.profile)
-    //   this.user.username = this.userData.username
-    // }
+
+      
+
 
 
     var pf = await this.blockstack.lookupProfile(this.question.user_id);
     if (pf && typeof pf.image !== "undefined" && pf.image[0]["contentUrl"]) {
       this.profile_pic = pf.image[0]["contentUrl"];
     }
+
 
     $(".question-details__more").click(e => {
       const open = $(".landing_header").hasClass("details__dropdown--active");
@@ -209,22 +217,7 @@ export default {
       document.body.removeChild(input);
       return result;
     });
-    $("#report_question").click(function() {
-      $qid = "";
-      //alert('ss')
-      $(this).html("Reported");
-      $parent = $(this);
-      $.post(
-        "/reportQ",
-        {
-          _token: $('meta[name="csrf-token"]').attr("content"),
-          qid: $(this).data("qid")
-        },
-        function() {
-          $parent.removeAttr("id");
-        }
-      );
-    });
+  
   },
   data() {
     return {

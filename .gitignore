@@ -7,3 +7,4 @@ yarn-error.log*
 .history
 config/*
 build/webpack.dev.conf.js
+.env

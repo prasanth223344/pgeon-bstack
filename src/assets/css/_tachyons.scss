@@ -3773,82 +3773,7 @@ code {
     z-index: unset
 }
 
-.nested-copy-line-height ol,
-.nested-copy-line-height p,
-.nested-copy-line-height ul {
-    line-height: 1.5
-}
 
-.nested-headline-line-height h1,
-.nested-headline-line-height h2,
-.nested-headline-line-height h3,
-.nested-headline-line-height h4,
-.nested-headline-line-height h5,
-.nested-headline-line-height h6 {
-    line-height: 1.25
-}
-
-.nested-list-reset ol,
-.nested-list-reset ul {
-    padding-left: 0;
-    margin-left: 0;
-    list-style-type: none
-}
-
-.nested-copy-indent p+p {
-    text-indent: 1em;
-    margin-top: 0;
-    margin-bottom: 0
-}
-
-.nested-copy-separator p+p {
-    margin-top: 1.5em
-}
-
-.nested-img img {
-    width: 100%;
-    max-width: 100%;
-    display: block
-}
-
-.nested-links a {
-    color: #357edd;
-    transition: color .15s ease-in
-}
-
-.nested-links a:focus,
-.nested-links a:hover {
-    color: #96ccff;
-    transition: color .15s ease-in
-}
-
-.debug * {
-    outline: 1px solid gold
-}
-
-.debug-white * {
-    outline: 1px solid #fff
-}
-
-.debug-black * {
-    outline: 1px solid #000
-}
-
-.debug-grid {
-    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVR4AWPAC97/9x0eCsAEPgwAVLshdpENIxcAAAAASUVORK5CYII=) repeat 0 0
-}
-
-.debug-grid-16 {
-    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMklEQVR4AWOgCLz/b0epAa6UGuBOqQHOQHLUgFEDnAbcBZ4UGwDOkiCnkIhdgNgNxAYAiYlD+8sEuo8AAAAASUVORK5CYII=) repeat 0 0
-}
-
-.debug-grid-8-solid {
-    background: #fff url(data:image/gif;base64,R0lGODdhCAAIAPEAAADw/wDx/////wAAACwAAAAACAAIAAACDZQvgaeb/lxbAIKA8y0AOw==) repeat 0 0
-}
-
-.debug-grid-16-solid {
-    background: #fff url(data:image/gif;base64,R0lGODdhEAAQAPEAAADw/wDx/xXy/////ywAAAAAEAAQAAACIZyPKckYDQFsb6ZqD85jZ2+BkwiRFKehhqQCQgDHcgwEBQA7) repeat 0 0
-}
 
 
 /* css */
@@ -3887,18 +3812,8 @@ body {
 	margin: 0 auto 10px;
 	border-radius: 2px;
 }
-.pg-btn.cw-twitter {
-	background-color: #55acee;
-}
-.pg-btn.cw-twitter:active {
-	background-color: #4c9ad6;
-}
-.pg-btn.cw-fb {
-	background-color: #3b5999;
-}
-.pg-btn.cw-fb:active {
-	background-color: #355089;
-}
+
+
 .signup-group a.pg-btn i {
 	float: left;
 	left: 20px;
@@ -3906,14 +3821,19 @@ body {
 	position: relative;
 	font-size: 22px;
 }
-// .signup-group a:hover {
-// 	background-color: #000;
-//     color: #fff;
-// }
+.signup-group {
+.login__btn {
+	background-color: #230d2e;
+    &:active {
+        background-color: #230d2e;
+    }
+    svg {
+        position: relative;
+        top: 6px;
+    }
+}
+}
 
-// .ah-login {
-// 	padding: 50px 0;
-// }
 
 .mdl-textfield {
 	width: 100%;

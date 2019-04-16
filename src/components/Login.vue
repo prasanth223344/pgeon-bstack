@@ -1,19 +1,28 @@
 <template>
-  <div>
-    <span class="btn btn-default btn-login">Login / Signup</span>
+  <div class="mw6 m-auto">
+    <header class="flex items-center top__header pl-10 pr-20 relative">
+      <span class="logo flex justify-center items-center">
+                <router-link class="dib" :to="{ path: '/' }"> 
 
-    <section class="signup">
-      <div class="signup__close">
-        <a class="closebtn" href="javascript:void(0)">×</a>
-      </div>
-      <div class="signup__inner">
-        <div class="forgot_password"></div>
+          <img width="22" height="22" src="../assets/img/main-logo.svg">
+         </router-link>
+      </span>
 
-        <div class="social-login hidden">
-          <div class="social-login__item social-login__item--email">
-            <span></span>
+      <span class="close-button fc">
+        <router-link class="fc" :to="{ path: '/' }"> 
+          <img width="22" height="22" src="../assets/img/svg/times.svg">
+        </router-link>
+      </span>
+    </header>
 
-            <span class="btn-container" @click.prevent="signIn">
+    <div class="signup-group">
+      <div class="row mlr38 tc">
+        <a
+          class="db pg-btn pointer cw-fb flex items-center justify-center login__btn"  @click.prevent="signIn"
+         
+        >
+          <div class="dib flex items-center w6">
+            <span >
               <svg fill="none" style="width:23px" class="sc-bdVaJa bqFlkF">
                 <path
                   fill-rule="evenodd"
@@ -22,19 +31,20 @@
                   fill="currentColor"
                 ></path>
               </svg>
+
               Connect with Blockstack
             </span>
           </div>
-
-          <div class="visit-mobile-text">
-            <span>
-              New to Blockstack?
-              <a target="_blank" href="https://blockstack.org">Learn More</a>
-            </span>
-          </div>
-        </div>
+        </a>
       </div>
-    </section>
+    </div>
+
+    <div class="ah-login tc mt50p">
+      <p>
+        New to Blockstack?
+        <a target="_blank" href="https://blockstack.org">Learn More</a>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -50,41 +60,12 @@ export default {
 
   methods: {
     signIn() {
-      // const session = new UserSession({
-      //   appConfig: new AppConfig(["store_write", "publish_data"])
-      // });
-
-      // configure({
-      //   apiServer: this.RADIKS_SERVER,
-      //   session
-      // });
-
       this.$root.userSession.redirectToSignIn();
 
-      //window.location = window.location.origin
       const origin = window.location.origin;
-
-      //session.redirectToSignIn(origin, origin + "/manifest.json", [
-      //  "store_write",
-      //   "publish_data"
-      // ]);
-
-      // const blockstack = this.blockstack
-      // window.location = window.location.origin
-      // const origin = window.location.origin
-
-      // blockstack.redirectToSignIn(origin, origin+ '/manifest.json', ['store_write', 'publish_data'])
     }
   },
-  mounted() {
-    $(".btn-login").on("click", e => {
-      $(".signup").addClass("signup--show");
-    });
-
-    $(".signup__close").on("click", e => {
-      $(".signup").removeClass("signup--show");
-    });
-  }
+  mounted() {}
 };
 </script>
 

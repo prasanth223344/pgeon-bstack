@@ -48,7 +48,10 @@
             <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
           </span>
         </span>
-        <login v-else></login>
+            <router-link class="login__links" :to="{ name: 'login'}" v-else>
+      <span>Login / Signup</span>
+    </router-link> 
+       
       </div>
 
       <div class="mobile-dropdown m-auto mw6">
