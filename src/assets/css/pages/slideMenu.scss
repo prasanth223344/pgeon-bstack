@@ -318,3 +318,128 @@
     height: 22px;
   }
 }
+
+
+
+
+
+/** added from desktop.css**/
+/* signup-signin slide */
+
+.signup {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	right: 0;
+	bottom: 0;
+	background-color: #fff;
+	height: 100%;
+	transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+	transform: translateX(100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url(../../assets/img/svg/bird-head.svg);
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	background-size: 50%;
+}
+.signup--show {
+	transform: translateX(0);
+}
+.signup__close {
+	position: absolute;
+	right: 20px;
+	top: 15px;
+}
+.closebtn {
+	opacity: 0.5;
+	font-size: 32px;
+	font-weight: 300;
+	text-align: center;
+	color: #000000;
+}
+@media (max-width: 750px) {
+	.signup {
+		left: 0%;
+	}
+}
+.social-login {
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+}
+.social-login__item {
+	height: 62px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	border-radius: 2px;
+	cursor: pointer;
+	font-weight: 400;
+}
+.social-login__item> :first-child {
+  width: 3px;
+  height: 26px;
+  margin-right: 2px;
+  margin-left: 15px;
+}
+
+.social-login__item svg {
+  margin-right: 35px;
+  position: relative;
+  top: 6px;
+}
+
+.social-login__item .btn-container {
+  position: relative;
+  top: -5px;
+}
+.social-login__item--email {
+	background-color: #230d2e;
+}
+
+.signin-text {
+	margin-top: 50px;
+	color: #54595f;
+	text-align: center;
+}
+.signin-text>span {
+	font-weight: 400;
+}
+
+.visit-mobile-text {
+	position: absolute;
+	color: #000;
+	font-size: 14px;
+	bottom: 30px;
+	left: 15px;
+	right: 15px;
+	text-align: center;
+}
+.visit-mobile-text>span {
+	font-weight: 400;
+}
+.visit-mobile-text a {
+	color: #33cccc !important;
+	text-decoration: none;
+	font-weight: 400;
+}
+.signup__inner {
+	width: 100%;
+	display: flex;
+  justify-content: center;
+  color:#fff;
+}
+
+.signup__inner .login__form {
+	width:90%;
+}
+.signin-section {
+	width: 100%;
+	margin: 0 20px;
+}
+.mb10p {
+	margin-bottom: 10px;
+}
