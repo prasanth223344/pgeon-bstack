@@ -4,7 +4,7 @@
   h4 {
     font-size: 16px;
     font-weight: 400;
-    color: #4A4A4A; 
+    color: #4A4A4A;
   }
   .clear-all {
     border: none;
@@ -16,8 +16,9 @@
     font-weight: 400;
   }
   .left-arrow {
-    img {
+    svg {
       fill: #4a4a4a;
+      cursor: pointer;
     }
   }
 }
@@ -28,6 +29,7 @@
 
 .notifications-item {
   display: flex;
+  cursor:pointer;
   padding: 10px 0px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.2);
   background-color: transparent;
@@ -39,7 +41,7 @@
     background-color: rgba(83, 101, 112, 0.05);
   }
 }
-.notif-icon > img {
+.notif-icon > svg {
   fill: #979797;
 }
 .notifications-item > img,
@@ -48,7 +50,8 @@
   height: 36px;
   margin-right: 10px;
   flex-shrink: 0;
-  background-color: #f1f1f1;
+  background-color: #ddd8d8;
+  fill: #979797;
   border-radius: 50%;
 }
 .notifications-body {
@@ -73,7 +76,7 @@
 
 // empty notifications
 .empty-notifications {
-  margin-top: 135px ;
+  margin-top: 150px;
   > p {
     color: #848993;
     line-height: 1.5;
@@ -82,5 +85,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+
   }
 }
+
+.alert-danger {
+  color: rgb(237, 59, 89);
+  font-size: 14px;
+  position: relative;
+  top: -10px;
+  left: 10px
+  }
+
+.alert-success {
+  color: #33CCCC;
+  font-size: 14px;
+  position: relative;
+  top: -10px;
+  left: 10px
+  }

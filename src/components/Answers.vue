@@ -351,7 +351,7 @@ export default {
     },
 
     delete_answer: async function(id) {
-      this.users = await axios.delete(`answer/${id}`);
+      this.users = await axios.delete(`${process.env.API_PATH}/answer/${id}`);
 
       location.reload();
     },

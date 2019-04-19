@@ -125,7 +125,7 @@ export default {
 console.log(`question-multiple/${this.selection.join(",")}`);
 
      await axios.delete(
-                `question-multiple/${this.selection.join(",")}`
+                `${process.env.API_PATH}/question-multiple/${this.selection.join(",")}`
               );
 
 

@@ -18,12 +18,13 @@
           <router-link class="db header-followers pointer mr20p fc" :to="{ path: '/people' }">
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
           </router-link>
-          <a href="/notifications" class="header-bell pointer mr20p fc">
+                    <router-link class="header-bell pointer mr20p fc" :to="{ path: '/notifications' }">
+
             <span class="flex items-center relative">
               <span class="bell-notification-dot"></span>
               <img width="22" height="22" src="../../assets/img/svg/bell.svg">
             </span>
-          </a>
+          </router-link>
           
           <span
             class="profile__image pointer slide-menu__trigger fc"

@@ -96,7 +96,6 @@ export default {
   data: function() {
     return {
       results: {},
-      axios: window.axios,
       q: null,
             posting: []
 
@@ -134,6 +133,19 @@ export default {
       await follow.save();
        this.posting =  this.posting.filter(e => e !== id);
 
+
+         var str = JSON.stringify({
+        radiksType: "Notification",
+        target_user: id,
+        created_by: this.current_user.username,
+        type: "user_followed"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
+      
       this.search();
 
       // success callback
@@ -178,7 +190,7 @@ export default {
       if (this.q) {
         var results = [];
         this.users = await axios.get(
-          `search/${this.current_user.username}/${this.q}/`
+          `${process.env.API_PATH}/search/${this.current_user.username}/${this.q}/`
         );
         results = this.users.data;
 

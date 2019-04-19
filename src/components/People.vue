@@ -114,7 +114,6 @@ import { User } from "radiks";
 import moment from "moment";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
 import Question from "../models/Question";
-
 import Following from "../models/Following";
 
 export default {
@@ -139,7 +138,7 @@ export default {
       posting: []
     };
   },
-  mounted() {
+  async mounted() {
     //   console.log('Component mounted.')
   },
   created: function() {
@@ -279,6 +278,18 @@ export default {
 
       this.fetchData();
       this.posting = this.posting.filter(e => e !== id);
+
+      var str = JSON.stringify({
+        radiksType: "Notification",
+        target_user: id,
+        created_by: this.current_user.username,
+        type: "user_followed"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
 
       // success callback
     },

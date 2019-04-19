@@ -91,7 +91,7 @@ export default {
     deleteQ: async function(id) {
 
       this.users = await axios.delete(
-                `question/${id}`
+                `${process.env.API_PATH}/question/${id}`
               );
 
       location.reload();

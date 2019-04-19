@@ -22,11 +22,11 @@ export var BlockstackMixin = {
 
 			}else {
 		
-				
-			 // this.$router.push({ name: 'qdetails', params: { id: id  } })
-			// if(this.$route.path != '/')
-    //    this.$router.push({ name: 'nl' })
-			//
+					// this.$router.push({ name: 'qdetails', params: { id: id  } })
+					// if(this.$route.path != '/')
+					//    this.$router.push({ name: 'nl' })
+					
+
 			}
 
     },

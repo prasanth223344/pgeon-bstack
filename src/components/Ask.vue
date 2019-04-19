@@ -243,6 +243,7 @@
 <script>
 import { configure } from "radiks";
 import Headerwithback from "./shared/HeaderWithBack.vue";
+import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
 
 import Question from "../models/Question";
 import { User } from "radiks";
@@ -275,6 +276,8 @@ export default {
   components: {
     Headerwithback
   },
+    mixins: [BlockstackMixin],
+
   watch: {
     question: function(nval) {
       if (nval.indexOf("?") >= 0) this.hasQMark = true;
@@ -325,10 +328,25 @@ export default {
         user_id: this.user._id,
         expiring_at: expiring_at
       });
-      await question.save();
+      var q = await question.save();
       this.question = "";
       this.$toaster.info("Question posted successfully.");
       var com = this
+
+      
+      var str = JSON.stringify({
+        radiksType: "Notification",
+        created_by: this.user._id,
+        question_id: q._id,
+        type: "question_posted"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
+
+      
       setTimeout(function() {
         com.posting = true
         window.location.reload();
@@ -355,6 +373,9 @@ export default {
   },
   async mounted() {
     configure(this.RADIKS_SERVER);
+
+
+
     this.user = await User.currentUser();
 
     var recs = await Question.fetchList(

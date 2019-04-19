@@ -3,7 +3,7 @@ const express = require('express');
 const request = require('request-promise');
 const { decorateApp } = require('@awaitjs/express');
 const { COLLECTION } = require('radiks-server/app/lib/constants');
-require('dotenv').config()
+
 
 
 const makeApiController = (db) => {
@@ -150,6 +150,10 @@ const makeApiController = (db) => {
      
    res.send('success');
 })
+
+
+
+
 
 
 

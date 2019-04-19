@@ -117,7 +117,7 @@ export default {
       if(this.current_user && this.current_user.username) {
           uname = this.current_user.username
       }
-      this.users =  await axios.post(`reportq/${this.question._id}/${uname}`);
+      //this.users =  await axios.post(`${process.env.API_PATH}/reportq/${this.question._id}/${uname}`);
 
       location.reload();
     },

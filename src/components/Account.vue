@@ -78,14 +78,14 @@ export default {
   watch: {},
   methods: {
     deleteQ: async function(id) {
-      this.users = await axios.delete(`question/${id}`);
+      this.users = await axios.delete(`${process.env.API_PATH}/question/${id}`);
 
       location.reload();
     },
 
     async fetchRecords() {
       var results = [];
-      this.users = await axios.get(`profileqa/${this.$route.params.id}`);
+      this.users = await axios.get(`${process.env.API_PATH}/profileqa/${this.$route.params.id}`);
       this.questions = this.users.data;
 
       var a_ids = new Array();

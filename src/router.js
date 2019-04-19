@@ -13,6 +13,7 @@ import preferences from './components/Preferences.vue';
 import friendship from './components/Friendship.vue';
 import published from './components/Published.vue';
 import profile from './components/Profile.vue';
+import notifications from './components/Notifications.vue';
 import viewpanswers from './components/ViewAllPendingAnswers.vue';
 import login from './components/Login.vue';
 
@@ -103,6 +104,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: notifications
     },
 
   ]

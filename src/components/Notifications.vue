@@ -4,8 +4,8 @@
 <header class="bg-white relative fixed-header ">
   <div class="mw6 m-auto notification-header pr15 pl15 flex items-center justify-between">
 
-    <a onclick="window.history.back()" class="left-arrow fc">
-<svg version="1.1" viewBox="0 0 448 256" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#4A4A4A" fill-rule="nonzero"><path d="m136.97 252.48l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971l-83.928-83.444h375.89c6.627 0 12-5.373 12-12v-10c0-6.627-5.373-12-12-12h-375.89l83.928-83.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-116.48 116c-4.686 4.686-4.686 12.284 0 16.971l116.48 116c4.686 4.686 12.284 4.686 16.97-1e-3z"></path></g></g></svg>
+    <a v-on:click="goBack()" class="left-arrow fc">
+ <img width="22" height="22" src="../assets/img/svg/long-arrow-left.svg">
     </a>
     <h4 class="header-title m0">Notifications</h4>
     <button class="btn clear-all" v-if="notifications.length>0 && show_clear" v-on:click="clear_all"  >
@@ -58,17 +58,27 @@
 
           <avatar v-if="notification.type == 'question_posted'" :size="36"  :src="notification.avatar" :username="(notification.name)?notification.name:notification.slug"></avatar>
 
+
          </div>
       <div class="notifications-body">
         <h5 class="notification-title m0">
 
 
+          <div v-if="notification.type == 'question_posted'">
+              {{notification.created_by}} posted a new question
+          </div>
+
+          <div v-if="notification.type == 'user_followed'">
+              You were followed by {{notification.created_by}} 
+          </div>
+          
           
 
-          {{notification.message}}
+
+         
         </h5>
         <span class="notification-time">
-            {{notification.ago}}
+            {{ago(notification.createdAt)}}..
         </span>
       </div>
     </div>
@@ -107,6 +117,10 @@
 </template>
 
 <script>
+import { NavMixin } from "../mixins/NavMixin.js";
+import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
+
+import moment from "moment";
 
 import Avatar from 'vue-avatar'
 
@@ -123,6 +137,8 @@ import Avatar from 'vue-avatar'
       };
     },
     props: ['current_user_id'],
+                mixins: [BlockstackMixin, NavMixin],
+
     mounted() {
 		//alert(window.bubbleCount)
 
@@ -132,6 +148,10 @@ import Avatar from 'vue-avatar'
 		},
 
     methods: {
+
+  ago(ms) {
+      return moment.unix(ms).fromNow();
+    },
 
       redirect: function(notification) {
 
@@ -181,7 +201,7 @@ import Avatar from 'vue-avatar'
 
     	  	this.new_recs_in=false
     	  	this.still_deciding_count = true
-    		$.getJSON('/notifications/json', function(response) {
+    		$.getJSON(`${process.env.RADIKS_SERVER}/notification/${this.current_user.username}`, function(response) {
 
 
     			this.notifications = response

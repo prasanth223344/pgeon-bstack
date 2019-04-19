@@ -9,7 +9,8 @@
           <div class="empty-notifications">
             <p class="m0">
               <span>💬</span>
-              <span>There are currently no
+              <span>
+                There are currently no
                 <br>questions to display
               </span>
             </p>
@@ -21,37 +22,29 @@
     <main class="landing-main mw6 m-auto pl15 pr15" v-if="records_loaded">
       <div class="p-b-15" v-for="(user_qs) in questions">
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
-
-
-
-
-
-  <div class="open-question__left">
-          <router-link :to="{ name: 'profile', params: { id:  user_qs.user_id}}" >
+          <div class="open-question__left">
+            <router-link :to="{ name: 'profile', params: { id:  user_qs.user_id}}">
               <avatar :size="42" :src="user_qs.profile_pic" :username="user_qs.user_id"></avatar>
-           </router-link>
-        </div>
-        <div class="open-question__right">
-          <span class="open-question__meta">
-						    <router-link class="open-question__author" :to="{ name: 'friendship', params: { q_by: question.q.attrs.user_id, a_by: all_answers[question.q.attrs.accepted_answer].user_id }}" >{{question.q.attrs.user_id}} ← {{all_answers[question.q.attrs.accepted_answer].user_id}}</router-link>
-            <span class="open-question__time">{{ago(question.q.attrs.expiring_at)}}</span>
-          </span>
-        <div class="q-bubble-container q-bubble-container--clickable mt5p">
-        <div class="q-bubble qa-item ">
-          <div>
-            <span> {{question.q.attrs.question}}</span>
+            </router-link>
           </div>
-          <div class="qa-item__seperator"></div>
-          <span> {{all_answers[question.q.attrs.accepted_answer].answer}}</span>
+          <div class="open-question__right">
+            <span class="open-question__meta">
+              <router-link
+                class="open-question__author"
+                :to="{ name: 'friendship', params: { q_by: question.q.attrs.user_id, a_by: all_answers[question.q.attrs.accepted_answer].user_id }}"
+              >{{question.q.attrs.user_id}} ← {{all_answers[question.q.attrs.accepted_answer].user_id}}</router-link>
+              <span class="open-question__time">{{ago(question.q.attrs.expiring_at)}}</span>
+            </span>
+            <div class="q-bubble-container q-bubble-container--clickable mt5p">
+              <div class="q-bubble qa-item">
+                <div>
+                  <span>{{question.q.attrs.question}}</span>
+                </div>
+                <div class="qa-item__seperator"></div>
+                <span>{{all_answers[question.q.attrs.accepted_answer].answer}}</span>
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
-
-
-
-
-       
-          
         </div>
       </div>
 
@@ -75,47 +68,40 @@
       </ul>
 
       <div class="FAB-button__container mw6 m-auto">
-
-          <router-link :to="{ path: 'my-questions'  }"  class="FAB-button" v-if="current_user">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <router-link :to="{ path: 'my-questions'  }" class="FAB-button" v-if="current_user">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path
               d="M436 238H242V44c0-6.6-5.4-12-12-12h-12c-6.6 0-12 5.4-12 12v194H12c-6.6 0-12 5.4-12 12v12c0 6.6 5.4 12 12 12h194v194c0 6.6 5.4 12 12 12h12c6.6 0 12-5.4 12-12V274h194c6.6 0 12-5.4 12-12v-12c0-6.6-5.4-12-12-12z"
             ></path>
           </svg>
-</router-link>
-
-        
+        </router-link>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-
 import { configure } from "radiks";
 import Question from "../models/Question";
 import { User } from "radiks";
 import Avatar from "vue-avatar";
-import Headerhome from './shared/HeaderHome.vue'
-import moment from 'moment';
+import Headerhome from "./shared/HeaderHome.vue";
+import moment from "moment";
 
 import Answer from "../models/Answer";
 
 //Vue.component('headerwithprofile', require('./components/shared/HeaderWithProfile.vue'));
 
-
 import { CommonMixin } from "../mixins/CommonMixin.js";
 import { BlockstackMixin } from "../mixins/BlockstackMixin.js";
-
 
 export default {
   data: function() {
     return {
       questions: [],
       all_answers: [],
-			records_loaded: false,
-			      still_deciding_count: true,
-
+      records_loaded: false,
+      still_deciding_count: true
     };
   },
 
@@ -160,8 +146,7 @@ export default {
     },
 
     ago(ms) {
-      
-return moment.unix(ms).fromNow()
+      return moment.unix(ms).fromNow();
     },
     //will be called from timer comp
     deleteQ: function(id) {
@@ -174,25 +159,23 @@ return moment.unix(ms).fromNow()
       }
     },
 
-
-
     loadQs: async function() {
       $(".up50").removeClass("up50");
       $(window).bind("scroll", this.handleScroll);
 
       configure(this.RADIKS_SERVER);
-      var qs =  await Question.fetchList({
-        expiring_at: { $lt: moment().unix() },
-         accepted_answer: { $exists: true } 
-
-      },              { decrypt: false }
-);
+      var qs = await Question.fetchList(
+        {
+          expiring_at: { $lt: moment().unix() },
+          accepted_answer: { $exists: true }
+        },
+        { decrypt: false }
+      );
 
       var user_qs = [];
-			var a_ids = new Array();
+      var a_ids = new Array();
 
-      	qs.forEach(q => {
-
+      qs.forEach(q => {
         // console.log(q[i].attrs);
         if (!user_qs[q.attrs.user_id]) {
           //will be fetched later
@@ -200,18 +183,18 @@ return moment.unix(ms).fromNow()
           user_qs[q.attrs.user_id] = [];
         }
 
-				user_qs[q.attrs.user_id].push({ q });
-				a_ids.push(q.attrs.accepted_answer)
-			});
-			 //  this will be converted to $in array based on query-to-mongo
-      var answers = await Answer.fetchList({ _id: a_ids.join(",") },              { decrypt: false });
-
+        user_qs[q.attrs.user_id].push({ q });
+        a_ids.push(q.attrs.accepted_answer);
+      });
+      //  this will be converted to $in array based on query-to-mongo
+      var answers = await Answer.fetchList(
+        { _id: a_ids.join(",") },
+        { decrypt: false }
+      );
 
       answers.forEach(a => {
         this.all_answers[a._id] = a.attrs;
-			});
-			
-
+      });
 
       var formatted_qs = [];
       for (var key in user_qs) {
@@ -224,8 +207,6 @@ return moment.unix(ms).fromNow()
       }
 
       this.questions = formatted_qs;
-
-
 
       this.still_deciding_count = false;
 
@@ -241,14 +222,8 @@ return moment.unix(ms).fromNow()
         this.still_deciding_count = false;
       }
 
-
-
-
-
-     
-
-			// this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
-			this.records_loaded = true
+      // this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
+      this.records_loaded = true;
     }
   },
 
@@ -260,7 +235,8 @@ return moment.unix(ms).fromNow()
     //  }
   },
   components: {
-    Avatar, Headerhome
+    Avatar,
+    Headerhome
   }
 };
 </script>

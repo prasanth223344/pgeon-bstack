@@ -24,7 +24,7 @@ VueCookies.config('7d')
  
 window.blockstack = require('blockstack')
 window.axios = require('axios');
-window.axios.defaults.baseURL = process.env.API_PATH;
+
 
 
 Vue.config.productionTip = false
@@ -40,9 +40,7 @@ import { UserSession, AppConfig } from "blockstack";
 import { configure } from "radiks";
 
 
-
-
-
+import { BlockstackMixin } from "./mixins/BlockstackMixin.js";
 
 /* eslint-disable no-new */
 new Vue({
@@ -54,10 +52,13 @@ new Vue({
   data: {
     userSession: 'wat',
   },
+  mixins: [BlockstackMixin],
+
   created: function () {
 
-    
-    // console.log('wat');
+      if(this.current_user) {
+        socket.emit('connect_me', 'U_'+this.current_user.username);
+      }
 
 
     this.userSession = new UserSession({
@@ -69,6 +70,10 @@ new Vue({
       userSession: this.userSession
     });
     
+
+
+
+
   }
 })
 

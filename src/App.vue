@@ -3,10 +3,8 @@
   <div >
 
 
-
  
     <router-view/>
-
 
 
   </div>
@@ -14,6 +12,8 @@
 
 
 
+
+<script></script>
 
 
 <style src="./assets/css/index.scss" lang="scss"></style>

@@ -2,7 +2,7 @@
   <div>
     <headerhome></headerhome>
 
-    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1 && records_loaded">
       <div class="container text-center m-t-5p">
         <div v-if="!still_deciding_count"></div>
         <div v-else>
@@ -19,7 +19,7 @@
       </div>
     </main>
 
-    <main class="landing-main mw6 m-auto pl15 pr15">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="records_loaded">
 
       <div class="p-b-15" v-for="(user_qs) in questions">
         <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
@@ -105,7 +105,9 @@ export default {
   data: function() {
     return {
       questions: {},
-      still_deciding_count: true
+      still_deciding_count: true,
+      			records_loaded: false,
+
     };
   },
 
@@ -213,6 +215,7 @@ export default {
       this.questions.forEach(o =>
         this.loadProfilePic(o.user_id, this.questions)
       );
+      this.records_loaded = true;
     }
   },
 
