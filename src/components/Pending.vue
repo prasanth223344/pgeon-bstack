@@ -13,7 +13,6 @@
     </header>
 
     <main class="pl-15 mw6 m-auto live-main pl15p pr15p">
-      
       <div v-if="records_loaded" v-for="question in questions">
         <div class="q-bubble qa-item mb10p">
           <span>{{question.attrs.question}}</span>
@@ -24,7 +23,10 @@
         </div>
 
         <div class="pending-submit">
-          <router-link :to="{ name: 'viewpanswers', params: { qid: question.attrs._id, top_a: pick_best_scenario_answer_for_questions[question.attrs._id]._id }}" v-if="pick_best_scenario_answer_for_questions[question.attrs._id]">View All</router-link>
+          <router-link
+            :to="{ name: 'viewpanswers', params: { qid: question.attrs._id, top_a: pick_best_scenario_answer_for_questions[question.attrs._id]._id }}"
+            v-if="pick_best_scenario_answer_for_questions[question.attrs._id]"
+          >View All</router-link>
           <a v-else></a>
 
           <div>
@@ -37,18 +39,23 @@
               action-text="Deleting"
             >Delete</longpress>
 
-           
-              <button v-if="pick_best_scenario_answer_for_questions[question.attrs._id]" v-on:click="publish(question.attrs)" class="btn pub ml20p">
-                        <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" v-if="posting.indexOf(question.attrs._id) >= 0">
-          <span v-else>Publish</span>
-
-                
-                
-                </button>
+            <button
+              v-if="pick_best_scenario_answer_for_questions[question.attrs._id]"
+              v-on:click="publish(question.attrs)"
+              class="btn pub ml20p"
+            >
+              <img
+                width="22"
+                height="22"
+                src="../assets/img/svg/loading.svg"
+                alt="loading"
+                v-if="posting.indexOf(question.attrs._id) >= 0"
+              >
+              <span v-else>Publish</span>
+            </button>
           </div>
         </div>
         <div>&nbsp;</div>
-
       </div>
     </main>
   </div>
@@ -75,8 +82,7 @@ export default {
       qs_with_ans_and_vote_count: [],
       records_loaded: false,
       pick_best_scenario_answer_for_questions: [],
-                  posting: []
-
+      posting: []
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -89,38 +95,45 @@ export default {
   watch: {},
   methods: {
     deleteQ: async function(id) {
-
-      this.users = await axios.delete(
-                `${process.env.API_PATH}/question/${id}`
-              );
+      this.users = await axios.delete(`${process.env.API_PATH}/question/${id}`);
 
       location.reload();
-
-
     },
 
     //callback
     redirect: function(id) {
       this.$router.push({ name: "qdetails", params: { id: id } });
-
     },
 
     async publish(attrs) {
-       this.posting.push(attrs._id)
-      var res = this.displayChosenOrTopAnswer(attrs)
-       var qModel = await Question.findById(attrs._id);
+      this.posting.push(attrs._id);
+      var res = this.displayChosenOrTopAnswer(attrs);
+      var qModel = await Question.findById(attrs._id);
 
-       qModel.update({accepted_answer: res._id, accepted_user: res.user_id  });
-       //  qModel.update({last_event_fired: 'question_ended'});
-          await qModel.save()
+      qModel.update({ accepted_answer: res._id, accepted_user: res.user_id });
+      //  qModel.update({last_event_fired: 'question_ended'});
+      await qModel.save();
 
-       location.reload();
 
+   var str = JSON.stringify({
+        radiksType: "Notification",
+        target_user: res.user_id,
+        question_id: attrs._id,
+        created_by: this.current_user.username,
+        type: "answer_accepted"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
+
+
+
+      location.reload();
     },
 
     displayChosenOrTopAnswer(attrs) {
-
-
       //wait for load
       // if (!this.records_loaded) return;
       if (attrs.manually_chosen_as_top) {
@@ -161,7 +174,7 @@ export default {
     async fetchRecords() {
       this.questions = await Question.fetchOwnList({
         expiring_at: { $lt: moment().unix() },
-         accepted_answer: { $exists: false } 
+        accepted_answer: { $exists: false }
       });
       var q_ids = new Array();
       this.questions.forEach(q => q_ids.push(q._id));
@@ -207,7 +220,6 @@ export default {
           q._id
         ] = this.displayChosenOrTopAnswer(q.attrs);
       });
-
 
       this.records_loaded = true;
     }
