@@ -37,12 +37,13 @@
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
           </router-link>
 
-          <a href="/notifications" class="header-bell pointer mr20p fc">
+
+ <router-link :to="{ path: '/notifications' }" class="header-bell pointer mr20p fc "  v-bind:class="{ 'header-bell--with-notif': notif_count }" >
             <span class="flex items-center relative">
               <span class="bell-notification-dot"></span>
               <img width="22" height="22" src="../../assets/img/svg/bell.svg">
             </span>
-          </a>
+          </router-link>
           
           <span class="profile__image pointer slide-menu__trigger fc">
             <avatar :size="32" :src="profile_pic" :username="current_user.username"></avatar>
@@ -103,13 +104,13 @@ import login from "../Login.vue";
 import ProfileMenu from "../ProfileMenu.vue";
 import { configure, User, getConfig } from "radiks";
 import { UserSession, AppConfig } from "blockstack";
-
 import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
+import { NotificationMixin } from "../../mixins/NotificationMixin.js";
 
 export default {
   name: "app",
   components: { login, ProfileMenu, Avatar },
-  mixins: [BlockstackMixin],
+  mixins: [BlockstackMixin, NotificationMixin],
 
   //async
   async mounted() {
@@ -125,9 +126,15 @@ export default {
     const blockstack = this.blockstack;
 
     if (userSession && userSession.isUserSignedIn()) {
+
+      console.log('watattmmma');
+
       this.userData = userSession.loadUserData();
       this.user = new blockstack.Person(this.userData.profile);
       this.user.username = this.userData.username;
+
+
+      
     } else if (userSession && userSession.isSignInPending()) {
       this.loading = true;
       await userSession.handlePendingSignIn();
@@ -161,9 +168,8 @@ export default {
   },
   data() {
     return {
-      blockstack: window.blockstack,
       user: null,
-      loading: false
+      loading: false,
     };
   },
   methods: {

@@ -279,6 +279,7 @@ export default {
       this.fetchData();
       this.posting = this.posting.filter(e => e !== id);
 
+
       var str = JSON.stringify({
         radiksType: "Notification",
         target_user: id,
@@ -297,12 +298,6 @@ export default {
     unfollow: function(id) {
       console.log(id);
 
-      // this.$http.post("/unfollow", formData).then(
-      //   response => {
-      //     this.fetchData();
-      //   },
-      //   response => {}
-      // );
     },
 
     ///will unfollow, but will not update the  following list.. instead will into a temp undo array ..

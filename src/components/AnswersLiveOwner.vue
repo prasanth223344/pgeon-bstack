@@ -54,10 +54,18 @@
          
      
 
-       <div class="open-question__no-responses" v-if="records_loaded">
-        <!-- <p class="m0">No Responses yet</p> -->
-      </div>
+      
 
+    <div class="open-question__no-responses" v-if="records_loaded && answers.length<1"></div>
+
+      <div v-else>
+        <div class="open-question__response" v-for="(answer, index) in answers" v-bind:key="answer.attrs._id">
+         
+            <p>{{answer.attrs.answer}}</p>
+
+            
+        </div>
+      </div>
 
 
      

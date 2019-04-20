@@ -15,10 +15,10 @@
         
         <span class="header-right__icons">
 
-          <router-link class="db header-followers pointer mr20p fc" :to="{ path: '/people' }">
+          <router-link class="db header-followers pointer mr20p fc"  :to="{ path: '/people' }" >
             <img width="22" height="22" src="../../assets/img/svg/followers.svg">
           </router-link>
-                    <router-link class="header-bell pointer mr20p fc" :to="{ path: '/notifications' }">
+                    <router-link class="header-bell pointer mr20p fc"  v-bind:class="{ 'header-bell--with-notif': notif_count }"  :to="{ path: '/notifications' }">
 
             <span class="flex items-center relative">
               <span class="bell-notification-dot"></span>
@@ -44,13 +44,14 @@ import { User } from "radiks";
 import Avatar from "vue-avatar";
 import { BlockstackMixin } from "../../mixins/BlockstackMixin.js";
 import { NavMixin } from "../../mixins/NavMixin.js";
+import { NotificationMixin } from "../../mixins/NotificationMixin.js";
 
 import ProfileMenu from "../ProfileMenu.vue";
 
 export default {
   name: "app",
   components: { Avatar, ProfileMenu },
-  mixins: [BlockstackMixin, NavMixin],
+  mixins: [BlockstackMixin, NavMixin, NotificationMixin],
 
   //async
   async mounted() {

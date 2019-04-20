@@ -6,7 +6,8 @@ export var BlockstackMixin = {
 			return {
 				blockstack: window.blockstack,
 				current_user: null,
-				profile: null
+				profile: null,
+				
 				
 			}
 		},

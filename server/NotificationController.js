@@ -68,6 +68,22 @@ const notificationController = (db) => {
   });
 
 
+  Router.getAsync('/unseen/:user_id', async (req, res) => {
+
+    const results = await radiksData
+      .find(
+        {
+          radiksType: 'Notification',
+          target_user: req.params.user_id,
+          seen: 0,
+        }
+      ).count();
+
+    
+    res.json({count: results});
+  });
+
+
 
   Router.getAsync('/:user_id/:undo?', async (req, res) => {
 
