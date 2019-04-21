@@ -489,3 +489,8 @@ select.no-r::-ms-expand {
 .locked {
   opacity: 0.5;
 }
+.trash-cont {
+  &:hover {
+    opacity: 0.6;
+  }
+}
