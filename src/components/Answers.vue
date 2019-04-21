@@ -68,10 +68,10 @@
         </div>
       </div>
 
-      <div class="open-question__no-responses" v-if="records_loaded && answers.length<1"></div>
+      <div class="open-question__no-responses"   v-if="records_loaded && answers.length<1"></div>
 
       <div v-else>
-        <div v-for="(answer, index) in answers" v-bind:key="answer.attrs._id">
+        <div v-for="(answer, index) in answers" v-bind:key="answer.attrs._id" v-bind:class="{ 'locked':  lock_voting}">
           <v-touch
             v-on:tap="mup(answer.attrs._id, $event, index)"
             v-on:press="mdown(answer.attrs._id, $event, index)"
@@ -223,7 +223,7 @@ export default {
 
     reload() {
       //alert('reload called')
-      //location.reload();
+      location.reload();
     },
     maxHighlight() {
       var currentValue = this.submitted_text;
@@ -247,8 +247,13 @@ export default {
     clearError() {
       this.submit_error = false;
     },
-    async mup(answer_id, e, i) {
+    mup(answer_id, e, i) {
       // configure(this.RADIKS_SERVER);
+
+     
+      var current_vote = this.checkVoted(answer_id);
+
+
 
       if (this.lock_voting) return;
 
@@ -265,10 +270,11 @@ export default {
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
 
       console.log($icon.hasClass("vote-up"));
-      console.log("shoo here");
-      if ($icon.hasClass("vote-up")) {
-        console.log("shoo in");
 
+
+
+
+        if(current_vote === 1) {
         $icon.removeClass("vote-up") && this.castVote(answer_id, 0);
         // this.answers[i].vote_count = this.answers[i].vote_count - 1;
         this.votes_for_answers[answer_id] -= 1;
@@ -276,7 +282,8 @@ export default {
         //up voting
         //	    console.log('- to u')
         //are we upvoting from a down vote..ie. long press..then we need a +2 bcz from -1 it should go to +1 not 0
-        if ($icon.hasClass("vote-down") && $icon.removeClass("vote-down")) {
+        if (current_vote === -1){
+          $icon.removeClass("vote-down")
           //  	console.log('+2 voting')
           //  this.answers[i].vote_count = parseInt(this.answers[i].vote_count) + 2;
           this.votes_for_answers[answer_id] += 2;
@@ -305,6 +312,7 @@ export default {
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
 
+//if this gives problem take current_vote like in mup
       if (!$icon.hasClass("vote-down")) {
         //  console.log('- to d')
         //are we longpressing from an up vote..then we need a -2 bcz from 1 it should go to -1 not 0

@@ -153,13 +153,15 @@ export default {
 
     //will be called from timer comp
     deleteQ: function(id) {
-      let i = 0;
-      while (i < this.questions.length) {
-        if (this.questions[i]["id"] == id) {
-          this.questions.splice(i, 1);
-        }
-        i++;
-      }
+      // let i = 0;
+      // while (i < this.questions.length) {
+      //   if (this.questions[i]["id"] == id) {
+      //     this.questions.splice(i, 1);
+      //   }
+      //   i++;
+      // }
+
+      window.location.reload()
     },
 
     loadQs: async function() {
@@ -216,6 +218,7 @@ export default {
         this.loadProfilePic(o.user_id, this.questions)
       );
       this.records_loaded = true;
+      
     }
   },
 

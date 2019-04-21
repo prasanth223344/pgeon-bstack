@@ -485,3 +485,7 @@ select.no-r::-ms-expand {
       transform:rotate(360deg);
   }
 }
+
+.locked {
+  opacity: 0.5;
+}
