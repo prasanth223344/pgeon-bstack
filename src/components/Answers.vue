@@ -348,6 +348,7 @@ export default {
       await answer.save();
       this.fetchRecords();
        this.posting = false
+       this.votes_for_answers = []
 
       // this.$http.post('/answer', formData).then((response) => {
       //   this.ted_text = ''
