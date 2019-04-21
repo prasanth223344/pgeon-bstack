@@ -3,6 +3,7 @@
     <headerforq v-bind:question="question"></headerforq>
 
     <main class="landing-main mw6 m-auto pl15 pr15 smtp mt15p">
+      <div  v-if="records_loaded">
       <div class="open-question__right">
         <div class="open-question__meta">
           <span class="open-question__author">{{question.user_id}}</span>
@@ -160,7 +161,12 @@
           </svg>
         </button>
       </div>
+  </div>
+       <div class="loader" v-else>
+      <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading">
+      </div>
     </main>
+     
   </div>
 </template>
 
