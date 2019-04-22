@@ -61,7 +61,7 @@
        
           <li class="ul-ls--last">
             <a
-              class="mw6 m-auto pl15 pr15" @click.prevent="signOut">
+              class="mw6 m-auto pl15 pr15 cp" @click.prevent="signOut">
               <span>Logout</span>
             </a>
             

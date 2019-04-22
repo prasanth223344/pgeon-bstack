@@ -24,7 +24,8 @@
 
     <main class="notification-main mw6 m-auto">
       <div v-if="still_deciding_count" class="spinner">
-        <img src="img/spinner.svg">
+                    <img width="22" height="22" src="../assets/img/svg/loading.svg" alt="loading" >
+
       </div>
 
       <div class="m-b-5" v-else>

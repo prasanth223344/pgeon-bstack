@@ -1,6 +1,9 @@
 <template>
   <div>
+      <div class="people-header">
+
     <headerwithback></headerwithback>
+      </div>
 
     <div class="bgw">
       <div class="people-tabs mw6 m-auto pr15">

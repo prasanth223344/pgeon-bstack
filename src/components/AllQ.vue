@@ -223,6 +223,11 @@ export default {
   },
 
   mounted() {
+    //  this.$message({
+    //       message: 'sdfsdf',
+    //       type: "success",
+    //       duration:300000
+    //     })
     //    this.$toaster.info('Your toaster info message.')
     if(this.$route.path == '/nl') {
       	this.$toaster.info('Please Sign in to continue')

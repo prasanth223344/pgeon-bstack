@@ -15,14 +15,15 @@
     color: rgba(74, 74, 74, 0.8);
     font-weight: 400;
   }
-  .left-arrow {
-    svg {
-      fill: #4a4a4a;
-      cursor: pointer;
-    }
-  }
+ 
 }
 
+.left-arrow {
+  img {
+    
+    cursor: pointer;
+  }
+}
 .notification-main {
   padding-top: 44px;
 }

@@ -10,6 +10,10 @@ Vue.use(VueTouch, {name: 'v-touch'})
 import Toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 Vue.use(Toaster, {timeout: 3000})
+import Message from 'vue-m-message'
+
+Vue.use(Message) // will mount `Vue.prototype.$message`
+
 
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)

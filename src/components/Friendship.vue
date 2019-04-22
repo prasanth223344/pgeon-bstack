@@ -54,7 +54,7 @@
 
    
    <div v-if="records_loaded">
-      <div class="open-question__container"  v-for="question in questions">
+      <div class="open-question__container pb15p"  v-for="question in questions">
         <div class="open-question__right response-details-bubble" v-on:click="toggleNameDisplay(question._id)">
           <div class="open-question__meta" v-bind:class="[toggle_class[question._id] ? 'expand' : 'shrunk']">
             <span class="open-question__author">{{$route.params.q_by}} ← {{$route.params.a_by}}</span>

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <headerwithback></headerwithback>
+          <div class="people-header">
 
+    <headerwithback></headerwithback>
+          </div>
     <div class="bgw">
       <div class="search-view mw6 m-auto pr15 pl15">
         <span class="search-icon">

@@ -1,12 +1,12 @@
   <template>
-  <div class="people-header">
+  <div>
     <header class="landing_header relative">
       <div
         class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15"
       >
 
         <span class="back-arrow dib">
-                    <a v-on:click="goBack()" class="dib">
+                    <a v-on:click="goBack()" class="left-arrow fc">
 
           <!-- <a v-on:click="goBack()" > -->
             <img width="22" height="22" src="../../assets/img/svg/long-arrow-left.svg">

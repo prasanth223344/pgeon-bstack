@@ -21,7 +21,7 @@
 
     <main class="landing-main mw6 m-auto pl15 pr15" v-if="records_loaded">
       <div class="p-b-15" v-for="(user_qs) in questions">
-        <div class="open-question__container" v-for="(question,index) in user_qs.q_obj">
+        <div class="open-question__container pb15p" v-for="(question,index) in user_qs.q_obj">
           <div class="open-question__left">
             <router-link :to="{ name: 'profile', params: { id:  user_qs.user_id}}">
               <avatar :size="42" :src="user_qs.profile_pic" :username="user_qs.user_id"></avatar>

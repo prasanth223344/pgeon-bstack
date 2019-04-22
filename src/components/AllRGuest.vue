@@ -27,7 +27,7 @@
  <main class="landing-main mw6 m-auto pl15 pr15">
 
 
-	   <div class="open-question__container"  v-for="question in questions">
+	   <div class=" "  v-for="question in questions">
         <div class="open-question__left">
           <a :href="question.slug">
 			 <avatar :size="36"  :src="question.avatar" :username="(question.name)?question.name:question.slug"></avatar>
