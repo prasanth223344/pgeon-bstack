@@ -179,6 +179,12 @@
   display: inline !important ;
 
 }
+
+
+
+
+
+
 .v-toaster{
   display: inline-block !important ;
   position: absolute !important;
@@ -186,4 +192,12 @@
   transform: translateX(-50%);
   top: 85px !important;
   right: auto !important;
+  animation: fadein 0.2s;
+  z-index:4;
 }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+  }
+  
