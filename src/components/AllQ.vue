@@ -1,11 +1,12 @@
 <template>
   <div>
     <headerhome></headerhome>
+ 
 
-    <main class="landing-main mw6 m-auto pl15 pr15" v-if="questions.length < 1 && records_loaded">
+    <main class="landing-main mw6 m-auto pl15 pr15" v-if="(typeof questions[0] === 'undefined')  && records_loaded">
       <div class="container text-center m-t-5p">
-        <div v-if="!still_deciding_count"></div>
-        <div v-else>
+        <!-- <div v-if="!still_deciding_count"></div> -->
+        <div >
           <div class="empty-notifications">
             <p class="m0">
               <span>💬</span>
@@ -56,7 +57,7 @@
         </div>
       </div>
 
-      <ul class="load_more" v-if="still_deciding_count">
+      <!-- <ul class="load_more" v-if="still_deciding_count">
         <li>
           <div class="spinner p-rel">
             <div class="b1 se"></div>
@@ -73,7 +74,7 @@
             <div class="b12 se"></div>
           </div>
         </li>
-      </ul>
+      </ul> -->
 
       <div class="FAB-button__container mw6 m-auto">
         <router-link :to="{ path: 'my-questions'  }" class="FAB-button" v-if="current_user">
@@ -210,6 +211,8 @@ export default {
       if (qs.length > 0) {
         //this.questions.push(...response)
         this.loading_txt = "more";
+              this.still_deciding_count = true;
+
       } else {
         this.still_deciding_count = false;
       }
