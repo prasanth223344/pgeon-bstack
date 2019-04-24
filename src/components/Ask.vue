@@ -374,8 +374,6 @@ export default {
   async mounted() {
     configure(this.RADIKS_SERVER);
 
-
-
     this.user = await User.currentUser();
 
     var recs = await Question.fetchList(
