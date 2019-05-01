@@ -222,7 +222,7 @@ export default {
         this.still_deciding_count = false;
       }
 
-      // this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
+      this.questions.forEach(o => this.loadProfilePic(o.user_id, this.questions));
       this.records_loaded = true;
     }
   },
