@@ -215,7 +215,7 @@ export default {
       this.iam_following_formatted = formatted_us;
       this.my_followers_temp = this.my_followers;
       this.iam_following_formatted.forEach(o =>
-        this.loadProfilePic(o.user_id, this.iam_following)
+        this.loadProfilePic(o.user_id, this.iam_following_formatted)
       );
 
       this.iam_following_formatted.forEach(o =>

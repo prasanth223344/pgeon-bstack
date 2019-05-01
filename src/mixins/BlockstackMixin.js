@@ -1,4 +1,6 @@
 
+import { getConfig } from "radiks";
+
 export var BlockstackMixin = {
 
  
@@ -7,15 +9,19 @@ export var BlockstackMixin = {
 				blockstack: window.blockstack,
 				current_user: null,
 				profile: null,
+
 				
 				
 			}
 		},
 
     created: function() {
+			const { userSession } = getConfig();
+
+			
 	
-			if (this.blockstack.isUserSignedIn()) {
-      	var userData = blockstack.loadUserData()
+			if (userSession && userSession.isUserSignedIn()) {
+      	var userData = userSession.loadUserData();
 				var profile = new blockstack.Person(userData.profile)
 				this.current_user = userData
 				this.current_profile = profile

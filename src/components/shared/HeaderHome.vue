@@ -123,11 +123,12 @@ export default {
 
 
     const { userSession } = getConfig();
+    
     const blockstack = this.blockstack;
+    
 
     if (userSession && userSession.isUserSignedIn()) {
 
-      console.log('watattmmma');
 
       this.userData = userSession.loadUserData();
       this.user = new blockstack.Person(this.userData.profile);
