@@ -175,64 +175,12 @@ const notificationController = (db) => {
   })
 
 
-  Router.deleteAsync('/question/:id', async (req, res) => {
-
-    await radiksData.remove(
-      {
-        radiksType: 'Question',
-        _id: req.params.id
-      }
-    )
-
-    await radiksData.remove(
-      {
-        radiksType: 'Vote',
-        question_id: req.params.id
-      }
-    )
-
-    await radiksData.remove(
-      {
-        radiksType: 'Answer',
-        question_id: req.params.id
-      }
-    )
-
-    res.send('success');
-  })
 
 
 
 
 
 
-
-  Router.deleteAsync('/question-multiple/:ids', async (req, res) => {
-
-
-    await radiksData.deleteMany(
-      {
-        radiksType: 'Question',
-        _id: { "$in": [req.params.ids.split(",")] }
-      }
-    )
-
-    await radiksData.deleteMany(
-      {
-        radiksType: 'Vote',
-        question_id: { "$in": [req.params.ids.split(",")] }
-      }
-    )
-
-    await radiksData.deleteMany(
-      {
-        radiksType: 'Answer',
-        question_id: { "$in": [req.params.ids.split(",")] }
-      }
-    )
-
-    res.send('success');
-  })
 
 
 

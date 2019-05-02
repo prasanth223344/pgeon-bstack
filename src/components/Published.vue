@@ -122,7 +122,7 @@ export default {
     deleteQ: async function() {
 
 
-console.log(`question-multiple/${this.selection.join(",")}`);
+
 
      await axios.delete(
                 `${process.env.API_PATH}/question-multiple/${this.selection.join(",")}`
