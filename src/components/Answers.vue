@@ -535,7 +535,7 @@ export default {
 
     this.fetchRecords();
 
-  //  this.getVoteCount();
+    this.getVoteCount();
   },
 
   components: {
