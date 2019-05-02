@@ -373,9 +373,13 @@ export default {
     },
 
     async getVoteCount() {
+      
       var rec = await Vote.fetchList({
-        question_id: this.question_id
-      });
+        question_id: this.question._id
+      },
+        { decrypt: false });
+    
+      
       this.vote_count = rec.length;
     },
     async fetchRecords() {
@@ -390,6 +394,7 @@ export default {
         { question_id: this.question._id },
         { decrypt: false }
       );
+
 
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
@@ -530,7 +535,7 @@ export default {
 
     this.fetchRecords();
 
-    //  this.getVoteCount();
+  //  this.getVoteCount();
   },
 
   components: {
