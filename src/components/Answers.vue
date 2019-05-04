@@ -215,7 +215,10 @@ export default {
 
   mixins: [BlockstackMixin],
 
-  mounted() {},
+  async mounted() {
+      //    await axios.get(`${process.env.API_PATH}/tweet`);
+
+  },
 
   computed: {},
   watch: {

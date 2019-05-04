@@ -20,11 +20,53 @@ const makeApiController = (db) => {
   //   res.json({ messages });
   // });
 
+  Router.getAsync('/tweet1', async (req, res) => {
+    res.send('error')
+
+  })
 
 
 
+  Router.getAsync('/tweet', async (req, res) => {
 
 
+
+    var Twitter = require('twitter');
+
+
+    var twitter_application_consumer_key = 'OgIADQfIYmCOtQQfY0wkN9Zk5';  // API Key
+    var twitter_application_secret = 'u5iAwE1CMS7K8ItiLd0txPMMcfBxIrNOROlpNr6njr7QkUa7HB';  // API Secret
+    var twitter_user_access_token = '877457031795326976-Ue0eJVu5kyYEn6DC6iIafFRaNtuN2iH';  // Access Token
+    var twitter_user_secret = 'l0QIwA7XgkiRfMp6NQV6SZtrbdBAG947zg7Cs5DUdZYIU';  // Access Token Secret
+
+    var client = new Twitter({
+      consumer_key: twitter_application_consumer_key,
+      consumer_secret: twitter_application_secret,
+      access_token_key: twitter_user_access_token,
+      access_token_secret: twitter_user_secret
+    });
+
+    var status = '6one';  // This is the tweet (ie status)
+
+   
+
+
+    client.post('statuses/update', {status: status},  function(error, tweet, response) {
+      if(error)  {
+       // throw error;
+      res.send('error')
+      }else {
+        res.send('success')
+
+      }
+
+     // console.log(tweet);  // Tweet body.
+    //  console.log(response);  // Raw response object.
+    });
+
+    
+
+  })
 
 
   Router.getAsync('/profileqa/:id', async (req, res) => {
@@ -32,21 +74,21 @@ const makeApiController = (db) => {
     const results = await radiksData
       .find(
         {
-          
+
           radiksType: 'Question',
-          expiring_at: { $lt: Date.now()  },
-          accepted_answer:  { $exists: true},
-          $or: [ { user_id: req.params.id }, { accepted_user: req.params.id } ],
+          expiring_at: { $lt: Date.now() },
+          accepted_answer: { $exists: true },
+          $or: [{ user_id: req.params.id }, { accepted_user: req.params.id }],
 
         },
         {
-          projection: { question: 1, _id:1, accepted_answer:1, accepted_user:1, user_id:1 },
+          projection: { question: 1, _id: 1, accepted_answer: 1, accepted_user: 1, user_id: 1 },
         }
       )
       .toArray();
 
 
-   
+
     //const usernames = users.map(({ username }) => username && username);
     res.json(results);
   });
@@ -59,18 +101,18 @@ const makeApiController = (db) => {
       .find(
         {
           radiksType: 'BlockstackUser',
-          username: {'$regex' : '.*'+req.params.startswith+'.*' , '$options' : 'i' },
-          _id: {'$ne': req.params.exclude }
+          username: { '$regex': '.*' + req.params.startswith + '.*', '$options': 'i' },
+          _id: { '$ne': req.params.exclude }
 
         },
         {
-          projection: { username: 1, _id:1 },
+          projection: { username: 1, _id: 1 },
         }
       )
       .toArray();
 
 
-   
+
     //const usernames = users.map(({ username }) => username && username);
     res.json(results);
   });
@@ -82,17 +124,19 @@ const makeApiController = (db) => {
 
   Router.deleteAsync('/answer/:id', async (req, res) => {
 
-     await radiksData.remove(
-      { radiksType: 'Vote',
+    await radiksData.remove(
+      {
+        radiksType: 'Vote',
         answer_id: req.params.id
       }
-      )
+    )
 
-      await radiksData.remove(
-        { radiksType: 'Answer',
-          _id: req.params.id
-        }
-      )
+    await radiksData.remove(
+      {
+        radiksType: 'Answer',
+        _id: req.params.id
+      }
+    )
 
     res.send('success');
   })
@@ -100,23 +144,26 @@ const makeApiController = (db) => {
 
   Router.deleteAsync('/question/:id', async (req, res) => {
 
-     await radiksData.remove(
-      { radiksType: 'Question',
+    await radiksData.remove(
+      {
+        radiksType: 'Question',
         _id: req.params.id
       }
-      )
+    )
 
-     await radiksData.remove(
-      { radiksType: 'Vote',
+    await radiksData.remove(
+      {
+        radiksType: 'Vote',
         question_id: req.params.id
       }
-      )
+    )
 
-      await radiksData.remove(
-        { radiksType: 'Answer',
+    await radiksData.remove(
+      {
+        radiksType: 'Answer',
         question_id: req.params.id
-        }
-      )
+      }
+    )
 
     res.send('success');
   })
@@ -127,53 +174,56 @@ const makeApiController = (db) => {
 
 
 
- Router.deleteAsync('/question-multiple/:ids', async (req, res) => {
-
-   
-  var wat = await radiksData.deleteMany(
-   { radiksType: 'Question',
-     _id: { "$in": req.params.ids.split(",")}
-   }
-   
-   
-   )
-  
-
-  await radiksData.deleteMany(
-   { radiksType: 'Vote',
-     question_id: { "$in": req.params.ids.split(",")}
-   }
-   )
-
-   await radiksData.deleteMany(
-     { radiksType: 'Answer',
-     question_id: { "$in": req.params.ids.split(",")}
-     }
-   )
-     
-   res.send('success');
-})
+  Router.deleteAsync('/question-multiple/:ids', async (req, res) => {
 
 
+    var wat = await radiksData.deleteMany(
+      {
+        radiksType: 'Question',
+        _id: { "$in": req.params.ids.split(",") }
+      }
+
+
+    )
+
+
+    await radiksData.deleteMany(
+      {
+        radiksType: 'Vote',
+        question_id: { "$in": req.params.ids.split(",") }
+      }
+    )
+
+    await radiksData.deleteMany(
+      {
+        radiksType: 'Answer',
+        question_id: { "$in": req.params.ids.split(",") }
+      }
+    )
+
+    res.send('success');
+  })
 
 
 
 
 
-Router.postAsync('/reportq/:question/:username', async (req, res) => {
 
-  const SparkPost = require('sparkpost');
 
-  console.log(process.env.SPARKPOST_KEY);
-  
-const client = new SparkPost(process.env.SPARKPOST_KEY);
+  Router.postAsync('/reportq/:question/:username', async (req, res) => {
 
-client.transmissions.send({
-    
-    content: {
-      from: 'support.pgeon@heartboxx.com',
-      subject: 'Hello, World!',
-      html:`
+    const SparkPost = require('sparkpost');
+
+    console.log(process.env.SPARKPOST_KEY);
+
+    const client = new SparkPost(process.env.SPARKPOST_KEY);
+
+    client.transmissions.send({
+
+      content: {
+        from: 'support.pgeon@heartboxx.com',
+        subject: 'Hello, World!',
+        html: `
       <!doctype html>
       <html>
         <head>
@@ -703,22 +753,22 @@ client.transmissions.send({
               
       
               `
-    },
-    recipients: [
-      {address: 'rameshkumar86@gmail.com'}
-    ]
-  })
-  .then(data => {
-    console.log('Woohoo! You just sent your first mailing!');
-    console.log(data);
-  })
-  .catch(err => {
-    console.log('Whoops! Something went wrong');
-    console.log(err);
-  });
+      },
+      recipients: [
+        { address: 'rameshkumar86@gmail.com' }
+      ]
+    })
+      .then(data => {
+        console.log('Woohoo! You just sent your first mailing!');
+        console.log(data);
+      })
+      .catch(err => {
+        console.log('Whoops! Something went wrong');
+        console.log(err);
+      });
 
 
-})
+  })
 
   // Router.getAsync('/user/:username', async (req, res) => {
   //   const { username } = req.params;

@@ -226,6 +226,10 @@ export default {
   },
 
   mounted() {
+
+
+  
+
     if(this.$route.path == '/nl') {
       	this.$toaster.info('Please Sign in to continue')
     }

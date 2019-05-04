@@ -10,7 +10,7 @@
         <div class="question-details__profile fc">
            <router-link
               :to="{ name: 'profile', params: { id:  question.user_id}}">
-            <avatar :size="36" :src="profile_pic" :username="question.user_id"></avatar>
+            <avatar :size="36" :src="q_profile_pic" :username="question.user_id"></avatar>
           </router-link>
         </div>
         <div class="question-details__more pointer" >
@@ -107,6 +107,9 @@ const SparkPost = require('sparkpost');
 
 export default {
   name: "app",
+  data: function() {
+   
+  },
   components: { Avatar },
 
   props: ["question", "noshare", "nomenu"],
@@ -132,9 +135,11 @@ export default {
 
 
 
+
     var pf = await this.blockstack.lookupProfile(this.question.user_id);
+    
     if (pf && typeof pf.image !== "undefined" && pf.image[0]["contentUrl"]) {
-      this.profile_pic = pf.image[0]["contentUrl"];
+      this.q_profile_pic = pf.image[0]["contentUrl"];
     }
 
 
@@ -221,7 +226,7 @@ export default {
   },
   data() {
     return {
-      profile_pic: null
+      q_profile_pic: null
     };
   }
 };
