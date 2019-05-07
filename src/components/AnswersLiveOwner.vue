@@ -123,7 +123,9 @@ export default {
       error_class: "danger",
       lock_voting: false,
       showendmodal: false,
-      posting: false
+      posting: false,
+      votes_for_answers: [],
+      
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -178,22 +180,53 @@ export default {
           alert("error submitting");
         }
       );
-    }
+    },
+
+
+       fetchById(e, answers) {
+      var matched_answer = null
+      answers.forEach(a => {
+
+        if (e == a._id) {
+          matched_answer = a;
+        }
+      });
+      return matched_answer;
+    },
+
+    getSortedKeys(obj) {
+      var keys = [];
+      for (var key in obj) keys.push(key);
+      return keys.sort(function(a, b) {
+        return obj[b] - obj[a];
+      });
+    },
   },
 
   created: async function() {
     
 
 
-    this.answers = await Answer.fetchList(
+    var answers = await Answer.fetchList(
       { question_id: this.question._id },
       { decrypt: false }
     );
 
-    var my_votes = await Vote.fetchList(
+    var my_votes = this.votes_count = await Vote.fetchList(
       { question_id: this.question._id },
       { decrypt: false }
     );
+
+
+      for (var i = 0; i < this.votes_count.length; i++) {
+        var vote = this.votes_count[i];
+
+        if (!this.votes_for_answers[vote.attrs.answer_id])
+          this.votes_for_answers[vote.attrs.answer_id] = 0;
+        this.votes_for_answers[vote.attrs.answer_id] += parseInt(
+          vote.attrs.vote
+        );
+      }
     
     this.vote_count = my_votes.length;
    
@@ -234,6 +267,15 @@ export default {
 
     // this.fetchRecords();
     //  this.getVoteCount();
+      var sorted_keys = this.getSortedKeys(this.votes_for_answers);
+
+      sorted_keys.forEach(e => {
+        //console.log(e);
+        var a = this.fetchById(e, answers);
+
+        this.answers.push(a);
+      });
+
   },
 
   components: {

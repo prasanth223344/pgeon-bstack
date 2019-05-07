@@ -207,7 +207,7 @@ export default {
       error_class: "danger",
       votes_for_answers: [],
       lock_voting: false,
-      posting: false
+      posting: false,
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -216,8 +216,7 @@ export default {
   mixins: [BlockstackMixin],
 
   async mounted() {
-      //    await axios.get(`${process.env.API_PATH}/tweet`);
-
+    //    await axios.get(`${process.env.API_PATH}/tweet`);
   },
 
   computed: {},
@@ -282,7 +281,6 @@ export default {
 
       $icon.hasClass("vote-none") && $icon.removeClass("vote-none");
 
-
       if (current_vote === 1) {
         $icon.removeClass("vote-up") && this.castVote(answer_id, -1);
         // this.answers[i].vote_count = this.answers[i].vote_count - 1;
@@ -304,7 +302,6 @@ export default {
       }
     },
 
-  
     ownerOfAnswer: function(user_id) {
       return this.current_user.username == user_id;
     },
@@ -376,19 +373,19 @@ export default {
     },
 
     async getVoteCount() {
-      
-      var rec = await Vote.fetchList({
-        question_id: this.question._id
-      },
-        { decrypt: false });
-    
-      
+      var rec = await Vote.fetchList(
+        {
+          question_id: this.question._id
+        },
+        { decrypt: false }
+      );
+
       this.vote_count = rec.length;
     },
     async fetchRecords() {
       //   configure(this.RADIKS_SERVER);
 
-      this.answers = await Answer.fetchList(
+      var answers = await Answer.fetchList(
         { question_id: this.question._id },
         { decrypt: false }
       );
@@ -397,7 +394,6 @@ export default {
         { question_id: this.question._id },
         { decrypt: false }
       );
-
 
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
@@ -426,12 +422,38 @@ export default {
         this.my_votes.push(newVote);
       }
 
-      this.records_loaded = true;
+      var sorted_keys = this.getSortedKeys(this.votes_for_answers);
 
-     
+      sorted_keys.forEach(e => {
+        //console.log(e);
+        var a = this.fetchById(e, answers);
+
+        this.answers.push(a);
+      });
+
+      //console.log(this.answers);
+
+      this.records_loaded = true;
     },
 
-   
+    fetchById(e, answers) {
+      var matched_answer = null
+      answers.forEach(a => {
+
+        if (e == a._id) {
+          matched_answer = a;
+        }
+      });
+      return matched_answer;
+    },
+
+    getSortedKeys(obj) {
+      var keys = [];
+      for (var key in obj) keys.push(key);
+      return keys.sort(function(a, b) {
+        return obj[b] - obj[a];
+      });
+    },
 
     checkVoted(answer_id) {
       for (var i = 0; i < this.my_votes.length; i++) {
@@ -475,8 +497,6 @@ export default {
     });
 
     Question.addStreamListener(question => {
-      console.log(this.question._id);
-      console.log(question.attrs._id);
       if (
         question.attrs._id == this.question._id &&
         question.attrs.last_event_fired == "question_ended"
