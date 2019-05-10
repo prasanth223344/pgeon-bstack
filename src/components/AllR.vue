@@ -167,7 +167,8 @@ export default {
       var qs = await Question.fetchList(
         {
           expiring_at: { $lt: moment().unix() },
-          accepted_answer: { $exists: true }
+          accepted_answer: { $exists: true },
+          sort: '-expiring_at'
         },
         { decrypt: false }
       );
