@@ -54,9 +54,12 @@ const notificationController = (db) => {
         followers_data.push(tdata)
       })
 
-      await radiksData.insertMany(
-        followers_data
-      )
+      if(followers_data.length>0){
+        await radiksData.insertMany(
+          followers_data
+        )
+      }
+      
 
 
 

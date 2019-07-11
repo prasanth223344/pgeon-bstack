@@ -390,6 +390,9 @@ export default {
         { decrypt: false }
       );
 
+
+
+
       this.votes_count = await Vote.fetchList(
         { question_id: this.question._id },
         { decrypt: false }
@@ -397,9 +400,11 @@ export default {
 
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
-
-        if (!this.votes_for_answers[vote.attrs.answer_id])
+        if (!this.votes_for_answers[vote.attrs.answer_id]) {
+         
+          
           this.votes_for_answers[vote.attrs.answer_id] = 0;
+        }
         this.votes_for_answers[vote.attrs.answer_id] += parseInt(
           vote.attrs.vote
         );
@@ -422,16 +427,21 @@ export default {
         this.my_votes.push(newVote);
       }
 
-      var sorted_keys = this.getSortedKeys(this.votes_for_answers);
+    
+      if(this.votes_for_answers.length > 0) {
+        var sorted_keys = this.getSortedKeys(this.votes_for_answers);
 
-      sorted_keys.forEach(e => {
-        //console.log(e);
-        var a = this.fetchById(e, answers);
+        sorted_keys.forEach(e => {
+          
+          var a = this.fetchById(e, answers);
 
-        this.answers.push(a);
-      });
+          this.answers.push(a);
+        });
+      }else {
+         this.answers =  answers
+      }
+     
 
-      //console.log(this.answers);
 
       this.records_loaded = true;
     },
