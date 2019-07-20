@@ -6,6 +6,110 @@ const { COLLECTION } = require('radiks-server/app/lib/constants');
 var moment = require('moment');
 const { ObjectId } = require('mongodb'); // or ObjectID 
 
+//settimeout will be set and will be stored this array...this should be cleared when the question is ended prematurely
+var timeouts = {};
+
+async function sendNotifToVoters(db, question) {
+  //console.log('======timing out buddy=======');
+
+  const radiksData = db.collection(COLLECTION);
+  clearTimeout(timeouts[question.question_id])
+  delete timeouts[question.question_id]
+
+
+
+
+
+  const res_answers_with_vote = await radiksData
+    .find(
+      {
+        radiksType: 'Vote',
+        question_id: question.question_id,
+
+      }
+      ,
+      {
+        projection: { answer_id: 1, _id: 0, vote: 1 },
+      }
+    )
+    .toArray();
+
+  var answers_with_vote = new Array()
+  var votecounts = {}
+  for (var i = 0; i < res_answers_with_vote.length; i++) {
+    //not exists
+    if (answers_with_vote.indexOf(res_answers_with_vote[i].answer_id) < 0) {
+      answers_with_vote.push(res_answers_with_vote[i].answer_id)
+      //fresh initialization
+      votecounts[res_answers_with_vote[i].answer_id] = 0
+    }
+
+    //add votes
+    votecounts[res_answers_with_vote[i].answer_id] += res_answers_with_vote[i].vote
+
+
+  }
+
+  if (answers_with_vote) {
+
+    const res_owners_of_answers = await radiksData
+      .find(
+        {
+          radiksType: 'Answer',
+          _id: { $in: answers_with_vote },
+        }
+        ,
+        {
+          projection: { user_id: 1 },
+        }
+      )
+      .toArray();
+
+
+
+
+
+
+
+    //insert votes earned...
+
+    var answered_users = []
+    var data = {
+      radiksType: "Notification",
+      created_by: question.created_by,
+      question_id: question.question_id,
+      type: "votes_earned",
+      seen: 0,
+      createdAt: moment().unix()
+    };
+
+
+
+    res_owners_of_answers.forEach(res => {
+      //don't send for zero 
+      if (votecounts[res._id] == 0) return
+      var tdata = { ...data }
+      tdata.target_user = res.user_id
+      tdata.votes = votecounts[res._id]
+      answered_users.push(tdata)
+    })
+
+    if (answered_users.length > 0) {
+
+
+      await radiksData.insertMany(
+        answered_users
+      )
+    }
+
+
+
+  }
+
+
+
+
+}
 
 const notificationController = (db) => {
   const Router = decorateApp(express.Router());
@@ -54,21 +158,44 @@ const notificationController = (db) => {
         followers_data.push(tdata)
       })
 
-      if(followers_data.length>0){
+      if (followers_data.length > 0) {
         await radiksData.insertMany(
           followers_data
         )
       }
+
+
+
+
+
       
+   
+
+      //send out notificatoins when the time expires
+      var trigger_at = (data.expiring_at * 1000) - new Date().getTime()
+
+
+      timeouts[data.question_id] = setTimeout(function () {
+        
+        sendNotifToVoters(db, data)
+      }, trigger_at);
 
 
 
+    } else if (data.type == 'question_deleted') {
+      sendNotifToVoters(db, data)
     }
+
 
 
     res.send('success');
 
   });
+
+  Router.getAsync('/unseen/:user_id', async (req, res) => {
+
+
+  })
 
 
   Router.getAsync('/unseen/:user_id', async (req, res) => {
@@ -82,8 +209,8 @@ const notificationController = (db) => {
         }
       ).count();
 
-    
-    res.json({count: results});
+
+    res.json({ count: results });
   });
 
 
@@ -139,8 +266,6 @@ const notificationController = (db) => {
 
 
   Router.postAsync('/markasseen/:id', async (req, res) => {
-    console.log(ObjectId(req.params.id));
-    console.log((req.params.id));
 
 
     const results = await radiksData
@@ -162,7 +287,7 @@ const notificationController = (db) => {
 
   Router.deleteAsync('/:user_id', async (req, res) => {
 
-  
+
     await radiksData
       .updateMany({
         "target_user": req.params.user_id
@@ -188,7 +313,6 @@ const notificationController = (db) => {
 
 
   Router.postAsync('/notification/:data', async (req, res) => {
-    console.log('wwerwer');
     var pars = JSON.parse(req.params.data);
     console.log(pars.target_users);
     res.send('success');

@@ -308,7 +308,8 @@ export default {
         radiksType: "Notification",
         created_by: this.user._id,
         question_id: q._id,
-        type: "question_posted"
+        type: "question_posted",
+        expiring_at: expiring_at
       });
       // await axios.post(`${process.env.API_PATH}/notification/${str}` );
 

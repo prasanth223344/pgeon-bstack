@@ -147,7 +147,23 @@ export default {
     },
 
     endnow: async function() {
-      //console.log(this.question);
+
+
+
+
+   var str = JSON.stringify({
+        radiksType: "Notification",
+        created_by: this.question.user_id,
+        question_id: this.question._id,
+        type: "question_deleted"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
+
+
 
       this.posting = true;
       var qModel = await Question.findById(this.question._id);
@@ -158,6 +174,20 @@ export default {
       });
       //  qModel.update({last_event_fired: 'question_ended'});
       await qModel.save();
+
+
+      var str = JSON.stringify({
+        radiksType: "Notification",
+        created_by: this.question.user_id,
+        question_id: this.question._id,
+        type: "question_deleted"
+      });
+      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
+
+      await axios.post(
+        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
+      );
+
 
       window.location.reload();
       // this.$http.post(`/end_now/${this.question_id}`).then((response) => {
