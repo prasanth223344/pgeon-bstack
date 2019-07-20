@@ -255,20 +255,20 @@ export default {
     },
 
     dd: function() {
-      // if (
-      //   this.dd == "00" &&
-      //   this.mm != "00" &&
-      //   parseInt(this.mm) <= 5 &&
-      //   this.hh == "00"
-      // ) {
-      //   this.mm = "05";
-      //   this.lt5_disabled = true;
-      // } else if (this.dd == "00" && this.mm == "00" && this.hh == "00") {
-      //   this.hh = "01";
-      //   this.lt5_disabled = true;
-      // } else {
-      //   this.lt5_disabled = false;
-      // }
+      if (
+        this.dd == "00" &&
+        this.mm != "00" &&
+        parseInt(this.mm) <= 5 &&
+        this.hh == "00"
+      ) {
+        this.mm = "05";
+        this.lt5_disabled = true;
+      } else if (this.dd == "00" && this.mm == "00" && this.hh == "00") {
+        this.hh = "01";
+        this.lt5_disabled = true;
+      } else {
+        this.lt5_disabled = false;
+      }
     },
     hh: function() {
       if (this.dd == "00" && parseInt(this.mm) <= 5 && this.hh == "00") {
