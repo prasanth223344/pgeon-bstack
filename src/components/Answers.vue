@@ -15,7 +15,7 @@
               ></allqtimer>
             </span>
           </div>
-          <a class="open-question__content selected mt5p m0">
+          <a class="open-question__content selected mt5p m0 no-shadow">
             <p>{{question.question}}</p>
           </a>
         </div>
@@ -135,7 +135,7 @@
           <textarea
             v-model="submitted_text"
             @input="maxHighlight"
-            :placeholder="'Responding as '+current_user.username+ '...'"
+            :placeholder="'Responding as '+current_user.username+ ''"
             autofocus
             v-else
           ></textarea>
@@ -401,8 +401,8 @@ export default {
       for (var i = 0; i < this.votes_count.length; i++) {
         var vote = this.votes_count[i];
         if (!this.votes_for_answers[vote.attrs.answer_id]) {
-         
-          
+
+
           this.votes_for_answers[vote.attrs.answer_id] = 0;
         }
         this.votes_for_answers[vote.attrs.answer_id] += parseInt(
@@ -427,12 +427,12 @@ export default {
         this.my_votes.push(newVote);
       }
 
-    
+
       if(this.votes_for_answers.length > 0) {
         var sorted_keys = this.getSortedKeys(this.votes_for_answers);
 
         sorted_keys.forEach(e => {
-          
+
           var a = this.fetchById(e, answers);
 
           this.answers.push(a);
@@ -440,7 +440,7 @@ export default {
       }else {
          this.answers =  answers
       }
-     
+
 
 
       this.records_loaded = true;

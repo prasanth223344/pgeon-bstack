@@ -79,6 +79,9 @@
   margin-top: 10px;
   width: 50px;
 }
+.copy-icon{
+  margin-left: 48px;
+}
 
 .edit-icon {
   > .edit-icon-times {
@@ -325,4 +328,12 @@
 
 .cp {
   cursor: pointer;
+}
+
+.v-mid{
+  vertical-align: middle;
+}
+
+.profile-url_input{
+  color: #4A4A4A;
 }

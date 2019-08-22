@@ -2,7 +2,7 @@
   <div>
 <header class="landing_header relative">
   <div class="mw6 m-auto landing_header__inner flex items-center top__header relative pr15 pl15">
-     
+
 
 
 
@@ -10,18 +10,18 @@
 
 <img width="22" height="22" src="../assets/img/svg/long-arrow-left.svg">
 
-                 </a> 
-    
+                 </a>
+
 
 
     <div class="question-details__profile response-images pointer">
 
       <avatar v-if="records_loaded" :size="36" :src="q_by_avatar" :username="$route.params.q_by"></avatar>
       <avatar v-if="records_loaded" :size="36" :src="a_by_avatar" :username="$route.params.a_by"></avatar>
-                <!-- 
+                <!--
 
                <avatar src="{{ Helper::avatar($tuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($tuser) }}"></avatar>
-              
+
                 <avatar src="{{ Helper::avatar($fuser->avatar) }}" :size=36 username="{{  Helper::name_or_slug($fuser) }}"></avatar> -->
 
     </div>
@@ -52,7 +52,7 @@
 
   <main class="landing-main mw6 m-auto pl15 pr15">
 
-   
+
    <div v-if="records_loaded">
       <div class="open-question__container pb15p"  v-for="question in questions">
         <div class="open-question__right response-details-bubble" v-on:click="toggleNameDisplay(question._id)">
@@ -78,7 +78,7 @@
       </div>
 
   </main>
-  
+
 
 <div class="double-avatar">
   <div class="double-avatar__overlay standard-overlay"></div>
@@ -90,40 +90,40 @@
 
       <avatar v-if="records_loaded" :size="36" class="mr10p" :src="q_by_avatar" :username="$route.params.q_by"></avatar>
 
-        
-                
+
+
           <h3 class="m0">
-          <span class="open-question__author" >
+          <span>
 
             {{  $route.params.q_by }}
           </span>
       </h3>
 </router-link>
 
-      
+
         <span class="m-auto mw6 db">
           <div class="border-trimmed"></div>
         </span>
                     <router-link :to="{ name: 'profile', params: { id:  $route.params.a_by}}" class="double-avatar__item items-center flex">
 
-       
+
            <avatar v-if="records_loaded" :size="36" class="mr10p" :src="a_by_avatar" :username="$route.params.a_by"></avatar>
-        
+
         <h3 class="m0">
-        <span class="open-question__author" >
+        <span>
 
 
           {{  $route.params.a_by }}
         </span>
-       
+
       </h3>
 </router-link>
-      
+
   </div>
 </div>
 
 
-   
+
   </div>
 </template>
 
@@ -174,8 +174,8 @@ export default {
         }
 
       //console.log(this.toggle_class);
-      
-        
+
+
     },
 
     handleScroll: function() {
@@ -233,12 +233,12 @@ export default {
     loadQs: async function() {
 
 
-      
+
 
         this.questions = await Question.fetchList({
          accepted_answer: { $exists: true } ,
         accepted_user: this.$route.params.a_by ,
-        user_id: this.$route.params.q_by 
+        user_id: this.$route.params.q_by
       },
 
           { decrypt: false });
@@ -262,7 +262,7 @@ export default {
       this.a_by_avatar = await this.loadIndivProfilePic(this.$route.params.a_by)
 
       this.records_loaded = true
-      
+
 
     }
   },
@@ -282,9 +282,9 @@ const deactivateOverlappingImagesModal = () => {
 
 $(".response-images").on("click", activateOverlappingImagesModal)
   $(".double-avatar__overlay").on("click", deactivateOverlappingImagesModal)
-   
 
-    
+
+
   },
   components: {
     Avatar, Headerhome

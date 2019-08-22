@@ -2,6 +2,7 @@
   padding: 10px 15px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.2);
   display: flex;
+  transition: all 300ms ease-in-out;
   justify-content: space-between;
   > div {
     display: flex;
