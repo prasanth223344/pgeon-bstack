@@ -148,11 +148,16 @@ export default {
     },
 
     redirect: async function(notification) {
+      console.log(notification);
+      
       //if already seen..just redirct it
       if (notification.seen == 1) {
         // location.href = notification.link_to;
       } else {
         //mark that rec as seen.
+
+        console.log(notification);
+        
         var formData = {
           id: notification.id
         };
@@ -163,10 +168,11 @@ export default {
             notification.id
           }`
         );
-
+      }
+      
         if (
           notification.type == "question_posted" ||
-          notification.type == "answer_accepted"
+          notification.type == "answer_accepted" || notification.type == "votes_earned"
         ) {
           
           this.$router.push({
@@ -179,7 +185,7 @@ export default {
             params: { id: notification.created_by }
           });
         }
-      }
+      
     },
 
     async clear_all() {
