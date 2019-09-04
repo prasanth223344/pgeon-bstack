@@ -1,7 +1,7 @@
 <template>
   <div>
     <headerhome></headerhome>
- 
+
 
     <main class="landing-main mw6 m-auto pl15 pr15" v-if="(typeof questions[0] === 'undefined')  && records_loaded">
       <div class="container text-center m-t-5p">
@@ -221,20 +221,20 @@ export default {
         this.loadProfilePic(o.user_id, this.questions)
       );
       this.records_loaded = true;
-      
+
     }
   },
 
   mounted() {
 
 
-  
+
 
     if(this.$route.path == '/nl') {
       	this.$toaster.info('Please Sign in to continue')
     }
     this.loadQs();
-    
+
     //if this is empty even after .push?
     //  if (this.questions.length < 1) {
     //      this.still_deciding_count = false

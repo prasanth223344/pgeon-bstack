@@ -125,7 +125,7 @@ export default {
       showendmodal: false,
       posting: false,
       votes_for_answers: [],
-      
+
     };
   },
   //votecount will be inc'ted or dec'ted when the user cast a vote..but accurate vote can be viewed only on page refresh
@@ -234,7 +234,7 @@ export default {
   },
 
   created: async function() {
-    
+
 
 
     var answers = await Answer.fetchList(
@@ -257,9 +257,9 @@ export default {
           vote.attrs.vote
         );
       }
-    
+
     this.vote_count = my_votes.length;
-   
+
     // //got some new questions inserted
     // if (socket) {
     //   //just specific to this question id

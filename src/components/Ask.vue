@@ -25,7 +25,7 @@
           </div>
         </div>
 
-    
+
 
         <div class="post-question-action">
           <div>
@@ -303,7 +303,7 @@ export default {
       this.$toaster.info("Question posted successfully.");
       var com = this
 
-      
+
       var str = JSON.stringify({
         radiksType: "Notification",
         created_by: this.user._id,
@@ -317,7 +317,7 @@ export default {
         `${process.env.RADIKS_SERVER}/notification/insert/${str}`
       );
 
-      
+
       setTimeout(function() {
         com.posting = true
         window.location.reload();
@@ -374,7 +374,7 @@ export default {
       this.ago =
         "You last posted a question " +
         moment.unix(last_created / 1000).fromNow() +
-        "..";
+        ".";
     } else {
       this.ago = "Go ahead and post your first question";
     }

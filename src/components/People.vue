@@ -331,10 +331,9 @@ export default {
           if (rec && rec.attrs.createdAt) {
             o.last_posted =
               "last posted a question " +
-              moment.unix(rec.attrs.createdAt / 1000).fromNow() +
-              "..";
+              moment.unix(rec.attrs.createdAt / 1000).fromNow();
           } else {
-            o.last_posted = "No Questions posted yet!";
+            o.last_posted = "has never posted a question ";
           }
         });
     },

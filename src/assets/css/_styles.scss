@@ -106,9 +106,8 @@ svg {
 .ah-login {
   color: #54595f;
   font-size: 16px;
-  font-weight: 300;
   a {
-    font-weight: 400;
+    font-weight: 600;
     color: #33cccc;
   }
 }
@@ -127,6 +126,7 @@ svg {
 
 .login__btn {
   height: 62px;
+  font-weight: 600;
 }
 
 .forgot_password > a {

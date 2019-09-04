@@ -159,6 +159,10 @@ to {height: 0px;opacity: 0;}
   padding-top: 1px;
 }
 
+.no-shadow{
+    box-shadow: none !important;
+}
+
 .open-question__content {
   background-color: #e8ebec;
   -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.39);

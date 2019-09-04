@@ -121,6 +121,7 @@
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
+  border-top: 2px solid #33cccc;
   padding: 20px 0px 20px 15px;
   textarea {
     flex: 1;
@@ -130,7 +131,7 @@
     outline: none;
     user-select: text;
     font-size: 16px;
-    font-weight: 100;
+    font-weight: normal;
     line-height: 1.375;
     height: 22px;
     padding: 0;
@@ -184,7 +185,7 @@
   svg {
     width: 22px;
     height: 22px;
-    fill: #70dbdb;
+    fill: #33cccc;
   }
 }
 
@@ -310,7 +311,7 @@
     height: 30px;
     width: 30px;
     margin-right: 20px;
-  } 
+  }
 }
 
 .details-share__item--fb svg {
@@ -350,9 +351,8 @@
 
 @media (min-width: 940px) {
   .answer-question__input {
-    border-radius: 4px;
-    box-shadow: 2px 0 4px #00000024;
-    margin-bottom: 10px;
+    border-radius: 0 0 4px 4px;
+    margin-bottom: 15px;
   }
 }
 
@@ -435,7 +435,7 @@ width: 100%;
   -moz-transition: all .1s linear;
   -o-transition: all .1s linear;
   }
-  
+
   .vote-down  .caret-down{
     fill:#cc3333 !important;
    shape-rendering: geometricprecision;
@@ -445,7 +445,7 @@ width: 100%;
    -o-transition: all .1s linear;
    }
 .vote-up {
-	color:#33cced !important; 
+	color:#33cced !important;
 }
 .vote-down{
   color: #cc3333 !important;
