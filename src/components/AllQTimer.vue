@@ -37,7 +37,7 @@ import moment from 'moment';
     	
     	//https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
     	   
-    	
+           
     	var delta =   this.current
     	var days = Math.floor(delta / 86400);
     	delta -= days * 86400;
@@ -77,6 +77,7 @@ import moment from 'moment';
 
       this.current = this.current -= this.interval
       
+
       
 
       this.formatted = this.to_time()

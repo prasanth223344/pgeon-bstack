@@ -49,6 +49,7 @@
 
             <span
               v-on:click="redirect(question.q.attrs._id)"
+              :title="hoverTime(question.q.attrs.expiring_at)"
               class="open-question__content selected mt5p m0 cp"
             >
               <p>{{question.q.attrs.question}}</p>
@@ -165,6 +166,39 @@ export default {
       window.location.reload()
     },
 
+    hoverTime: function(expiring_at) {
+     var delta =   expiring_at - moment().unix()
+	  var t_str = '';
+      var days = Math.floor(delta / 86400);
+       t_str += days + 'd ' 
+    	delta -= days * 86400;
+      
+    	var hours = Math.floor(delta / 3600) % 24;
+      t_str += hours + 'hr ' 
+    	delta -= hours * 3600;
+    	
+    	var minutes = Math.floor(delta / 60) % 60;
+    	delta -= minutes * 60;
+    	t_str += minutes + 'min ' 
+    	var seconds = delta % 60;  // in theory the modulus is not required
+
+   
+    	// if(hours > 0) {
+      //   hours = (days * 24) + hours
+      //   if (hours < 10) {hours   = "0"+hours;}
+      //   t_str += hours + ':' 
+      // }
+    	// if(minutes > 0) {
+      //   if (minutes < 10) {minutes = "0"+minutes;}
+      //   t_str += minutes + ':'
+      // }
+      // //if(seconds > 0)
+      //   if (seconds < 10) {seconds = "0"+seconds;}
+    	// 	t_str += seconds + '' 
+     
+     return t_str
+      
+    }, 
     loadQs: async function() {
       $(".up50").removeClass("up50");
       $(window).bind("scroll", this.handleScroll);

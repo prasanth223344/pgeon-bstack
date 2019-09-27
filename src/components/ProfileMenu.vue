@@ -10,11 +10,9 @@
 
         <div class="profile-preview mt15p">
           <div class="iframe-container">
-
-
-            <avatar :size="80" :src="profile_pic" :username="current_user.username"></avatar>
-
-
+            <router-link :to="{ name: 'profile', params: { id:  current_user.username}}">
+             <avatar :size="80" :src="profile_pic" :username="current_user.username"></avatar>
+            </router-link>
           </div>
           <h1>{{ current_user.username}}</h1>
           <div class="profile-url">
