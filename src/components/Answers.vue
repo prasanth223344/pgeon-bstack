@@ -250,8 +250,8 @@ export default {
         this.is_valid = false;
 
         // Fill the hidden div.
-        this.placeholder_content =
-          allowedValuePart + "<em>" + refusedValuePart + "</em>";
+       // this.placeholder_content =
+         // allowedValuePart + "<em>" + refusedValuePart + "</em>";
       } else {
         this.placeholder_content = "";
         this.is_valid = currentValue.length > 0;
