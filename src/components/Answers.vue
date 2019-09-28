@@ -240,22 +240,13 @@ export default {
       location.reload();
     },
     maxHighlight() {
-      var currentValue = this.submitted_text;
-      var realLength = 120;
-      var remainingLength = 120 - currentValue.length;
-      if (0 > remainingLength) {
-        // Split value if greater than
-        var allowedValuePart = currentValue.slice(0, realLength),
-          refusedValuePart = currentValue.slice(realLength);
-        this.is_valid = false;
-
-        // Fill the hidden div.
-       // this.placeholder_content =
-         // allowedValuePart + "<em>" + refusedValuePart + "</em>";
-      } else {
+      if(this.submitted_text.length > 0) {
         this.placeholder_content = "";
-        this.is_valid = currentValue.length > 0;
+        this.is_valid = true
+      }else {
+        this.is_valid = false
       }
+     
     },
 
     clearError() {
