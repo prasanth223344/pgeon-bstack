@@ -38,6 +38,63 @@
     </div>
           <span></span>
           
+
+          
+        <div class="open-question__no-responses" v-if="records_loaded && answers.length<1"></div>
+
+        <div v-else>
+          <div
+            v-for="(answer, index) in answers"
+            v-bind:key="answer.attrs._id"
+          >
+            <v-touch
+              v-bind:class="['open-question__response  jsvote '] "
+            >
+              <p>{{answer.attrs.answer}}</p>
+
+              <span
+                id="vote"
+                class="voting_container vote-none"
+              
+              >
+                <!-- <img src="/assets/img/sprites/solid.svg" /> -->
+
+                <svg class="caret-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                  <path
+                    d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"
+                  ></path>
+                </svg>
+
+                <!-- <svg width="12" height="12" class="c-up">
+                <use
+                  class="caret-up"
+                  xlink:href="/assets/img/sprites/solid.svg#caret-up"
+                ></use>
+                </svg>-->
+
+                <span></span>
+                <div
+                  class="v_count"
+                  
+                >{{(votes_for_answers[answer.attrs._id])?votes_for_answers[answer.attrs._id]:0 }}</div>
+                <svg class="caret-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                  <path
+                    d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"
+                  ></path>
+                </svg>
+
+                <!-- <svg width="12" height="12" class="c-down">
+                <use
+                  v-bind:class="{ 'vote-down': checkVoted(answer.attrs._id) == -1 }"
+                  class="caret-down"
+                  xlink:href="caretdown"
+                ></use>
+                </svg>-->
+              </span>
+            </v-touch>
+          </div>
+        </div>
+
       
     </main>
 
@@ -68,7 +125,7 @@ export default {
       records_loaded: false,
       formatted: null,
           vote_count: 0,
-
+ votes_for_answers: [],
       nomenu: false,
 
               noshare:false,
@@ -100,10 +157,24 @@ export default {
       );
 
 
+
       this.votes_count = await Vote.fetchList(
         { question_id: this.question._id },
         { decrypt: false }
       );
+
+       for (var i = 0; i < this.votes_count.length; i++) {
+        var vote = this.votes_count[i];
+        if (!this.votes_for_answers[vote.attrs.answer_id]) {
+
+
+          this.votes_for_answers[vote.attrs.answer_id] = 0;
+        }
+        this.votes_for_answers[vote.attrs.answer_id] += parseInt(
+          vote.attrs.vote
+        );
+      }
+
     this.records_loaded = true;
     
     this.$cookies.set('redirect_to', this.$route.fullPath);

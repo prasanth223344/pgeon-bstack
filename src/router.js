@@ -26,8 +26,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'allq',
-      component: allq
+      name: 'allr',
+      component: allr
     },
     //no login warning will be given if it is redirected here
     {
@@ -70,10 +70,15 @@ export default new Router({
       name: 'friendship',
       component: friendship
     },
-    {
-      path: '/responses',
-      name: 'responses',
-      component: allr
+    // {
+    //   path: '/responses',
+    //   name: 'responses',
+    //   component: allr
+    // }, 
+     {
+      path: '/questions',
+      name: 'questions',
+      component: allq
     },
     {
       path: '/published',

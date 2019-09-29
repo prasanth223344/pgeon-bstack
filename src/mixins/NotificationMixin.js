@@ -12,11 +12,16 @@ export var NotificationMixin = {
 
     created: async function() {
 		
-			var response = await axios.get(
-        `${process.env.RADIKS_SERVER}/notification/unseen/${this.current_user.username}`
-      );
+		if(this.current_user) {
 
-      this.notif_count = response.data.count
+			var response = await axios.get(
+				`${process.env.RADIKS_SERVER}/notification/unseen/${this.current_user.username}`
+			  );
+			  this.notif_count = response.data.count
+		
+		}
+		
+    
 
     },
     
