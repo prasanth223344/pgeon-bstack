@@ -82,7 +82,6 @@ async function sendNotifToVoters(db, question) {
       created_by: question.created_by,
       question_id: question.question_id,
       type: "votes_earned",
-      votes: points,
       seen: 0,
       createdAt: moment().unix()
     };
