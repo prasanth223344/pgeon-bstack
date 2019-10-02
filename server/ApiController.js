@@ -3,6 +3,7 @@ const express = require('express');
 const request = require('request-promise');
 const { decorateApp } = require('@awaitjs/express');
 const { COLLECTION } = require('radiks-server/app/lib/constants');
+const points = require('./shared/points.js');
 
 
 
@@ -91,6 +92,17 @@ const makeApiController = (db) => {
 
     //const usernames = users.map(({ username }) => username && username);
     res.json(results);
+  });
+
+
+  Router.getAsync('/points_from_expired_qs/:id', async (req, res) => {
+
+    
+
+    var pts = await points.calc(req.params.id, radiksData)
+
+    //const usernames = users.map(({ username }) => username && username);
+    res.json({points: pts});
   });
 
 

@@ -151,20 +151,6 @@ export default {
 
 
 
-   var str = JSON.stringify({
-        radiksType: "Notification",
-        created_by: this.question.user_id,
-        question_id: this.question._id,
-        type: "question_deleted"
-      });
-      // await axios.post(`${process.env.API_PATH}/notification/${str}` );
-
-      await axios.post(
-        `${process.env.RADIKS_SERVER}/notification/insert/${str}`
-      );
-
-
-
       this.posting = true;
       var qModel = await Question.findById(this.question._id);
 

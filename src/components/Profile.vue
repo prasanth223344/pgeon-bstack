@@ -159,10 +159,14 @@ export default {
     async fetchRecords() {
       var results = [];
       this.users = await axios.get(`${process.env.API_PATH}/profileqa/${this.$route.params.id}`);
+      var pointsres = await axios.get(`${process.env.API_PATH}/points_from_expired_qs/${this.$route.params.id}`);
+
+
+      this.points = pointsres.data.points
       this.questions = this.users.data;
 
       var a_ids = new Array();
-      var my_answers = new Array();
+    //  var my_answers = new Array();
       this.questions.forEach(q => {
         a_ids.push(q.accepted_answer);
         //own qs
@@ -171,7 +175,7 @@ export default {
         } else {
           //it's his answer
           this.answers_count++;
-          my_answers.push(q.accepted_answer);
+      //   my_answers.push(q.accepted_answer);
         }
       });
 
@@ -184,17 +188,8 @@ export default {
         this.all_answers[a._id] = a.attrs;
       });
 
-      //votes he earned
-      var votes = await Vote.fetchList(
-        { answer_id: my_answers.join(",") },
-        { decrypt: false }
-      );
 
-      votes.forEach(v => {
-        // console.log(v.attrs.vote);
-        this.points += v.attrs.vote;
-        //this.all_answers[a._id] = a.attrs;
-      });
+ 
 
       this.avatar = await this.loadIndivProfilePic(this.$route.params.id);
       // same user or guest users

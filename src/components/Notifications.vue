@@ -87,7 +87,8 @@
 
               <div
                 v-if="notification.type == 'votes_earned'"
-              >Nice job! Your reply to {{notification.created_by}} received {{notification.votes}} points. Giving you a new point total of ____!</div>
+              >
+              Nice job! Your reply to {{notification.created_by}} received {{notification.votes}} points. Giving you a new point total of {{notification.points}}!</div>
 
               <div
                 v-if="notification.type == 'user_followed'"
@@ -239,7 +240,8 @@ export default {
           id: response[i]._id,
           question_id: response[i].question_id,
           seen: response[i].seen,
-           votes: response[i].votes
+           votes: response[i].votes,
+           points:response[i].points,
         });
       }
 

@@ -5,6 +5,8 @@ const { decorateApp } = require('@awaitjs/express');
 const { COLLECTION } = require('radiks-server/app/lib/constants');
 var moment = require('moment');
 const { ObjectId } = require('mongodb'); // or ObjectID 
+const points = require('./shared/points.js');
+
 
 //settimeout will be set and will be stored this array...this should be cleared when the question is ended prematurely
 var timeouts = {};
@@ -74,26 +76,64 @@ async function sendNotifToVoters(db, question) {
     //insert votes earned...
 
     var answered_users = []
+    var answered_users_prev_votes = {}
     var data = {
       radiksType: "Notification",
       created_by: question.created_by,
       question_id: question.question_id,
       type: "votes_earned",
+      votes: points,
       seen: 0,
       createdAt: moment().unix()
     };
 
 
 
-    res_owners_of_answers.forEach(res => {
+    
+    
+
+    // res_owners_of_answers.forEach(res => {
+    //  
+     
+    // })
+
+
+    
+
+    for (var res of res_owners_of_answers) {
+
+  
+    
+
+
       //don't send for zero 
-      if (votecounts[res._id] == 0) return
+      if (votecounts[res._id] == 0) continue;
       var tdata = { ...data }
+
+      var pts = await points.calc(res.user_id, radiksData)
+
+
       tdata.target_user = res.user_id
       tdata.votes = votecounts[res._id]
+      tdata.points = pts
       answered_users.push(tdata)
-    })
 
+      const res_owners_of_answers = await radiksData
+      .find(
+        {
+          radiksType: 'Vote',
+          _id: { $in: answers_with_vote },
+        }
+        ,
+        {
+          projection: { user_id: 1 },
+        }
+      )
+      .toArray();
+
+      answered_users_prev_votes
+
+    }
     if (answered_users.length > 0) {
 
 
@@ -164,13 +204,6 @@ const notificationController = (db) => {
         )
       }
 
-
-
-
-
-      
-   
-
       //send out notificatoins when the time expires
       var trigger_at = (data.expiring_at * 1000) - new Date().getTime()
 
@@ -183,6 +216,8 @@ const notificationController = (db) => {
 
 
     } else if (data.type == 'question_deleted') {
+      
+      
       sendNotifToVoters(db, data)
     }
 
@@ -192,10 +227,6 @@ const notificationController = (db) => {
 
   });
 
-  Router.getAsync('/unseen/:user_id', async (req, res) => {
-
-
-  })
 
 
   Router.getAsync('/unseen/:user_id', async (req, res) => {
