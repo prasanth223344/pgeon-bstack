@@ -172,9 +172,10 @@ export default {
     },
 
     async fetchRecords() {
-      this.questions = await Question.fetchOwnList({
+      this.questions = await Question.fetchList({
         expiring_at: { $lt: moment().unix() },
-        accepted_answer: { $exists: false }
+        accepted_answer: { $exists: false },
+        user_id : this.current_user.username
       });
       var q_ids = new Array();
       this.questions.forEach(q => q_ids.push(q._id));
@@ -227,6 +228,7 @@ export default {
 
   created: function() {
     configure(this.RADIKS_SERVER);
+
 
     this.fetchRecords();
   },

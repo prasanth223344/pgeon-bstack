@@ -71,7 +71,7 @@ export default {
 
     async fetchRecords() {
 
-      this.questions = await Question.fetchOwnList( { expiring_at: {'$gt':  moment().unix() }});
+      this.questions = await Question.fetchList( { expiring_at: {'$gt':  moment().unix() },  user_id : this.current_user.username});
       this.records_loaded = true;
     }
   },
