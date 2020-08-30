@@ -178,7 +178,8 @@ export default {
       }
     },
     async fetchRecords() {
-      var preference = await Preference.fetchOwnList();
+      var preference = await Preference.fetchList({  user_id : this.current_user.username
+      });
 
       console.log(preference[0]);
 

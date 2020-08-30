@@ -158,9 +158,10 @@ export default {
    
 
     async fetchRecords() {
-      this.questions = await Question.fetchOwnList({
+      this.questions = await Question.fetchList({
         expiring_at: { $lt: moment().unix() },
          accepted_answer: { $exists: true } 
+         ,  user_id : this.current_user.username
       });
 
       var a_ids = new Array();
